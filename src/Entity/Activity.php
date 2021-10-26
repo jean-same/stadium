@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ActivityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,28 @@ class Activity
      * @ORM\Column(type="string", length=255)
      */
     private $picture;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="activity")
+     */
+    private $profiles;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="activities")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $association;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="activity", orphanRemoval=true)
+     */
+    private $lessons;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+        $this->lessons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +76,75 @@ class Activity
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profil[]
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profil $profile): self
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profil $profile): self
+    {
+        if ($this->profiles->removeElement($profile)) {
+            $profile->removeActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lesson[]
+     */
+    public function getLessons(): Collection
+    {
+        return $this->lessons;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons[] = $lesson;
+            $lesson->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        if ($this->lessons->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getActivity() === $this) {
+                $lesson->setActivity(null);
+            }
+        }
 
         return $this;
     }

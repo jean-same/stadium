@@ -67,6 +67,11 @@ class File
      */
     private $isComplete;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="file", cascade={"persist", "remove"})
+     */
+    private $profil;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -188,6 +193,28 @@ class File
     public function setIsComplete(bool $isComplete): self
     {
         $this->isComplete = $isComplete;
+
+        return $this;
+    }
+
+    public function getProfil(): ?Profil
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(?Profil $profil): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($profil === null && $this->profil !== null) {
+            $this->profil->setFile(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($profil !== null && $profil->getFile() !== $this) {
+            $profil->setFile($this);
+        }
+
+        $this->profil = $profil;
 
         return $this;
     }

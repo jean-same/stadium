@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProfilRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +33,38 @@ class Profil
      * @ORM\Column(type="string", length=255)
      */
     private $picture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="profil")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $account;
+
+    /**
+     * @ORM\OneToOne(targetEntity=File::class, inversedBy="profil", cascade={"persist", "remove"})
+     */
+    private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="profils")
+     */
+    private $association;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="profiles")
+     */
+    private $event;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Activity::class, inversedBy="profiles")
+     */
+    private $activity;
+
+    public function __construct()
+    {
+        $this->event = new ArrayCollection();
+        $this->activity = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +103,90 @@ class Profil
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getAccount(): ?Account
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?Account $account): self
+    {
+        $this->account = $account;
+
+        return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        $this->event->removeElement($event);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivity(): Collection
+    {
+        return $this->activity;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activity->contains($activity)) {
+            $this->activity[] = $activity;
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        $this->activity->removeElement($activity);
 
         return $this;
     }

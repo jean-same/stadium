@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AssociationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,33 @@ class Association
      * @ORM\Column(type="string", length=10)
      */
     private $phoneNumber;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Account::class, mappedBy="association", cascade={"persist", "remove"})
+     */
+    private $account;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="association")
+     */
+    private $profils;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="association", orphanRemoval=true)
+     */
+    private $activities;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true)
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->profils = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+        $this->events = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -104,6 +133,118 @@ class Association
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getAccount(): ?Account
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?Account $account): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($account === null && $this->account !== null) {
+            $this->account->setAssociation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($account !== null && $account->getAssociation() !== $this) {
+            $account->setAssociation($this);
+        }
+
+        $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profil[]
+     */
+    public function getProfils(): Collection
+    {
+        return $this->profils;
+    }
+
+    public function addProfil(Profil $profil): self
+    {
+        if (!$this->profils->contains($profil)) {
+            $this->profils[] = $profil;
+            $profil->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfil(Profil $profil): self
+    {
+        if ($this->profils->removeElement($profil)) {
+            // set the owning side to null (unless already changed)
+            if ($profil->getAssociation() === $this) {
+                $profil->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->removeElement($activity)) {
+            // set the owning side to null (unless already changed)
+            if ($activity->getAssociation() === $this) {
+                $activity->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getAssociation() === $this) {
+                $event->setAssociation(null);
+            }
+        }
 
         return $this;
     }
