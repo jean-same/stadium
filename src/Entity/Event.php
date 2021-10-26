@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EventRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -16,47 +17,56 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("event_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("event_browse")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("event_browse")
      */
     private $place;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("event_browse")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("event_browse")
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="time")
+     * @Groups("event_browse")
      */
     private $schedule;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("event_browse")
      */
     private $maxParticipants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
+     * @Groups("event_browse")
      */
     private $profiles;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("event_browse")
      */
     private $association;
 
