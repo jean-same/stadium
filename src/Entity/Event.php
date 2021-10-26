@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,22 @@ class Event
      * @ORM\Column(type="integer")
      */
     private $maxParticipants;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
+     */
+    private $profiles;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $association;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +138,45 @@ class Event
     public function setMaxParticipants(int $maxParticipants): self
     {
         $this->maxParticipants = $maxParticipants;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profil[]
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profil $profile): self
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profil $profile): self
+    {
+        if ($this->profiles->removeElement($profile)) {
+            $profile->removeEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
 
         return $this;
     }

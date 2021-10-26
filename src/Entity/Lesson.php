@@ -42,6 +42,12 @@ class Lesson
      */
     private $place;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="lessons")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $activity;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Lesson
     public function setPlace(string $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
 
         return $this;
     }

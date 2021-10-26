@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -34,6 +36,21 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Association::class, inversedBy="account", cascade={"persist", "remove"})
+     */
+    private $association;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="account", orphanRemoval=true)
+     */
+    private $profil;
+
+    public function __construct()
+    {
+        $this->profil = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,5 +139,47 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profil[]
+     */
+    public function getProfil(): Collection
+    {
+        return $this->profil;
+    }
+
+    public function addProfil(Profil $profil): self
+    {
+        if (!$this->profil->contains($profil)) {
+            $this->profil[] = $profil;
+            $profil->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfil(Profil $profil): self
+    {
+        if ($this->profil->removeElement($profil)) {
+            // set the owning side to null (unless already changed)
+            if ($profil->getAccount() === $this) {
+                $profil->setAccount(null);
+            }
+        }
+
+        return $this;
     }
 }
