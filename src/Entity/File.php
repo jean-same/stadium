@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FileRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FileRepository::class)
@@ -14,56 +15,67 @@ class File
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("file_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups("file_browse")
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("file_browse")
      */
     private $dateOfBirth;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("file_browse")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("file_browse")
      */
     private $emergencyContactName;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups("file_browse")
      */
     private $emergencyContactPhoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("file_browse")
      */
     private $medicalCertificate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("file_browse")
      */
     private $rulesOfProcedure;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("file_browse")
      */
     private $isPaid;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("file_browse")
      */
     private $isValid;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("file_browse")
      */
     private $isComplete;
 
