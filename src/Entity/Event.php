@@ -17,25 +17,25 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $place;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $startDate;
 
@@ -47,26 +47,24 @@ class Event
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $schedule;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("event_browse")
+     * @Groups("api_backoffice_superadmin_events_browse")
      */
     private $maxParticipants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
-     * @Groups("event_browse")
      */
     private $profiles;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("event_browse")
      */
     private $association;
 

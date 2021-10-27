@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
     
 /**
-* @Route("/api/v1/back/office/super/admin/events", name="api_v1_back_office_super_admin_events")
+* @Route("/api/v1/backoffice/superadmin/events", name="api_v1_backoffice_superadmin_events")
 */
 class EventsController extends AbstractController
 {
@@ -29,7 +29,7 @@ class EventsController extends AbstractController
 
     public function __construct(ValidatorInterface $validator, EventRepository $eventRepository, AssociationRepository $associationRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
     {
-        $this->eventsRepository = $eventRepository;
+        $this->eventRepository = $eventRepository;
         $this->associationRepository = $associationRepository;
         $this->validator = $validator;
         $this->serializer = $serializer;
@@ -41,9 +41,9 @@ class EventsController extends AbstractController
     */
     public function browse(): Response
     {
-        $events = $this->eventsRepository->findAll();
+        $events = $this->eventRepository->findAll();
 
-        return $this->json($events, Response::HTTP_OK, [], ['groups' => "event_browse"]);
+        return $this->json($events, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_events_browse"]);
     }
 
     /**
@@ -51,13 +51,13 @@ class EventsController extends AbstractController
     */
     public function read($id): Response
     {
-        $event = $this->eventsRepository->find($id);
+        $event = $this->eventRepository->find($id);
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($event, Response::HTTP_OK, [], ['groups' => 'event_browse']);
+        return $this->json($event, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_events_browse']);
     }
 
 
@@ -67,7 +67,7 @@ class EventsController extends AbstractController
     public function edit(ValidatorInterface $validator, int $id, Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
     {
         
-        $event = $this->eventsRepository->find($id);
+        $event = $this->eventRepository->find($id);
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
@@ -98,7 +98,7 @@ class EventsController extends AbstractController
 
         $reponseAsArray = [
             'message' => 'Event mis à jour',
-            'id' => $event->getId()
+            'name' => $event->getName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
@@ -113,8 +113,8 @@ class EventsController extends AbstractController
         $jsonContent = $request->getContent();
         $event = $serializer->deserialize($jsonContent, Event::class, 'json');
 
-        //dd($event);
-        $association = $this->associationRepository->find(4);
+        $associationId = json_decode($jsonContent)->associationId;
+        $association = $this->associationRepository->find($associationId);
 
         $event->setAssociation($association);
 
@@ -134,7 +134,7 @@ class EventsController extends AbstractController
 
         $reponseAsArray = [
             'message' => 'Event créé',
-            'id' => $event->getId()
+            'name' => $event->getName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
@@ -146,7 +146,7 @@ class EventsController extends AbstractController
      */
     public function delete(int $id): Response
     {
-        $event = $this->eventsRepository->find($id);
+        $event = $this->eventRepository->find($id);
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
@@ -157,7 +157,7 @@ class EventsController extends AbstractController
         
         $reponseAsArray = [
             'message' => 'Event supprimé',
-            'id' => $id
+            'name' => $event->getName()
         ];
 
         return $this->json($reponseAsArray);
@@ -171,6 +171,6 @@ class EventsController extends AbstractController
             'internalMessage' => 'Cet evenement n\'existe pas',
         ];
 
-        return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        return $this->json($responseArray, Response::HTTP_GONE);
     }
 }
