@@ -15,67 +15,67 @@ class File
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $dateOfBirth;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $emergencyContactName;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $emergencyContactPhoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $medicalCertificate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $rulesOfProcedure;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $isPaid;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $isValid;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("file_browse")
+     * @Groups("api_backoffice_superadmin_files_browse")
      */
     private $isComplete;
 

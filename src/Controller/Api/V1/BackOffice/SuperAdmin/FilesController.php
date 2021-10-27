@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 /**
-* @Route("/api/v1/back/office/super/admin/files", name="api_v1_back_office_super_admin_files")
+* @Route("/api/v1/backoffice/superadmin/files", name="api_v1_backoffice_superadmin_files")
 */
 class FilesController extends AbstractController
 {
@@ -44,7 +44,7 @@ class FilesController extends AbstractController
     {
         $files = $this->fileRepository->findAll();
 
-        return $this->json($files, Response::HTTP_OK, [], ['groups' => "file_browse"]);
+        return $this->json($files, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_files_browse"]);
     }
 
         /**
@@ -58,7 +58,7 @@ class FilesController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($files, Response::HTTP_OK, [], ['groups' => 'file_browse']);
+        return $this->json($files, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_files_browse']);
     }
 
 
@@ -93,7 +93,7 @@ class FilesController extends AbstractController
         $this->entityManager->flush();
 
         $reponseAsArray = [
-            'message' => 'Files mis à jour',
+            'message' => 'File mis à jour',
             'id' => $file->getId()
         ];
 
@@ -108,7 +108,8 @@ class FilesController extends AbstractController
         $jsonContent = $request->getContent();
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
 
-        $profil = $this->profilRepository->find(6);
+        $profilId = json_decode($jsonContent)->profilId;
+        $profil = $this->profilRepository->find($profilId);
 
         $file->setProfil($profil);
 
@@ -165,6 +166,6 @@ class FilesController extends AbstractController
             'internalMessage' => 'Ce document n\'existe pas',
         ];
 
-        return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        return $this->json($responseArray, Response::HTTP_GONE);
     }
 }
