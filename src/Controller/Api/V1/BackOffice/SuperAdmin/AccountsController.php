@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -43,10 +44,10 @@ class AccountsController extends AbstractController
         return $this->json($account, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_accounts_browse']);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(int $id, AccountRepository $accountRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function edit(int $id, AccountRepository $accountRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $account = $accountRepository->find($id);
 
@@ -58,6 +59,10 @@ class AccountsController extends AbstractController
         $jsonContent = $request->getContent();
 
         $serializer->deserialize($jsonContent, Account::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $account]);
+
+        $clearPassword=$account->getPassword();
+        $hashedPassord = $passwordHasher->hashPassword($account, $clearPassword);
+        $account->setPassword($hashedPassord);
 
         $errors = $validator->validate($account);
 
@@ -73,7 +78,9 @@ class AccountsController extends AbstractController
 
         $responseAsArray = [
             'message' => 'Compte mis à jour',
-            'email' => $account->getEmail()
+            'email' => $account->getEmail(),
+            'password' => 'Password mis à jour',
+            'roles'=>$account->getRoles()
         ];
         return $this->json($responseAsArray, Response::HTTP_OK);
     }
@@ -81,11 +88,17 @@ class AccountsController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $jsonContent = $request->getContent();
+        // dd($jsonContent);
 
         $account = $serializer->deserialize($jsonContent, Account::class, 'json');
+        
+        $clearPassword=$account->getPassword();
+        $hashedPassord = $passwordHasher->hashPassword($account, $clearPassword);
+        $account->setPassword($hashedPassord);
+
 
         $errors = $validator->validate($account);
 
@@ -103,30 +116,29 @@ class AccountsController extends AbstractController
         $responseAsArray = [
             'message' => 'Compte cré',
             'email' => $account->getEmail(),
-            'password' => $account->getPassword(),
+            //'password' => $account->getPassword(),
             'roles' => $account->getRoles(),
         ];
         return $this->json($responseAsArray, Response::HTTP_CREATED);
-    
     }
 
-     /**
+    /**
      * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $id, AccountRepository $accountRepository, EntityManagerInterface $entityManager):Response
+    public function delete(int $id, AccountRepository $accountRepository, EntityManagerInterface $entityManager): Response
     {
-        $account=$accountRepository->find($id);
+        $account = $accountRepository->find($id);
 
-        if(is_null($account)){
+        if (is_null($account)) {
             return $this->getNotFoundResponse();
         }
 
         $entityManager->remove($account);
         $entityManager->flush();
 
-        $responseAsArray=[
-            'message'=>'Compte supprimé',
-            'email'=>$account->getEmail()
+        $responseAsArray = [
+            'message' => 'Compte supprimé',
+            'email' => $account->getEmail()
         ];
         return $this->json($responseAsArray);
     }
