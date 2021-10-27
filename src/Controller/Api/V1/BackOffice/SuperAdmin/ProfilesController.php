@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //* BREAD Profiles
 
 /**
-* @Route("/api/v1/back/office/super/admin/profil", name="api_v1_back_office_super_admin_profil")
+* @Route("/api/v1/backofficesuper/admin/profiles", name="api_v1_backoffice_superadmin_profil")
 */
 class ProfilesController extends AbstractController
 {
@@ -32,12 +32,12 @@ class ProfilesController extends AbstractController
 
     public function __construct(ValidatorInterface $validator, ProfilRepository $profilRepository, AccountRepository $accountRepository,AssociationRepository $associationRepository , SerializerInterface $serializer, EntityManagerInterface $entityManager)
     {
-        $this->profilRepository = $profilRepository;
-        $this->accountRepository = $accountRepository;
-        $this->associationRepository = $associationRepository;
-        $this->validator = $validator;
-        $this->serializer = $serializer;
-        $this->entityManager = $entityManager;
+        $this->profilRepository         = $profilRepository;
+        $this->accountRepository        = $accountRepository;
+        $this->associationRepository    = $associationRepository;
+        $this->validator                = $validator;
+        $this->serializer               = $serializer;
+        $this->entityManager            = $entityManager;
     }
 
     /**
@@ -47,7 +47,7 @@ class ProfilesController extends AbstractController
     {
         $profiles = $this->profilRepository->findAll();
 
-        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => "profil_browse"]);
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_profiles_browse"]);
     }
 
     /**
@@ -61,7 +61,7 @@ class ProfilesController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'profil_browse']);
+        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_profiles_browse']);
     }
 
     /**
@@ -93,12 +93,12 @@ class ProfilesController extends AbstractController
             return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->entityManager->persist($profil);
         $this->entityManager->flush();
 
         $reponseAsArray = [
             'message' => 'Profil mis à jour',
-            'id' => $profil->getId()
+            'firstname' => $profil->getFirstName(),
+            'lastname' => $profil->getLastName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
@@ -156,7 +156,8 @@ class ProfilesController extends AbstractController
 
         $reponseAsArray = [
             'message' => 'Profil créé',
-            'id' => $profil->getId()
+            'firstname' => $profil->getFirstName(),
+            'lastname' => $profil->getLastName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
@@ -173,8 +174,6 @@ class ProfilesController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        
-        // lancer le flush
         $this->entityManager->remove($profil);
         $this->entityManager->flush();
         
@@ -195,6 +194,6 @@ class ProfilesController extends AbstractController
             'internalMessage' => 'Ce profil n\'existe pas',
         ];
 
-        return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        return $this->json($responseArray, Response::HTTP_GONE);
     }
 }
