@@ -2,21 +2,199 @@
 
 namespace App\Controller\Api\V1\BackOffice\SuperAdmin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Profil;
+use App\Repository\AccountRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\ProfilRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 //* BREAD Profiles
 
+/**
+* @Route("/api/v1/back/office/super/admin/profil", name="api_v1_back_office_super_admin_profil")
+*/
 class ProfilesController extends AbstractController
 {
-    /**
-     * @Route("/api/v1/back/office/super/admin/profil", name="api_v1_back_office_super_admin_profil")
-     */
-    public function index(): Response
+
+    protected $profilRepository;
+    protected $accountRepository;
+    protected $associationRepository;
+    protected $validator;
+    protected $serializer;
+    protected $entityManager;
+
+    public function __construct(ValidatorInterface $validator, ProfilRepository $profilRepository, AccountRepository $accountRepository,AssociationRepository $associationRepository , SerializerInterface $serializer, EntityManagerInterface $entityManager)
     {
-        return $this->render('api/v1/back_office/super_admin/profil/index.html.twig', [
-            'controller_name' => 'ProfilController',
+        $this->profilRepository = $profilRepository;
+        $this->accountRepository = $accountRepository;
+        $this->associationRepository = $associationRepository;
+        $this->validator = $validator;
+        $this->serializer = $serializer;
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+    * @Route("", name="browse" , methods={"GET"})
+    */
+    public function browse(): Response
+    {
+        $profiles = $this->profilRepository->findAll();
+
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => "profil_browse"]);
+    }
+
+    /**
+    * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+    */
+    public function read($id): Response
+    {
+        $profil = $this->profilRepository->find($id);
+
+        if (is_null($profil)) {
+            return $this->getNotFoundResponse();
+        }
+
+        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'profil_browse']);
+    }
+
+    /**
+    * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+    */
+    public function edit(int $id, Request $request): Response
+    {
+
+        $profil = $this->profilRepository->find($id);
+
+        if (is_null($profil)) {
+            return $this->getNotFoundResponse();
+        }
+
+        $jsonContent = $request->getContent();
+
+        $this->serializer->deserialize($jsonContent, Profil::class, 'json', [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $profil
         ]);
+
+        $errors = $this->validator->validate($profil);
+
+        if (count($errors) > 0) {
+            $reponseAsArray = [
+                'error' => true,
+                'message' => $errors,
+            ];
+
+            return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->entityManager->persist($profil);
+        $this->entityManager->flush();
+
+        $reponseAsArray = [
+            'message' => 'Profil mis à jour',
+            'id' => $profil->getId()
+        ];
+
+        return $this->json($reponseAsArray, Response::HTTP_CREATED);
+    }
+
+
+    /**
+     * @Route("", name="add", methods={"POST"})
+     */
+    public function add(Request $request): Response
+    {
+        $jsonContent = $request->getContent();
+        $profil = $this->serializer->deserialize($jsonContent, Profil::class, 'json');
+        
+        $accountId = json_decode($jsonContent)->accountId;
+        $account = $this->accountRepository->find($accountId);
+
+        $associationId = json_decode($jsonContent)->associationId;
+        $association = $this->associationRepository->find($associationId);
+
+        $accountRoles = $account->getRoles();
+
+        $notAnAdherent = null;
+        foreach($accountRoles as $role){
+            if($role == "ROLE_ASSOC"){
+                $notAnAdherent = "This account can't create a profil";
+            }
+        }
+
+        if ($notAnAdherent) {
+            $reponseAsArray = [
+                'error' => true,
+                'message' => $notAnAdherent,
+            ];
+
+            return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $profil->setAccount($account);
+        $profil->setAssociation($association);
+
+        $errors = $this->validator->validate($profil);
+
+        if (count($errors) > 0) {
+            $reponseAsArray = [
+                'error' => true,
+                'message' => $errors,
+            ];
+
+            return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->entityManager->persist($profil);
+        $this->entityManager->flush();
+
+        $reponseAsArray = [
+            'message' => 'Profil créé',
+            'id' => $profil->getId()
+        ];
+
+        return $this->json($reponseAsArray, Response::HTTP_CREATED);
+    }
+
+    /**
+    * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+    */
+    public function delete(int $id): Response
+    {
+        $profil = $this->profilRepository->find($id);
+
+        if (is_null($profil)) {
+            return $this->getNotFoundResponse();
+        }
+
+        
+        // lancer le flush
+        $this->entityManager->remove($profil);
+        $this->entityManager->flush();
+        
+        $reponseAsArray = [
+            'message' => 'Profil supprimé',
+            'id' => $id
+        ];
+
+        return $this->json($reponseAsArray);
+    }
+
+
+    private function getNotFoundResponse() {
+
+        $responseArray = [
+            'error' => true,
+            'userMessage' => 'Ressource non trouvé',
+            'internalMessage' => 'Ce profil n\'existe pas',
+        ];
+
+        return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
