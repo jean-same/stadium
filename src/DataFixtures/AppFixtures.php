@@ -93,110 +93,7 @@ class AppFixtures extends Fixture
                 }
             }
 
-            //for ($assoc = 0; $assoc <= 10; $assoc++) {
-            //$nb++;
-            /*foreach ($account->getRoles() as $role) {
-
-                if ($role == "ROLE_ASSOC") {
-                    $association = new Association;
-                    $association->setName($faker->team)
-                        ->setPresidentFirstName($faker->firstName())
-                        ->setPresidentLastName($faker->lastName())
-                        ->setAddress($faker->region())
-                        ->setPhoneNumber($faker->phoneNumber())
-                        ->setAccount($account);
-
-                    $manager->persist($association);
-                    $assocArray[] = $association;
-
-                    //Creer des events
-                    $event = new Event;
-                    $event->setName($faker->title())
-                        ->setPlace($faker->region())
-                        ->setStartDate($faker->dateTimeBetween('-1 week', '+1 week'))
-                        ->setEndDate($faker->dateTimeBetween('-1 week', '+1 week'))
-                        ->setSchedule($faker->dateTimeBetween())
-                        ->setMaxParticipants(mt_rand(5, 100))
-                        ->setAssociation($association);
-
-                    $manager->persist($event);
-
-
-                    //Creer des activités
-                    $activity = new Activity;
-
-                    $currentActivity = $activitiesArray[mt_rand(0, count($activitiesArray) - 1)];
-
-                    $activity->setName($currentActivity)
-                        ->setPicture("picActivity" . $nb . "jpeg")
-                        ->setAssociation($association);
-
-                    $manager->persist($activity);
-
-                    //Creer des lessons
-                    $lesson = new Lesson;
-
-                    $lesson->setLevel($levelArray[mt_rand(0, count($levelArray) - 1)])
-                        ->setStartTime($faker->dateTimeBetween('-1 day', '+1 day'))
-                        ->setEndTime($faker->dateTimeBetween('-1 day', '+1 day'))
-                        ->setDay(mt_rand(0, 7))
-                        ->setPlace($faker->region())
-                        ->setActivity($activity);
-                    $manager->persist($lesson);
-                }
-
-                if ($role == "ROLE_ADHERENT") {
-                    //Creer des profils
-                    $profil = new Profil;
-
-                    $profil->setFirstName($faker->firstName())
-                        ->setLastName($faker->lastName())
-                        ->setPicture("pic" . $nb . "jpeg")
-                        ->setAccount($account)
-                        //->setAssociation($faker->randomElements($assocArray));
-                    ;
-
-
-                    $manager->persist($profil);
-
-                    $file = new File;
-
-                    $file->setPhoneNumber($faker->phoneNumber())
-                        ->setDateOfBirth($faker->dateTimeBetween())
-                        ->setAddress($faker->region())
-                        ->setEmergencyContactName($faker->name())
-                        ->setEmergencyContactPhone($faker->phoneNumber())
-                        ->setMedicalCertificate("medical" . $nb . "pdf")
-                        ->setRulesOfProcedure("rules" . $nb . "pdf")
-                        ->setIsPaid(0)
-                        ->setIsValid(0)
-                        ->setIsComplete(0)
-                        ->setProfil($profil);
-
-                    $manager->persist($file);
-                }
-            }*/
-            //}
-
-
-
-            //dd($assocArray);
-            /*for ($pr = 0; $pr <= mt_rand(1, 4); $pr++) {
-                foreach ($account->getRoles() as $role) {
-                    if ($role == "ROLE_ADHERENT") {
-                        $profil = new Profil;
-
-                        $profil->setFirstName($faker->firstName())
-                            ->setLastName($faker->lastName())
-                            ->setPicture("pic" . $acc . "jpeg")
-                            ->setAccount($account)
-                            ->setAssociation($assocArray[mt_rand(0, count($assocArray))]);;
-                        $manager->persist($profil);
-                    }
-                }
-            }*/
         }
-
 
         foreach ($accountAdherent as $currentAdherentAccount) {
             $nb++;
@@ -205,7 +102,7 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("pic" . $nb . "jpeg")
+                ->setPicture("pic" . $nb . ".jpeg")
                 ->setAccount($currentAdherentAccount)
                 //->setAssociation($faker->randomElements($assocArray));
             ;
@@ -221,8 +118,8 @@ class AppFixtures extends Fixture
                 ->setAddress($faker->region())
                 ->setEmergencyContactName($faker->name())
                 ->setEmergencyContactPhoneNumber("02457469" . $nb)
-                ->setMedicalCertificate("medical" . $nb . "pdf")
-                ->setRulesOfProcedure("rules" . $nb . "pdf")
+                ->setMedicalCertificate("medical" . $nb . ".pdf")
+                ->setRulesOfProcedure("rules" . $nb . ".pdf")
                 ->setIsPaid(0)
                 ->setIsValid(0)
                 ->setIsComplete(0)
@@ -283,7 +180,7 @@ class AppFixtures extends Fixture
             $currentActivity = $activitiesArray[mt_rand(0, count($activitiesArray) - 1)];
 
             $activity->setName($currentActivity)
-                ->setPicture("picActivity" . $nb . "jpeg")
+                ->setPicture("picActivity" . $nb . ".jpeg")
                 ->setAssociation($association);
 
             $nbProfilForActivity = mt_rand(0, count($adherentArray));
