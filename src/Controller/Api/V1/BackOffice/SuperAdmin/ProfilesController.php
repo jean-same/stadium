@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //* BREAD Profiles
 
 /**
-* @Route("/api/v1/backofficesuper/admin/profiles", name="api_v1_backoffice_superadmin_profil")
+* @Route("/api/v1/backoffice/superadmin/profiles", name="api_v1_backoffice_superadmin_profiles")
 */
 class ProfilesController extends AbstractController
 {
