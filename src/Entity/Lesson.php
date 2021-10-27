@@ -15,37 +15,37 @@ class Lesson
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $level;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $startTime;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $endTime;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $day;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("lesson_browse")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $place;
 

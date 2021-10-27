@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
-* @Route("/api/v1/back/office/super/admin/lessons", name="api_v1_back_office_super_admin_lessons")
+* @Route("/api/v1/backoffice/superadmin/lessons", name="api_v1_backoffice_superadmin_lessons")
 */
 class LessonsController extends AbstractController
 {
@@ -44,7 +44,7 @@ class LessonsController extends AbstractController
 
         $lessons = $this->lessonRepository->findAll();
 
-        return $this->json($lessons, Response::HTTP_OK, [], ['groups' => "lesson_browse"]);
+        return $this->json($lessons, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_lessons_browse"]);
     }
 
         /**
@@ -58,7 +58,7 @@ class LessonsController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($lesson, Response::HTTP_OK, [], ['groups' => 'lesson_browse']);
+        return $this->json($lesson, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_lessons_browse']);
     }
 
     /**
@@ -90,7 +90,6 @@ class LessonsController extends AbstractController
             return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->entityManager->persist($lesson);
         $this->entityManager->flush();
 
         $reponseAsArray = [
@@ -101,15 +100,17 @@ class LessonsController extends AbstractController
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
     }
 
-        /**
-     * @Route("", name="add", methods={"POST"})
-     */
+    /**
+    * @Route("", name="add", methods={"POST"})
+    */
     public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
         $lesson = $this->serializer->deserialize($jsonContent, Lesson::class, 'json');
 
-        $activity = $this->activityRepository->find(9);
+        $activityId = json_decode($jsonContent)->activityId;
+        $activity = $this->activityRepository->find($activityId);
+
         $lesson->setActivity($activity);
 
         $errors = $this->validator->validate($lesson);
@@ -165,6 +166,6 @@ class LessonsController extends AbstractController
             'internalMessage' => 'Cette lesson n\'existe pas',
         ];
 
-        return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        return $this->json($responseArray, Response::HTTP_GONE);
     }
 }
