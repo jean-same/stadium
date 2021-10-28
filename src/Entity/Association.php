@@ -18,12 +18,14 @@ class Association
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups("api_backoffice_superadmin_associations_browse")
+     * @Groups("api_backoffice_superadmin_activities_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
      * @Groups("api_backoffice_superadmin_associations_browse")
+     * @Groups("api_backoffice_superadmin_activities_browse")
      */
     private $name;
 

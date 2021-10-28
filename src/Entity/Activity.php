@@ -41,6 +41,7 @@ class Activity
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("api_backoffice_superadmin_activities_browse")
      */
     private $association;
 

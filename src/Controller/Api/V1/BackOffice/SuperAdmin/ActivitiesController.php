@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1\BackOffice\SuperAdmin;
 
 use App\Entity\Activity;
 use App\Repository\ActivityRepository;
+use App\Repository\AssociationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,11 +87,17 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, AssociationRepository $associationRepository): Response
     {
         $jsonContent = $request->getContent();
 
         $activity = $serializer->deserialize($jsonContent, Activity::class, 'json');
+
+        $associationId = json_decode($jsonContent)->associationId;
+        $association = $associationRepository->find($associationId);
+        //dd($association);
+        $activity->setAssociation($association);
+
 
         $errors = $validator->validate($activity);
 
@@ -109,30 +116,27 @@ class ActivitiesController extends AbstractController
             'message' => 'Activité crée',
             'name' => $activity->getName(),
             'picture' => $activity->getPicture(),
-            'association_id'=>$activity->getAssociation()
-
         ];
         return $this->json($responseAsArray, Response::HTTP_CREATED);
-    
     }
 
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $id, ActivityRepository $activityRepository, EntityManagerInterface $entityManager):Response
+    public function delete(int $id, ActivityRepository $activityRepository, EntityManagerInterface $entityManager): Response
     {
-        $activity=$activityRepository->find($id);
+        $activity = $activityRepository->find($id);
 
-        if(is_null($activity)){
+        if (is_null($activity)) {
             return $this->getNotFoundResponse();
         }
 
         $entityManager->remove($activity);
         $entityManager->flush();
 
-        $responseAsArray=[
-            'message'=>'Activité supprimée',
-            'name'=>$activity->getName()
+        $responseAsArray = [
+            'message' => 'Activité supprimée',
+            'name' => $activity->getName()
         ];
         return $this->json($responseAsArray);
     }
@@ -148,4 +152,3 @@ class ActivitiesController extends AbstractController
         return $this->json($responseArray, Response::HTTP_GONE);
     }
 }
-
