@@ -3,7 +3,6 @@
 namespace App\Controller\Api\V1\BackOffice\Admin;
 
 use App\Entity\Association;
-use App\Repository\ProfilRepository;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
@@ -22,16 +21,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AssociationController extends AbstractController
 {
 
-    protected $profilRepository;
     protected $accountRepository;
     protected $associationRepository;
     protected $validator;
     protected $serializer;
     protected $entityManager;
 
-    public function __construct(ValidatorInterface $validator, ProfilRepository $profilRepository, AccountRepository $accountRepository, AssociationRepository $associationRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
     {
-        $this->profilRepository         = $profilRepository;
         $this->accountRepository        = $accountRepository;
         $this->associationRepository    = $associationRepository;
         $this->validator                = $validator;
@@ -54,18 +51,18 @@ class AssociationController extends AbstractController
         /**
      * @Route("/", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(ValidatorInterface $validator, $associationId , Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
+    public function edit( $associationId , Request $request): Response
     {
         $association = $this->associationRepository->find($associationId);
 
         $jsonContent = $request->getContent();
 
-        $serializer->deserialize($jsonContent, Association::class, 'json', [
+        $this->serializer->deserialize($jsonContent, Association::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $association
         ]);
 
         
-        $errors = $validator->validate($association);
+        $errors = $this->validator->validate($association);
         
         if (count($errors) > 0) {
             $reponseAsArray = [
@@ -76,7 +73,7 @@ class AssociationController extends AbstractController
             return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
         $reponseAsArray = [
             'message' => 'Association mis à jour',
