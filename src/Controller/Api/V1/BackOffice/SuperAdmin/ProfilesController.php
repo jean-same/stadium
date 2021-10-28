@@ -116,9 +116,6 @@ class ProfilesController extends AbstractController
         $accountId = json_decode($jsonContent)->accountId;
         $account = $this->accountRepository->find($accountId);
 
-        $associationId = json_decode($jsonContent)->associationId;
-        $association = $this->associationRepository->find($associationId);
-
         $accountRoles = $account->getRoles();
 
         $notAnAdherent = null;
@@ -138,8 +135,7 @@ class ProfilesController extends AbstractController
         }
 
         $profil->setAccount($account);
-        $profil->setAssociation($association);
-
+        
         $errors = $this->validator->validate($profil);
 
         if (count($errors) > 0) {
