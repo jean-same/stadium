@@ -17,57 +17,119 @@ class Association
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $presidentLastName;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $presidentFirstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups({"api_backoffice_superadmin_associations_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse", 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $phoneNumber;
 
     /**
      * @ORM\OneToOne(targetEntity=Account::class, mappedBy="association", cascade={"persist", "remove"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $account;
 
     /**
      * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="association")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $profils;
 
     /**
      * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="association", orphanRemoval=true)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $activities;
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $events;
 

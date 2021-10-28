@@ -21,7 +21,9 @@ class Activity
      *      {
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse",
+     *          
      *      }
      * )
      */
@@ -33,7 +35,8 @@ class Activity
      *      {
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -45,7 +48,8 @@ class Activity
     *      {
     *          "api_backoffice_superadmin_activities_browse",
     *          "api_backoffice_superadmin_profiles_browse" , 
-    *          "api_backoffice_superadmin_lessons_browse"
+    *          "api_backoffice_superadmin_lessons_browse",
+                "api_backoffice_superadmin_associations_browse"
     *      }
     * )
     */
@@ -53,17 +57,32 @@ class Activity
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="activity")
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse"
+    *      }
+    * )
      */
     private $profiles;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse"
+    *      }
+    * )
      */
     private $association;
 
     /**
      * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="activity", orphanRemoval=true)
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse",
+    *      }
+    * )
      */
     private $lessons;
 

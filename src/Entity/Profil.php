@@ -20,7 +20,10 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_files_browse"
+     *          "api_backoffice_superadmin_files_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -31,7 +34,10 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_files_browse"
+     *          "api_backoffice_superadmin_files_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -42,7 +48,10 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_files_browse"
+     *          "api_backoffice_superadmin_files_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -53,7 +62,10 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse" , 
-     *          "api_backoffice_superadmin_files_browse"
+     *          "api_backoffice_superadmin_files_browse",
+     *          "api_backoffice_superadmin_accounts_browse",
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -94,7 +106,8 @@ class Profil
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="profiles")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */

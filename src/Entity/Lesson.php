@@ -17,7 +17,8 @@ class Lesson
      * @ORM\Column(type="integer")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
@@ -27,7 +28,8 @@ class Lesson
      * @ORM\Column(type="string", length=32)
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
@@ -37,7 +39,8 @@ class Lesson
      * @ORM\Column(type="time")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
@@ -47,7 +50,8 @@ class Lesson
      * @ORM\Column(type="time")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
@@ -57,7 +61,8 @@ class Lesson
      * @ORM\Column(type="integer")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
@@ -67,7 +72,8 @@ class Lesson
      * @ORM\Column(type="string", length=255)
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
      *      }
      * )
      */
