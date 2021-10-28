@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\LessonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LessonRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LessonRepository::class)
@@ -14,31 +15,37 @@ class Lesson
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $level;
 
     /**
      * @ORM\Column(type="time")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $startTime;
 
     /**
      * @ORM\Column(type="time")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $endTime;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $day;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("api_backoffice_superadmin_lessons_browse")
      */
     private $place;
 

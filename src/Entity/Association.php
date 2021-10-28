@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AssociationRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -17,31 +17,37 @@ class Association
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $presidentLastName;
 
     /**
      * @ORM\Column(type="string", length=32)
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $presidentFirstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups("api_backoffice_superadmin_associations_browse")
      */
     private $phoneNumber;
 
