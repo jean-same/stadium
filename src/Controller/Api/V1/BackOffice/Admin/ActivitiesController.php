@@ -111,9 +111,9 @@ class ActivitiesController extends AbstractController
     public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
-        $event = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
+        $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
 
-        $errors = $this->validator->validate($event);
+        $errors = $this->validator->validate($activity);
 
         if (count($errors) > 0) {
             $reponseAsArray = [
@@ -124,12 +124,12 @@ class ActivitiesController extends AbstractController
             return $this->json($reponseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $this->entityManager->persist($event);
+        $this->entityManager->persist($activity);
         $this->entityManager->flush();
 
         $reponseAsArray = [
             'message' => 'Activity créé',
-            'name' => $event->getName()
+            'name' => $activity->getName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);

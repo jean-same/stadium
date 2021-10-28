@@ -20,7 +20,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -31,7 +32,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -42,7 +44,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -53,7 +56,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -64,7 +68,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -75,7 +80,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
@@ -86,7 +92,8 @@ class Event
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_association_events"
      *      }
      * )
      */
