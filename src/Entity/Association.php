@@ -22,7 +22,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */
@@ -35,7 +36,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */
@@ -48,7 +50,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */
@@ -61,7 +64,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */
@@ -74,7 +78,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */
@@ -87,7 +92,8 @@ class Association
      *          "api_backoffice_superadmin_associations_browse", 
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_superadmin_accounts_browse",
-     *          "api_backoffice_superadmin_activities_browse"
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_events_browse"
      *      }
      * )
      */

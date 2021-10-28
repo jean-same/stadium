@@ -17,54 +17,99 @@ class Event
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $place;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("event_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $schedule;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_events_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $maxParticipants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse"
+     *      }
+     * )
      */
     private $profiles;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_events_browse"
+     *      }
+     * )
      */
     private $association;
 
