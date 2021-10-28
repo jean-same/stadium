@@ -15,67 +15,67 @@ class File
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $dateOfBirth;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $emergencyContactName;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $emergencyContactPhoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $medicalCertificate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $rulesOfProcedure;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $isPaid;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $isValid;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("api_backoffice_superadmin_files_browse")
+     * @Groups({"api_backoffice_superadmin_files_browse" , "api_backoffice_superadmin_profiles_browse" })
      */
     private $isComplete;
 

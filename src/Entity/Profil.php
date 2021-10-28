@@ -17,7 +17,7 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_profiles_browse")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $id;
 
@@ -29,39 +29,44 @@ class Profil
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups("api_backoffice_superadmin_profiles_browse")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_profiles_browse")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $picture;
 
     /**
      * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="profil")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $account;
 
     /**
      * @ORM\OneToOne(targetEntity=File::class, inversedBy="profil", cascade={"persist", "remove"})
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $file;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="profils")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $association;
 
     /**
      * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="profiles")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $event;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Activity::class, inversedBy="profiles")
+     * @ORM\ManyToMany(targetEntity=Activity::class, inversedBy="profiles", fetch="EAGER")
+     * @Groups({"api_backoffice_superadmin_profiles_browse"})
      */
     private $activity;
 

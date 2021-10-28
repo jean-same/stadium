@@ -19,19 +19,19 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups({"api_backoffice_superadmin_accounts_browse" , "api_backoffice_superadmin_profiles_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups({"api_backoffice_superadmin_accounts_browse" , "api_backoffice_superadmin_profiles_browse"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups({"api_backoffice_superadmin_accounts_browse" , "api_backoffice_superadmin_profiles_browse"})
      */
     private $roles = [];
 
