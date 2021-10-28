@@ -19,36 +19,70 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" , 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" , 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" , 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Groups("api_backoffice_superadmin_accounts_browse")
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" , 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $password;
 
     /**
      * @ORM\OneToOne(targetEntity=Association::class, inversedBy="account", cascade={"persist", "remove"})
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" 
+     *      }
+     * )
      */
     private $association;
 
     /**
      * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="account", orphanRemoval=true)
+     * @Groups(
+     *       {
+     *          "api_backoffice_superadmin_accounts_browse" 
+     *      }
+     * )
      */
     private $profil;
 

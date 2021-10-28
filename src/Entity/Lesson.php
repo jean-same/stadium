@@ -15,43 +15,78 @@ class Lesson
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $level;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $startTime;
 
     /**
      * @ORM\Column(type="time")
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $endTime;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $day;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_lessons_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $place;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="lessons")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse"
+     *      }
+     * )
      */
     private $activity;
 

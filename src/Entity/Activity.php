@@ -17,36 +17,72 @@ class Activity
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("api_backoffice_superadmin_activities_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_profiles_browse" , 
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse",
+     *          
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups("api_backoffice_superadmin_activities_browse")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_profiles_browse" , 
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
+     *      }
+     * )
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups("api_backoffice_superadmin_activities_browse")
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse",
+    *          "api_backoffice_superadmin_profiles_browse" , 
+    *          "api_backoffice_superadmin_lessons_browse",
+                "api_backoffice_superadmin_associations_browse"
+    *      }
+    * )
+    */
     private $picture;
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="activity")
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse"
+    *      }
+    * )
      */
     private $profiles;
 
     /**
      * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="activities")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("api_backoffice_superadmin_activities_browse")
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse"
+    *      }
+    * )
      */
     private $association;
 
     /**
      * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="activity", orphanRemoval=true)
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse",
+    *      }
+    * )
      */
     private $lessons;
 
