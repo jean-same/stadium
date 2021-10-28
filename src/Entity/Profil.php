@@ -17,25 +17,25 @@ class Profil
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"api_backoffice_superadmin_profiles_browse"})
+     * @Groups({"api_backoffice_superadmin_profiles_browse" , "api_backoffice_superadmin_files_browse"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups("api_backoffice_superadmin_profiles_browse")
+     * @Groups({"api_backoffice_superadmin_profiles_browse" , "api_backoffice_superadmin_files_browse"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=32)
-     * @Groups({"api_backoffice_superadmin_profiles_browse"})
+     * @Groups({"api_backoffice_superadmin_profiles_browse" , "api_backoffice_superadmin_files_browse"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"api_backoffice_superadmin_profiles_browse"})
+     * @Groups({"api_backoffice_superadmin_profiles_browse" , "api_backoffice_superadmin_files_browse"})
      */
     private $picture;
 
