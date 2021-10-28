@@ -108,11 +108,6 @@ class FilesController extends AbstractController
         $jsonContent = $request->getContent();
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
 
-        $profilId = json_decode($jsonContent)->profilId;
-        $profil = $this->profilRepository->find($profilId);
-
-        $file->setProfil($profil);
-
         $errors = $this->validator->validate($file);
 
         if (count($errors) > 0) {

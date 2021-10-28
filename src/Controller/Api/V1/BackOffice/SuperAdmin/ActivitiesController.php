@@ -93,10 +93,10 @@ class ActivitiesController extends AbstractController
 
         $activity = $serializer->deserialize($jsonContent, Activity::class, 'json');
 
-        $associationId = json_decode($jsonContent)->associationId;
-        $association = $associationRepository->find($associationId);
+        // $associationId = json_decode($jsonContent)->associationId;
+        // $association = $associationRepository->find($associationId);
         //dd($association);
-        $activity->setAssociation($association);
+        //$activity->setAssociation($association);
 
 
         $errors = $validator->validate($activity);

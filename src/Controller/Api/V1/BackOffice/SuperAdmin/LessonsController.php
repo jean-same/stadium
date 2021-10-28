@@ -108,11 +108,6 @@ class LessonsController extends AbstractController
         $jsonContent = $request->getContent();
         $lesson = $this->serializer->deserialize($jsonContent, Lesson::class, 'json');
 
-        $activityId = json_decode($jsonContent)->activityId;
-        $activity = $this->activityRepository->find($activityId);
-
-        $lesson->setActivity($activity);
-
         $errors = $this->validator->validate($lesson);
 
         if (count($errors) > 0) {

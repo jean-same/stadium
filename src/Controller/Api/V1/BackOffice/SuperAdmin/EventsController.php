@@ -113,11 +113,6 @@ class EventsController extends AbstractController
         $jsonContent = $request->getContent();
         $event = $serializer->deserialize($jsonContent, Event::class, 'json');
 
-        $associationId = json_decode($jsonContent)->associationId;
-        $association = $this->associationRepository->find($associationId);
-
-        $event->setAssociation($association);
-
         $errors = $this->validator->validate($event);
 
         if (count($errors) > 0) {
