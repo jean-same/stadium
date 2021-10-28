@@ -17,20 +17,38 @@ class Activity
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"api_backoffice_superadmin_activities_browse", "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_profiles_browse" , 
+     *          "api_backoffice_superadmin_lessons_browse"
+     *      }
+     * )
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=128)
-     * @Groups({"api_backoffice_superadmin_activities_browse" , "api_backoffice_superadmin_profiles_browse"})
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_activities_browse",
+     *          "api_backoffice_superadmin_profiles_browse" , 
+     *          "api_backoffice_superadmin_lessons_browse"
+     *      }
+     * )
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"api_backoffice_superadmin_activities_browse" , "api_backoffice_superadmin_profiles_browse"})
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Groups(
+    *      {
+    *          "api_backoffice_superadmin_activities_browse",
+    *          "api_backoffice_superadmin_profiles_browse" , 
+    *          "api_backoffice_superadmin_lessons_browse"
+    *      }
+    * )
+    */
     private $picture;
 
     /**
