@@ -24,7 +24,8 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -39,7 +40,8 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+*               "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -54,7 +56,8 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -69,7 +72,8 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
