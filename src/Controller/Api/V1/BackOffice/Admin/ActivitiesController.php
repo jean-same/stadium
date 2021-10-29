@@ -116,10 +116,15 @@ class ActivitiesController extends AbstractController
         /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request): Response
+    public function add(Request $request, $associationId): Response
     {
         $jsonContent = $request->getContent();
         $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
+
+        if($activity->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
+
 
         $errors = $this->validator->validate($activity);
 
