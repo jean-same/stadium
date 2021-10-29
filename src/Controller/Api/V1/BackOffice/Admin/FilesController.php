@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files", name="api_v1_back_office_admin_files_")
+ * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files", name="api_v1_backoffice_admin_association_files_")
  */
 class FilesController extends AbstractController
 {
