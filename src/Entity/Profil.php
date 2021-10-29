@@ -94,7 +94,8 @@ class Profil
      * @ORM\OneToOne(targetEntity=File::class, inversedBy="profil", cascade={"persist", "remove"})
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */

@@ -18,7 +18,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -29,7 +30,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -40,7 +42,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -51,7 +54,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -62,7 +66,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -73,7 +78,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -84,7 +90,8 @@ class File
      * @Groups(
      *       {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -95,7 +102,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -106,7 +114,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -117,7 +126,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
@@ -128,7 +138,8 @@ class File
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_files_browse" , 
-     *          "api_backoffice_superadmin_profiles_browse" 
+     *          "api_backoffice_superadmin_profiles_browse" ,
+     *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
      */
