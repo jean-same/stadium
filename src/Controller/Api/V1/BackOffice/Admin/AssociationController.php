@@ -43,7 +43,7 @@ class AssociationController extends AbstractController
 
         $association = $this->associationRepository->find($associationId);
 
-        return $this->json($association, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association"]);
+        return $this->json($association, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_browse"]);
     }
 
     /**

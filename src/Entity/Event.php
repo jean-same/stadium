@@ -21,7 +21,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -33,7 +33,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -45,7 +45,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -57,7 +57,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -69,7 +69,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -81,7 +81,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -93,7 +93,7 @@ class Event
      *      {
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events"
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -103,7 +103,8 @@ class Event
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -114,7 +115,8 @@ class Event
      * @ORM\JoinColumn(nullable=false)
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *           "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */

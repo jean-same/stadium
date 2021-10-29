@@ -48,7 +48,7 @@ class ActivitiesController extends AbstractController
         $association = $this->associationRepository->find($associationId);
 
         $activities = $association->getActivities();
-        return $this->json($activities, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_activities"]);
+        return $this->json($activities, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_activities_browse"]);
     }
 
         /**
@@ -66,7 +66,7 @@ class ActivitiesController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($activity, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_activities']);
+        return $this->json($activity, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_activities_browse']);
     }
 
     /**

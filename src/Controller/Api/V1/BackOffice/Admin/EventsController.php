@@ -45,7 +45,7 @@ class EventsController extends AbstractController
 
         $events = $association->getEvents();
 
-        return $this->json($events, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_events"]);
+        return $this->json($events, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_events_browse"]);
     }
 
     /**
@@ -63,7 +63,7 @@ class EventsController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($event, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_events']);
+        return $this->json($event, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_events_browse']);
     }
 
 
@@ -178,7 +178,7 @@ class EventsController extends AbstractController
         $responseArray = [
             'error' => true,
             'userMessage' => 'Ressource non trouvé',
-            'internalMessage' => 'Cette activité n\'existe pas',
+            'internalMessage' => 'Cette evenement n\'existe pas',
         ];
 
         return $this->json($responseArray, Response::HTTP_GONE);
