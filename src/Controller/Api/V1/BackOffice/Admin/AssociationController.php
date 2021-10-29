@@ -36,21 +36,19 @@ class AssociationController extends AbstractController
         $this->entityManager            = $entityManager;
     }
     /**
-     * @Route("/", name="browse", methods={"GET"})
-     */
+    * @Route("/", name="browse", methods={"GET"})
+    */
     public function browse($associationId): Response
     {
 
         $association = $this->associationRepository->find($associationId);
 
-        //dd($association);
-
         return $this->json($association, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association"]);
     }
 
-        /**
-     * @Route("/", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
-     */
+    /**
+    * @Route("/", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+    */
     public function edit( $associationId , Request $request): Response
     {
         $association = $this->associationRepository->find($associationId);

@@ -52,11 +52,15 @@ class ActivitiesController extends AbstractController
     }
 
         /**
-    * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+    * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
     */
-    public function read($id): Response
+    public function read($activityId, $associationId): Response
     {
-        $activity = $this->activityRepository->find($id);
+        $activity = $this->activityRepository->find($activityId);
+
+        if($activity->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
@@ -66,12 +70,16 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-    * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+    * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
     */
-    public function edit(int $id, Request $request): Response
+    public function edit(int $activityId, int $associationId, Request $request): Response
     {
         
-        $activity = $this->activityRepository->find($id);
+        $activity = $this->activityRepository->find($activityId);
+
+        if($activity->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
@@ -138,9 +146,13 @@ class ActivitiesController extends AbstractController
     /**
     * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
     */
-    public function delete(int $id): Response
+    public function delete(int $id, int $associationId): Response
     {
         $activity = $this->activityRepository->find($id);
+
+        if($activity->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();

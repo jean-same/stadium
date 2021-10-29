@@ -49,11 +49,15 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+    * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
     */
-    public function read($id): Response
+    public function read($eventId, $associationId): Response
     {
-        $event = $this->eventRepository->find($id);
+        $event = $this->eventRepository->find($eventId);
+
+        if($event->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
@@ -64,12 +68,16 @@ class EventsController extends AbstractController
 
 
     /**
-    * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+    * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
     */
-    public function edit(int $id, Request $request): Response
+    public function edit(int $eventId, $associationId,  Request $request): Response
     {
         
-        $event = $this->eventRepository->find($id);
+        $event = $this->eventRepository->find($eventId);
+
+        if($event->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
@@ -134,11 +142,15 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+    * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
     */
-    public function delete(int $id): Response
+    public function delete(int $eventId, $associationId): Response
     {
-        $event = $this->eventRepository->find($id);
+        $event = $this->eventRepository->find($eventId);
+
+        if($event->getAssociation()->getId() != $associationId){
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
+        }
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
