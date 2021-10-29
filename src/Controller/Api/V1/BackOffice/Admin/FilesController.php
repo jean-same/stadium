@@ -41,7 +41,7 @@ class FilesController extends AbstractController
     {
         $file = $this->fileRepository->find($fileId);
 
-        if ($file->getProfil()->getId() != $profilId) {
+        if (($file->getProfil()->getId() != $profilId )|| ($file->getProfil()->getAssociation()->getId()!= $associationId) ){
             return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_files']);
         }
 
