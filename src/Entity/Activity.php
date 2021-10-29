@@ -23,6 +23,7 @@ class Activity
      *          "api_backoffice_superadmin_profiles_browse" , 
      *          "api_backoffice_superadmin_lessons_browse",
      *          "api_backoffice_superadmin_associations_browse",
+     *          "api_backoffice_admin_association_activities_browse"
      *          
      *      }
      * )
@@ -36,7 +37,8 @@ class Activity
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_profiles_browse" , 
      *          "api_backoffice_superadmin_lessons_browse",
-     *          "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
      */
@@ -49,7 +51,8 @@ class Activity
     *          "api_backoffice_superadmin_activities_browse",
     *          "api_backoffice_superadmin_profiles_browse" , 
     *          "api_backoffice_superadmin_lessons_browse",
-                "api_backoffice_superadmin_associations_browse"
+                "api_backoffice_superadmin_associations_browse",
+                "api_backoffice_admin_association_activities_browse"
     *      }
     * )
     */
@@ -59,7 +62,8 @@ class Activity
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="activity")
     * @Groups(
     *      {
-    *          "api_backoffice_superadmin_activities_browse"
+    *          "api_backoffice_superadmin_activities_browse",
+                "api_backoffice_admin_association_activities_browse"
     *      }
     * )
      */
@@ -70,7 +74,8 @@ class Activity
      * @ORM\JoinColumn(nullable=false)
     * @Groups(
     *      {
-    *          "api_backoffice_superadmin_activities_browse"
+    *          "api_backoffice_superadmin_activities_browse",
+                "api_backoffice_admin_association_activities_browse"
     *      }
     * )
      */
@@ -81,6 +86,7 @@ class Activity
     * @Groups(
     *      {
     *          "api_backoffice_superadmin_activities_browse",
+                "api_backoffice_admin_association_activities_browse"
     *      }
     * )
      */

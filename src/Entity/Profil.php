@@ -24,7 +24,9 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_association_activities_browse",
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -39,7 +41,9 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_association_activities_browse",
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -54,7 +58,9 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_association_activities_browse",
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
@@ -69,7 +75,9 @@ class Profil
      *          "api_backoffice_superadmin_accounts_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_associations_browse",
-     *          "api_backoffice_superadmin_events_browse"
+     *          "api_backoffice_superadmin_events_browse",
+     *          "api_backoffice_admin_association_activities_browse",
+     *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
      */
