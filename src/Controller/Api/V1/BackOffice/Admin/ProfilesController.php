@@ -52,7 +52,6 @@ class ProfilesController extends AbstractController
      */
     public function read(int $associationId, int $profilId): Response
     {
-
         $profil = $this->profilRepository->find($profilId);
 
         if ($profil->getAssociation()->getId() != $associationId) {
