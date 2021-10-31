@@ -22,12 +22,24 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ActivitiesController extends AbstractController
 {
+    protected $activityRepository;
+    protected $serializer;
+    protected $validator;
+    protected $entityManager;
+
+    public function __construct(ActivityRepository $activityRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    {
+        $this->activityRepository = $activityRepository;
+        $this->serializer = $serializer;
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(ActivityRepository $activityRepository): Response
+    public function browse(): Response
     {
-        $allActivities = $activityRepository->findAll();
+        $allActivities = $this->activityRepository->findAll();
 
         //dd($allActivities);
         return $this->json($allActivities, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_activities_browse']);
@@ -36,9 +48,9 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(int $id, ActivityRepository $activityRepository): Response
+    public function read(int $id): Response
     {
-        $activity = $activityRepository->find($id);
+        $activity = $this->activityRepository->find($id);
 
         // If an activity is null, then we return an error message in JSON with the method getNotFoundResponse
         if (is_null($activity)) {
@@ -51,9 +63,9 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(int $id, ActivityRepository $activityRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function edit(int $id, Request $request): Response
     {
-        $activity = $activityRepository->find($id);
+        $activity = $this->activityRepository->find($id);
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
@@ -62,9 +74,9 @@ class ActivitiesController extends AbstractController
         // Retrieving the client's JSON
         $jsonContent = $request->getContent();
 
-        $serializer->deserialize($jsonContent, Activity::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $activity]);
+        $this->serializer->deserialize($jsonContent, Activity::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $activity]);
 
-        $errors = $validator->validate($activity);
+        $errors = $this->validator->validate($activity);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -74,7 +86,7 @@ class ActivitiesController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Activité mise à jour',
@@ -87,19 +99,13 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, AssociationRepository $associationRepository): Response
+    public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
 
-        $activity = $serializer->deserialize($jsonContent, Activity::class, 'json');
+        $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
 
-        // $associationId = json_decode($jsonContent)->associationId;
-        // $association = $associationRepository->find($associationId);
-        //dd($association);
-        //$activity->setAssociation($association);
-
-
-        $errors = $validator->validate($activity);
+        $errors = $this->validator->validate($activity);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -109,8 +115,8 @@ class ActivitiesController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->persist($activity);
-        $entityManager->flush();
+        $this->entityManager->persist($activity);
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Activité crée',
@@ -123,16 +129,16 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $id, ActivityRepository $activityRepository, EntityManagerInterface $entityManager): Response
+    public function delete(int $id): Response
     {
-        $activity = $activityRepository->find($id);
+        $activity = $this->activityRepository->find($id);
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
         }
 
-        $entityManager->remove($activity);
-        $entityManager->flush();
+        $this->entityManager->remove($activity);
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Activité supprimée',
