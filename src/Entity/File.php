@@ -75,6 +75,7 @@ class File
      *      }
      * )
      * @Assert\NotBlank(message="La personne a contacté en cas d'urgence est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le nom doit faire entre 3 et 255 caracteres")
      */
     private $emergencyContactName;
 
@@ -88,6 +89,7 @@ class File
      *      }
      * )
      * @Assert\NotBlank(message="Le numero de la personne a contacté en cas d'urgence est obligatoire")
+     * @Assert\Length(min=10, minMessage="Le numero doit faire entre 10 et 10 caracteres", max=10, maxMessage="Le numero doit faire entre 10 et 10 caracteres")
      */
     private $emergencyContactPhoneNumber;
 
