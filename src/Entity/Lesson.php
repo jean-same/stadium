@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\LessonRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LessonRepository::class)
@@ -34,6 +35,7 @@ class Lesson
      *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le niveau est obligatoire")
      */
     private $level;
 
@@ -46,6 +48,7 @@ class Lesson
      *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'heure de debut est obligatoire")
      */
     private $startTime;
 
@@ -58,6 +61,7 @@ class Lesson
      *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'heure de fin est obligatoire")
      */
     private $endTime;
 
@@ -70,6 +74,7 @@ class Lesson
      *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le jour est obligatoire")
      */
     private $day;
 
@@ -82,6 +87,8 @@ class Lesson
      *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le lieu est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le lieu doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le lieu doit faire entre 3 et 255 caracteres")
      */
     private $place;
 
@@ -93,6 +100,7 @@ class Lesson
      *          "api_backoffice_superadmin_lessons_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'activité est obligatoire")
      */
     private $activity;
 
