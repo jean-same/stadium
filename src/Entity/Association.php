@@ -138,7 +138,7 @@ class Association
     private $profils;
 
     /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="association", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="association", orphanRemoval=true, fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_associations_browse"
