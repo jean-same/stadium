@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\FileRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FileRepository::class)
@@ -34,6 +35,7 @@ class File
      *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le numero de telephone est obligatoire")
      */
     private $phoneNumber;
 
@@ -46,6 +48,7 @@ class File
      *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="La date de naissance est obligatoire")
      */
     private $dateOfBirth;
 
@@ -58,6 +61,7 @@ class File
      *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'adresse est obligatoire")
      */
     private $address;
 
@@ -70,6 +74,8 @@ class File
      *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="La personne a contacté en cas d'urgence est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le nom doit faire entre 3 et 255 caracteres")
      */
     private $emergencyContactName;
 
@@ -82,6 +88,8 @@ class File
      *          "api_backoffice_admin_profiles_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le numero de la personne a contacté en cas d'urgence est obligatoire")
+     * @Assert\Length(min=10, minMessage="Le numero doit faire entre 10 et 10 caracteres", max=10, maxMessage="Le numero doit faire entre 10 et 10 caracteres")
      */
     private $emergencyContactPhoneNumber;
 
