@@ -38,6 +38,9 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
+     * @Assert\Email(
+     *         message = "The email '{{ value}}' is not a valid email.")
+     * @Assert\NotBlank(message="L'email est obligatoire.")
      */
     private $email;
 
@@ -63,6 +66,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Mot de passe obligatoire")
+     * @Assert\Lenght(min=8, message="Le mot de passe doit faire 8 caractères minimum")
      */
     private $password;
 

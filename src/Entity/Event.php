@@ -36,6 +36,7 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le nom de l'événement est obligatoire.")
      */
     private $name;
 
@@ -48,6 +49,8 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'adresse de l'évenement est obligatoire.")
+     * @Assert\Lenght(min=15)
      */
     private $place;
 
@@ -60,6 +63,7 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\Date(message="La date de début est obligatoire.")
      */
     private $startDate;
 
@@ -72,6 +76,7 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\Date(message="La date de fin est obligatoire.")
      */
     private $endDate;
 
@@ -84,6 +89,7 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\Time(message="L'heure de début est obligatoire.")
      */
     private $schedule;
 
@@ -96,6 +102,8 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le nombre de participants est obligatoire.")
+     * @Assert\Positive(message="Veuillez entrer un nombre de participants correct")
      */
     private $maxParticipants;
 

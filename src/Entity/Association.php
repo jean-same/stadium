@@ -46,6 +46,7 @@ class Association
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le nom de l'association est obligatoire.")
      */
     private $name;
 
@@ -63,6 +64,7 @@ class Association
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le nom du président(e) est obligatoire.")
      */
     private $presidentLastName;
 
@@ -80,6 +82,7 @@ class Association
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le prénom du président(e) est obligatoire.")
      */
     private $presidentFirstName;
 
@@ -97,6 +100,9 @@ class Association
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="L'adresse de l'association est obligatoire.")
+     * @Assert\Lenght(
+     * min=15)
      */
     private $address;
 
@@ -114,6 +120,12 @@ class Association
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le numéro de téléphone est obligatoire.")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      message = "Veuillez entrer un numéro de teléphone valide."
+     *      )
      */
     private $phoneNumber;
 
