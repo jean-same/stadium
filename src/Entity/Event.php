@@ -7,6 +7,7 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -50,7 +51,7 @@ class Event
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse de l'évenement est obligatoire.")
-     * @Assert\Lenght(min=15)
+     * @Assert\Length(min=15)
      */
     private $place;
 

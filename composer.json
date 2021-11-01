@@ -13,6 +13,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
         "fakerphp/faker": "^1.16",
+        "lexik/jwt-authentication-bundle": "^2.13",
         "mbezhanov/faker-provider-collection": "^2.0",
         "nelmio/cors-bundle": "^2.1",
         "phpdocumentor/reflection-docblock": "^5.3",

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ActivityRepository::class)
@@ -42,7 +43,7 @@ class Activity
      *      }
      * )
      * @Assert\NotBlank(message="Le nom de l'activité est obligatoire.")
-     * @Assert\Lenght(min=5)
+     * @Assert\Length(min=5)
      */
     private $name;
 
