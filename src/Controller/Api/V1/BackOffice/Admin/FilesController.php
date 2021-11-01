@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files", name="api_v1_back_office_admin_files_")
+ * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files", name="api_v1_backoffice_admin_association_files_")
  */
 class FilesController extends AbstractController
 {
@@ -42,7 +42,7 @@ class FilesController extends AbstractController
         $file = $this->fileRepository->find($fileId);
 
         if (($file->getProfil()->getId() != $profilId )|| ($file->getProfil()->getAssociation()->getId()!= $associationId) ){
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_association_files']);
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         $jsonContent = $request->getContent();
@@ -72,15 +72,15 @@ class FilesController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(int $profilId, Request $request): Response
+    public function add(int $profilId, int $associationId, Request $request): Response
     {
         $jsonContent = $request->getContent();
 
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
 
-        // if ($file->getProfil()->getId() != $profilId) {
-        //     return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_files']);
-        // }
+        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)){
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
+        }
         $errors = $this->validator->validate($file);
 
         if (count($errors) > 0) {
@@ -108,12 +108,12 @@ class FilesController extends AbstractController
      /**
      * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $fileId, int $profilId):Response
+    public function delete(int $fileId, int $profilId, int $associationId):Response
     {
         $file = $this->fileRepository->find($fileId);
 
-        if ($file->getProfil()->getId() != $profilId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_association_files']);
+        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         $this->entityManager->remove($file);

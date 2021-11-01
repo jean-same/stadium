@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api\V1\BackOffice\Admin;
 
+use App\Entity\Lesson;
 use App\Repository\AssociationRepository;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +14,9 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @Route("/api/v1/backoffice/admin/association/{associationId}/lessons", name="api_v1_back_office_admin_association_lessons_")
+ */
 class LessonsController extends AbstractController
 {
     protected $associationRepository;

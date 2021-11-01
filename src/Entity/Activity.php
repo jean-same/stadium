@@ -82,7 +82,7 @@ class Activity
     private $association;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="activity", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Lesson::class, mappedBy="activity", orphanRemoval=true, fetch="EAGER")
     * @Groups(
     *      {
     *          "api_backoffice_superadmin_activities_browse",
