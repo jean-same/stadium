@@ -7,6 +7,7 @@ use App\Repository\ProfilRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
@@ -48,6 +49,8 @@ class Profil
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le prenom est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le prenom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le prenom doit faire entre 3 et 255 caracteres")
      */
     private $firstName;
 
@@ -66,6 +69,8 @@ class Profil
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\NotBlank(message="Le prenom est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le nom doit faire entre 3 et 255 caracteres")
      */
     private $lastName;
 
