@@ -22,12 +22,24 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AssociationsController extends AbstractController
 {
+    protected $associationRepository;
+    protected $serializer;
+    protected $validator;
+    protected $entityManager;
+
+    public function __construct(AssociationRepository $associationRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    {
+        $this->associationRepository = $associationRepository;
+        $this->serializer = $serializer;
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
+    }
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(AssociationRepository $associationRepository): Response
+    public function browse(): Response
     {
-        $allAssociations = $associationRepository->findAll();
+        $allAssociations = $this->associationRepository->findAll();
 
         //dd($allAssociations);
         return $this->json($allAssociations, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_associations_browse']);
@@ -36,9 +48,9 @@ class AssociationsController extends AbstractController
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(int $id, AssociationRepository $associationRepository): Response
+    public function read(int $id): Response
     {
-        $association = $associationRepository->find($id);
+        $association = $this->associationRepository->find($id);
 
         // If an association is null, then we return an error message in JSON with the method getNotFoundResponse
         if (is_null($association)) {
@@ -51,20 +63,20 @@ class AssociationsController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(int $id, AssociationRepository $associationRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function edit(int $id): Response
     {
-        $association = $associationRepository->find($id);
+        $association = $this->associationRepository->find($id);
 
         if (is_null($association)) {
             return $this->getNotFoundResponse();
         }
 
         // Retrieving the client's JSON
-        $jsonContent = $request->getContent();
+        $jsonContent = $this->request->getContent();
 
-        $serializer->deserialize($jsonContent, Association::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $association]);
+        $this->serializer->deserialize($jsonContent, Association::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $association]);
 
-        $errors = $validator->validate($association);
+        $errors = $this->validator->validate($association);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -74,7 +86,7 @@ class AssociationsController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Association mise à jour',
@@ -88,13 +100,13 @@ class AssociationsController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager): Response
+    public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
 
-        $association = $serializer->deserialize($jsonContent, Association::class, 'json');
+        $association = $this->serializer->deserialize($jsonContent, Association::class, 'json');
 
-        $errors = $validator->validate($association);
+        $errors = $this->validator->validate($association);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -104,39 +116,38 @@ class AssociationsController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->persist($association);
-        $entityManager->flush();
+        $this->entityManager->persist($association);
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Association crée',
             'name' => $association->getName(),
             'presidentLastName' => $association->getPresidentLastName(),
             'presidentFirstName' => $association->getPresidentFirstName(),
-            'address'=> $association->getAddress(),
-            'phoneNumber'=>$association->getPhoneNumber()
+            'address' => $association->getAddress(),
+            'phoneNumber' => $association->getPhoneNumber()
 
         ];
         return $this->json($responseAsArray, Response::HTTP_CREATED);
-    
     }
 
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $id, AssociationRepository $associationRepository, EntityManagerInterface $entityManager):Response
+    public function delete(int $id): Response
     {
-        $association=$associationRepository->find($id);
+        $association = $this->associationRepository->find($id);
 
-        if(is_null($association)){
+        if (is_null($association)) {
             return $this->getNotFoundResponse();
         }
 
-        $entityManager->remove($association);
-        $entityManager->flush();
+        $this->entityManager->remove($association);
+        $this->entityManager->flush();
 
-        $responseAsArray=[
-            'message'=>'Association supprimée',
-            'name'=>$association->getName()
+        $responseAsArray = [
+            'message' => 'Association supprimée',
+            'name' => $association->getName()
         ];
         return $this->json($responseAsArray);
     }

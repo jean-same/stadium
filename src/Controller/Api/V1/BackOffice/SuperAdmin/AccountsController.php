@@ -21,21 +21,35 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class AccountsController extends AbstractController
 {
+    protected $accountRepository;
+    protected $serializer;
+    protected $validator;
+    protected $entityManager;
+    protected $passwordHasher;
+
+    public function __construct(AccountRepository $accountRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->accountRepository = $accountRepository;
+        $this->serializer = $serializer;
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
+        $this->passwordHasher = $passwordHasher;
+    }
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(AccountRepository $accountRepository): Response
+    public function browse(): Response
     {
-        $allAccounts = $accountRepository->findAll();
+        $allAccounts = $this->accountRepositoryaccountRepository->findAll();
         return $this->json($allAccounts, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_accounts_browse']);
     }
 
     /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
-    public function read(int $id, AccountRepository $accountRepository): Response
+    public function read(int $id): Response
     {
-        $account = $accountRepository->find($id);
+        $account = $this->accountRepository->find($id);
         // If an association is null, then we return an error message in JSON with the method getNotFoundResponse
         if (is_null($account)) {
             return $this->getNotFoundResponse();
@@ -47,9 +61,9 @@ class AccountsController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(int $id, AccountRepository $accountRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(int $id, Request $request): Response
     {
-        $account = $accountRepository->find($id);
+        $account = $this->accountRepository->find($id);
 
         if (is_null($account)) {
             return $this->getNotFoundResponse();
@@ -58,13 +72,13 @@ class AccountsController extends AbstractController
         // Retrieving the client's JSON
         $jsonContent = $request->getContent();
 
-        $serializer->deserialize($jsonContent, Account::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $account]);
+        $this->serializer->deserialize($jsonContent, Account::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $account]);
 
-        $clearPassword=$account->getPassword();
-        $hashedPassord = $passwordHasher->hashPassword($account, $clearPassword);
+        $clearPassword = $account->getPassword();
+        $hashedPassord = $this->passwordHasher->hashPassword($account, $clearPassword);
         $account->setPassword($hashedPassord);
 
-        $errors = $validator->validate($account);
+        $errors = $this->validator->validate($account);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -74,13 +88,13 @@ class AccountsController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Compte mis à jour',
             'email' => $account->getEmail(),
             'password' => 'Password mis à jour',
-            'roles'=>$account->getRoles()
+            'roles' => $account->getRoles()
         ];
         return $this->json($responseAsArray, Response::HTTP_OK);
     }
@@ -88,19 +102,19 @@ class AccountsController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
         // dd($jsonContent);
 
-        $account = $serializer->deserialize($jsonContent, Account::class, 'json');
-        
-        $clearPassword=$account->getPassword();
-        $hashedPassord = $passwordHasher->hashPassword($account, $clearPassword);
+        $account = $this->serializer->deserialize($jsonContent, Account::class, 'json');
+
+        $clearPassword = $account->getPassword();
+        $hashedPassord = $this->passwordHasher->hashPassword($account, $clearPassword);
         $account->setPassword($hashedPassord);
 
 
-        $errors = $validator->validate($account);
+        $errors = $this->validator->validate($account);
 
         if (count($errors) > 0) {
             $responseAsArray = [
@@ -110,8 +124,8 @@ class AccountsController extends AbstractController
             return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $entityManager->persist($account);
-        $entityManager->flush();
+        $this->entityManager->persist($account);
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Compte cré',
@@ -125,16 +139,16 @@ class AccountsController extends AbstractController
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $id, AccountRepository $accountRepository, EntityManagerInterface $entityManager): Response
+    public function delete(int $id): Response
     {
-        $account = $accountRepository->find($id);
+        $account = $this->accountRepository->find($id);
 
         if (is_null($account)) {
             return $this->getNotFoundResponse();
         }
 
-        $entityManager->remove($account);
-        $entityManager->flush();
+        $this->entityManager->remove($account);
+        $this->entityManager->flush();
 
         $responseAsArray = [
             'message' => 'Compte supprimé',
