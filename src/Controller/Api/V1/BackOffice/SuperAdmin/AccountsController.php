@@ -40,7 +40,7 @@ class AccountsController extends AbstractController
      */
     public function browse(): Response
     {
-        $allAccounts = $this->accountRepositoryaccountRepository->findAll();
+        $allAccounts = $this->accountRepository->findAll();
         return $this->json($allAccounts, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_accounts_browse']);
     }
 

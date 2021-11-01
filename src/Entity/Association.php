@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AssociationRepository::class)
@@ -101,7 +102,7 @@ class Association
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse de l'association est obligatoire.")
-     * @Assert\Lenght(
+     * @Assert\Length(
      * min=15)
      */
     private $address;
@@ -124,7 +125,7 @@ class Association
      * @Assert\Length(
      *      min = 10,
      *      max = 10,
-     *      message = "Veuillez entrer un numéro de teléphone valide."
+     *      minMessage = "Veuillez entrer un numéro de teléphone valide."
      *      )
      */
     private $phoneNumber;
