@@ -127,7 +127,7 @@ class AppFixtures extends Fixture
             $hash = $this->passwordHasher->hashPassword($account, "password");
 
             $account->setEmail($faker->email())
-                ->setPassword($hash)
+                ->setPassword("password")
                 ->setRoles($faker->randomElements($roleArray));
 
             //$accountsList [] = $account;
