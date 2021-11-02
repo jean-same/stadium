@@ -5,6 +5,7 @@ namespace App\Controller\Api\V1\BackOffice\Admin;
 use App\Entity\File;
 use App\Repository\AssociationRepository;
 use App\Repository\FileRepository;
+use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -108,14 +109,17 @@ class FilesController extends AbstractController
      /**
      * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $fileId, int $profilId, int $associationId):Response
+    public function delete(int $fileId, int $profilId, int $associationId, ProfilRepository $profilRepository):Response
     {
         $file = $this->fileRepository->find($fileId);
-
+        $profil=$profilRepository->find($profilId);
         if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
             return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
+        // Profil is set to null to be able to delete after the second flush
+        $profil->setFile(null);
+        $this->entityManager->flush();
         $this->entityManager->remove($file);
         $this->entityManager->flush();
 
