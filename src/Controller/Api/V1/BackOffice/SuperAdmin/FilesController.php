@@ -137,9 +137,13 @@ class FilesController extends AbstractController
     {
         $file = $this->fileRepository->find($id);
 
+        $profil=$file->getProfil();
         if (is_null($file)) {
             return $this->getNotFoundResponse();
         }
+
+        $profil->setFile(null);
+        $this->entityManager->flush();
 
         $this->entityManager->remove($file);
         $this->entityManager->flush();
