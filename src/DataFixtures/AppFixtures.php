@@ -10,6 +10,7 @@ use App\Entity\File;
 use App\Entity\Lesson;
 use App\Entity\Profil;
 use App\Repository\AssociationRepository;
+use DateTime;
 use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -60,6 +61,52 @@ class AppFixtures extends Fixture
             "Fitness",
         ];
 
+        $eventsArray = [
+            "Snooker",
+            "Judo - Grand Slam",
+            "Tennis - ATP 250",
+            "Moto - Moto GP",
+            "Tennis de table",
+            "Harlem Week",
+            "Tournoi u-15",
+            "Absolutely Hilarious",
+            "Run Experience",
+            "Grand Prix d'Amérique",
+            "Body Fitness",
+            "Opеn Swіm Stаrs",
+            "Schneider Electric Marathon",
+            "Sport Forum",
+            "Sport for a New Generation",
+            "Sport & Climate",
+            "Future Sports Leaders",
+            "Women In Sport",
+            "Sport for Development",
+            "Mental Health Training",
+            "Physical Activity in Teenagers",
+            "When Law and Sports Collide",
+            "Club Support Workshop",
+            "Sports, Nutrition, Health and Wellness",
+            "The Right to Play: Women's Football 1921 -2021",
+            "Involving Young Volunteers in Sport",
+            "Esports Research Network Conference",
+            "Football Transfer Forum",
+            "Performance Nutrition Workshop",
+            "Rider In Balance",
+            "Get Fit In Strength Training",
+            "Science of Running",
+            "Getting in the Game",
+            "Tabata-Style HIIT Workout",
+            "Les promesses de l’IA en nutrition",
+            "Horse and Rider Mindset",
+            "Gendered Sporting Bodies",
+            "Body Positivity Webinar",
+            "Mindful Yoga FREE CLASS",
+            "Introducing the Sporting Heritage Toolkit",
+            "Team Strong Silvers",
+            "Quick HIIT - Fit Tabata",
+            "Badminton Horse Trials"
+        ];
+
         $levelArray = [
             "Beginner",
             "Normal",
@@ -70,6 +117,8 @@ class AppFixtures extends Fixture
         $adherentArray = [];
         $accountAdherent = [];
         $accountAssoc = [];
+        $accountAdmin = [];
+        $eventCreatedArray = [];
 
         $nb = 0;
         //$accountsList = [];
@@ -91,8 +140,10 @@ class AppFixtures extends Fixture
                 if ($role == "ROLE_ADHERENT") {
                     $accountAdherent[] = $account;
                 }
+                if ($role == "ROLE_ADMIN") {
+                    $accountAdherent[] = $account;
+                }
             }
-
         }
 
         foreach ($accountAdherent as $currentAdherentAccount) {
@@ -102,7 +153,7 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("pic" . $nb . ".jpeg")
+                ->setPicture("profil" . $nb . ".jpeg")
                 ->setAccount($currentAdherentAccount)
                 //->setAssociation($faker->randomElements($assocArray));
             ;
@@ -113,11 +164,11 @@ class AppFixtures extends Fixture
 
             $file = new File;
 
-            $file->setPhoneNumber("05646789" . $nb)
+            $file->setPhoneNumber("0" . mt_rand(6, 7) . mt_rand(10, 99) . mt_rand(100, 500) . mt_rand(600, 999))
                 ->setDateOfBirth($faker->dateTimeBetween())
-                ->setAddress($faker->region())
+                ->setAddress($faker->address())
                 ->setEmergencyContactName($faker->name())
-                ->setEmergencyContactPhoneNumber("02457469" . $nb)
+                ->setEmergencyContactPhoneNumber("0" . mt_rand(6, 7) . mt_rand(10, 99) . mt_rand(100, 500) . mt_rand(600, 999))
                 ->setMedicalCertificate("medical" . $nb . ".pdf")
                 ->setRulesOfProcedure("rules" . $nb . ".pdf")
                 ->setIsPaid(0)
@@ -136,12 +187,14 @@ class AppFixtures extends Fixture
             $association->setName($faker->team)
                 ->setPresidentFirstName($faker->firstName())
                 ->setPresidentLastName($faker->lastName())
-                ->setAddress($faker->region())
-                ->setPhoneNumber("09648469" . $nb)
+                ->setAddress($faker->address())
+                ->setPhoneNumber("01" . mt_rand(10, 99) . mt_rand(100, 500) . mt_rand(600, 999))
                 ->setAccount($currentAssocAccount);
 
             $nbProfilForAssoc = mt_rand(0, count($adherentArray));
+            $nbAdminForAssoc = mt_rand(0, count($accountAdmin));
             $profilToAddInAsso = $faker->randomElements($adherentArray, $nbProfilForAssoc);
+            $adminToAddInAsso = $faker->randomElements($accountAdmin, $nbAdminForAssoc);
 
             foreach ($profilToAddInAsso as $currentProfilForAssoc) {
                 if (!$currentProfilForAssoc->getAssociation()) {
@@ -149,15 +202,23 @@ class AppFixtures extends Fixture
                 }
             }
 
+            foreach ($adminToAddInAsso as $currentAdminForAssoc) {
+                if (!$currentAdminForAssoc->getAssociation()) {
+                    $association->addProfil($currentAdminForAssoc);
+                }
+            }
+
             $manager->persist($association);
             $assocArray[] = $association;
 
+            $eventNameToAdd = $faker->randomElement($eventsArray);
+
             //Creer des events
             $event = new Event;
-            $event->setName($faker->title())
-                ->setPlace($faker->region())
-                ->setStartDate($faker->dateTimeBetween('-1 week', '+1 week'))
-                ->setEndDate($faker->dateTimeBetween('-1 week', '+1 week'))
+            $event->setName($eventNameToAdd)
+                ->setPlace($faker->address())
+                ->setStartDate($faker->dateTimeThisMonth())
+                ->setEndDate($faker->dateTimeThisMonth('+10 days'))
                 ->setSchedule($faker->dateTimeBetween())
                 ->setMaxParticipants(mt_rand(5, 100))
                 ->setAssociation($association);
@@ -165,14 +226,26 @@ class AppFixtures extends Fixture
             $nbProfilForEvent = mt_rand(0, count($adherentArray));
             $profilToAddInEvent = $faker->randomElements($adherentArray, $nbProfilForEvent);
 
+            $testMaxParticipantOne = $event->getMaxParticipants() >= $nbProfilForEvent;
+            $testMaxParticipantTwo = $event->getMaxParticipants() >= count($event->getProfiles()) + $nbProfilForEvent;
+
             foreach ($profilToAddInEvent as $currentProfilForEvent) {
-                if ($currentProfilForEvent->getAssociation() == $event->getAssociation()) {
+                if ($currentProfilForEvent->getAssociation() == $event->getAssociation() && $testMaxParticipantOne && $testMaxParticipantTwo) {
                     $event->addProfile($currentProfilForEvent);
                 }
             }
 
+            $eventCreatedArray[] = $event;
+
             $manager->persist($event);
 
+            /* $associationForEvents = $faker->randomElement($assocArray);
+            $eventsForAsso = $faker->randomElements($eventCreatedArray, mt_rand(2 , 4 ));
+
+            foreach($eventsForAsso as $currentEvent){
+                $associationForEvents->addEvent($currentEvent);
+                $manager->persist($association);
+            } */
 
             //Creer des activités
             $activity = new Activity;
@@ -188,10 +261,8 @@ class AppFixtures extends Fixture
 
             foreach ($profilToAddInActivity as $currentProfilForActivity) {
                 $testOne = ($currentProfilForActivity->getAssociation() == $activity->getAssociation());
-                $testTwo = $event->getMaxParticipants() >= $nbProfilForActivity;
-                $testThree = $event->getMaxParticipants() >= count($event->getProfiles()) + $nbProfilForActivity;
 
-                if ($testOne && $testTwo && $testThree) {
+                if ($testOne) {
                     $activity->addProfile($currentProfilForActivity);
                 }
             }
@@ -201,14 +272,25 @@ class AppFixtures extends Fixture
             //Creer des lessons
             $lesson = new Lesson;
 
+            $startTime = mt_rand(6 , 20);
+            $endTime = $startTime + 2;
+
             $lesson->setLevel($levelArray[mt_rand(0, count($levelArray) - 1)])
-                ->setStartTime($faker->dateTimeBetween('-1 day', '+1 day'))
-                ->setEndTime($faker->dateTimeBetween('-1 day', '+1 day'))
+                ->setStartTime(new DateTime($startTime . ":00"))
+                ->setEndTime(new DateTime($endTime . ":00"))
                 ->setDay(mt_rand(1, 7))
-                ->setPlace($faker->region())
+                ->setPlace($faker->address())
                 ->setActivity($activity);
 
             $manager->persist($lesson);
+        }
+
+        $associationForEvents = $faker->randomElement($assocArray);
+        $eventsForAsso = $faker->randomElements($eventCreatedArray, mt_rand(2, 4));
+
+        foreach ($eventsForAsso as $currentEvent) {
+            $associationForEvents->addEvent($currentEvent);
+            $manager->persist($association);
         }
 
         $manager->flush();

@@ -47,6 +47,8 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/v1/backoffice/superadmin, roles: ROLE_SUPER_ADMIN }
+        #- { path: ^/api/v1/backoffice/superadmin, roles: ROLE_SUPER_ADMIN }
 
         - { path: ^/api/v1/backoffice/admin/association, roles: ROLE_ADMIN }
+
+        - { path: ^/api/v1/backoffice/superadmin, roles: PUBLIC_ACCESS }
