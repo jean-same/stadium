@@ -164,6 +164,13 @@ class File
      */
     private $profil;
 
+    public function __construct()
+    {
+        $this->isPaid = false;
+        $this->isValid = false;
+        $this->isComplete = false;
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
