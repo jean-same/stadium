@@ -154,7 +154,7 @@ class File
     private $isComplete;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="file", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Profil::class, mappedBy="file")
      * @Groups(
      *      { 
      *          "api_backoffice_superadmin_files_browse", 

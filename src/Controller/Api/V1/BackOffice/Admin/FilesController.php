@@ -5,6 +5,7 @@ namespace App\Controller\Api\V1\BackOffice\Admin;
 use App\Entity\File;
 use App\Repository\AssociationRepository;
 use App\Repository\FileRepository;
+use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,17 +22,19 @@ class FilesController extends AbstractController
 {
     protected $fileRepository;
     protected $associationRepository;
+    protected $profilRepository;
     protected $validator;
     protected $serializer;
     protected $entityManager;
 
-    public function __construct(FileRepository $fileRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(FileRepository $fileRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager, ProfilRepository $profilRepository)
     {
         $this->fileRepository = $fileRepository;
         $this->associationRepository = $associationRepository;
         $this->validator = $validator;
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
+        $this->profilRepository = $profilRepository;
     }
 
     /**
@@ -41,7 +44,7 @@ class FilesController extends AbstractController
     {
         $file = $this->fileRepository->find($fileId);
 
-        if (($file->getProfil()->getId() != $profilId )|| ($file->getProfil()->getAssociation()->getId()!= $associationId) ){
+        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
             return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
@@ -78,7 +81,7 @@ class FilesController extends AbstractController
 
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
 
-        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)){
+        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
             return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
         $errors = $this->validator->validate($file);
@@ -105,17 +108,20 @@ class FilesController extends AbstractController
         return $this->json($responseAsArray, Response::HTTP_CREATED);
     }
 
-     /**
+    /**
      * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function delete(int $fileId, int $profilId, int $associationId):Response
+    public function delete(int $fileId, int $profilId, int $associationId): Response
     {
         $file = $this->fileRepository->find($fileId);
-
+        $profil = $this->profilRepository->find($profilId);
         if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
             return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
+        // Profil is set to null to be able to delete after the second flush
+        $profil->setFile(null);
+        $this->entityManager->flush();
         $this->entityManager->remove($file);
         $this->entityManager->flush();
 
