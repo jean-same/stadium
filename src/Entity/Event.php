@@ -64,7 +64,6 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
-     * @Assert\Date(message="La date de début est obligatoire.")
      */
     private $startDate;
 
@@ -77,7 +76,6 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
-     * @Assert\Date(message="La date de fin est obligatoire.")
      */
     private $endDate;
 
@@ -90,7 +88,6 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
-     * @Assert\Time(message="L'heure de début est obligatoire.")
      */
     private $schedule;
 
