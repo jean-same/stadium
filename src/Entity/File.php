@@ -49,6 +49,8 @@ class File
      *      }
      * )
      * @Assert\NotBlank(message="La date de naissance est obligatoire")
+     * @Assert\Type(type="\DateTime",
+     *              message="problème date")
      */
     private $dateOfBirth;
 
@@ -193,7 +195,7 @@ class File
         return $this->dateOfBirth;
     }
 
-    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
+    public function setDateOfBirth($dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
 
