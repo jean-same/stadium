@@ -27,9 +27,12 @@ class AssociationController extends AbstractController
      */
     public function read($profilId): Response
     {
+
         $profil = $this->profilRepository->find($profilId);
+
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
         $association = $profil->getAssociation();
-        
+
         return $this->json($association, Response::HTTP_OK, [], ['groups' => 'api_backoffice_member_association_browse']);
     }
 
