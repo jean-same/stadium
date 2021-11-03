@@ -44,7 +44,7 @@ class ProfilesController extends AbstractController
         $profiles = $association->getProfils();
         //dd($activities);
 
-        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+        return $this->json($profiles, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_profiles_browse']);
     }
 
     /**
@@ -55,14 +55,14 @@ class ProfilesController extends AbstractController
         $profil = $this->profilRepository->find($profilId);
 
         if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         if (is_null($profil)) {
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_profiles_browse']);
     }
 
     /**
@@ -73,7 +73,7 @@ class ProfilesController extends AbstractController
         $profil = $this->profilRepository->find($profilId);
 
         if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         if (is_null($profil)) {
@@ -114,7 +114,7 @@ class ProfilesController extends AbstractController
 
         $profil = $this->serializer->deserialize($jsonContent, Profil::class, 'json');
         if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
         $errors = $this->validator->validate($profil);
 
@@ -147,7 +147,7 @@ class ProfilesController extends AbstractController
         $profil = $this->profilRepository->find($profilId);
 
         if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN, [], ['groups' => 'api_backoffice_admin_profiles_browse']);
+            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
         }
 
         if (is_null($profil)) {
