@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class MemberAssociationVoter extends Voter
+class MemberReadVoter extends Voter
 {
     protected function supports(string $attribute, $subject): bool
     {
@@ -20,7 +20,7 @@ class MemberAssociationVoter extends Voter
     {
         /**@var Account */
         $user = $token->getUser();
-        
+
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;

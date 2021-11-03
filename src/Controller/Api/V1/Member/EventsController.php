@@ -24,12 +24,14 @@ class EventsController extends AbstractController
     }
     
     /**
-     * @Route("/", name="browse", methods={"GET"})
+     * @Route("/", name="read", methods={"GET"})
      */
-    public function browse($profilId): Response
+    public function read($profilId): Response
     {
 
         $profil = $this->profilRepository->find($profilId);
+
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
 
         $events = $profil->getEvent();
 
