@@ -23,7 +23,8 @@ class Event
      *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      */
@@ -36,7 +37,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le nom de l'événement est obligatoire.")
@@ -50,7 +52,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse de l'évenement est obligatoire.")
@@ -65,7 +68,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      * @Assert\Type(type="\DateTime",
@@ -80,7 +84,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      *@Assert\Type("\DateTime",
@@ -95,7 +100,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      * @Assert\Type("\DateTimeInterface",
@@ -110,7 +116,8 @@ class Event
      *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_admin_association_events_browse"
+     *          "api_backoffice_admin_association_events_browse",
+     *          "api_backoffice_member_events_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le nombre de participants est obligatoire.")
