@@ -52,6 +52,8 @@ class Lesson
      *      }
      * )
      * @Assert\NotBlank(message="L'heure de debut est obligatoire")
+     * @Assert\Type(type="\DateTime",
+     *              message="problème date")
      */
     private $startTime;
 
@@ -66,6 +68,8 @@ class Lesson
      *      }
      * )
      * @Assert\NotBlank(message="L'heure de fin est obligatoire")
+     * @Assert\Type(type="\DateTime",
+     *              message="problème date")
      */
     private $endTime;
 
@@ -132,7 +136,7 @@ class Lesson
         return $this->startTime;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): self
+    public function setStartTime( $startTime): self
     {
         $this->startTime = $startTime;
 
@@ -144,7 +148,7 @@ class Lesson
         return $this->endTime;
     }
 
-    public function setEndTime(\DateTimeInterface $endTime): self
+    public function setEndTime($endTime): self
     {
         $this->endTime = $endTime;
 

@@ -68,7 +68,7 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
-     * @Assert\Type(type="\DateTimeInterface",
+     * @Assert\Type(type="\DateTime",
      *              message="problème date")
      */
     private $startDate;
@@ -83,8 +83,8 @@ class Event
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
-     *@Assert\Type("\DateTimeInterface",
-     *              message="La date de fin est obligatoire")
+     *@Assert\Type("\DateTime",
+     *              message="problème date")
      */
     private $endDate;
 
@@ -180,7 +180,7 @@ class Event
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setStartDate($startDate): self
     {
         $this->startDate = $startDate;
 
@@ -192,7 +192,7 @@ class Event
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeInterface $endDate): self
+    public function setEndDate($endDate): self
     {
         $this->endDate = $endDate;
 
