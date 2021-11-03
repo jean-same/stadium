@@ -20,6 +20,7 @@ class Event
      * @ORM\Column(type="integer")
      * @Groups(
      *      {
+     *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
@@ -32,6 +33,7 @@ class Event
      * @ORM\Column(type="string", length=255)
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
@@ -45,6 +47,7 @@ class Event
      * @ORM\Column(type="string", length=255)
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
@@ -59,11 +62,14 @@ class Event
      * @ORM\Column(type="date")
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\Type(type="\DateTimeInterface",
+     *              message="problème date")
      */
     private $startDate;
 
@@ -71,11 +77,14 @@ class Event
      * @ORM\Column(type="date")
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     *@Assert\Type("\DateTimeInterface",
+     *              message="La date de fin est obligatoire")
      */
     private $endDate;
 
@@ -83,11 +92,14 @@ class Event
      * @ORM\Column(type="time")
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
      *      }
      * )
+     * @Assert\Type("\DateTimeInterface",
+     *              message="L'heure de début est obligatoire")
      */
     private $schedule;
 
@@ -95,6 +107,7 @@ class Event
      * @ORM\Column(type="integer")
      * @Groups(
      *      {
+     *           "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse"
