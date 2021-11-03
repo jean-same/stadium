@@ -93,8 +93,6 @@ class AccountsController extends AbstractController
         $responseAsArray = [
             'message' => 'Compte mis à jour',
             'email' => $account->getEmail(),
-            'password' => 'Password mis à jour',
-            'roles' => $account->getRoles()
         ];
         return $this->json($responseAsArray, Response::HTTP_OK);
     }
