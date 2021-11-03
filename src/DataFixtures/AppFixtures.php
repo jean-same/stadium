@@ -141,7 +141,7 @@ class AppFixtures extends Fixture
                     $accountAdherent[] = $account;
                 }
                 if ($role == "ROLE_ADMIN") {
-                    $accountAdherent[] = $account;
+                    $accountAdmin[] = $account;
                 }
             }
         }
@@ -179,6 +179,24 @@ class AppFixtures extends Fixture
             $manager->persist($file);
         }
 
+        foreach ($accountAdmin as $currentAdminAccount) {
+            $nb++;
+            //Creer des profils
+            $profil = new Profil;
+
+            $profil->setFirstName($faker->firstName())
+                ->setLastName($faker->lastName())
+                ->setPicture("profil" . $nb . ".jpeg")
+                ->setAccount($currentAdminAccount)
+                //->setAssociation($faker->randomElements($assocArray));
+            ;
+
+
+            $manager->persist($profil);
+            $adminArray[] = $profil;
+
+        }
+
         //dd($adherentArray);
 
         foreach ($accountAssoc as $key => $currentAssocAccount) {
@@ -192,19 +210,21 @@ class AppFixtures extends Fixture
                 ->setAccount($currentAssocAccount);
 
             $nbProfilForAssoc = mt_rand(0, count($adherentArray));
-            $nbAdminForAssoc = mt_rand(0, count($accountAdmin));
+            $nbAdminForAssoc = mt_rand(0, count($adminArray));
             $profilToAddInAsso = $faker->randomElements($adherentArray, $nbProfilForAssoc);
-            $adminToAddInAsso = $faker->randomElements($accountAdmin, $nbAdminForAssoc);
+            $adminToAddInAsso = $faker->randomElements($adminArray, $nbAdminForAssoc);
 
             foreach ($profilToAddInAsso as $currentProfilForAssoc) {
                 if (!$currentProfilForAssoc->getAssociation()) {
                     $association->addProfil($currentProfilForAssoc);
+                    $manager->persist($association);
                 }
             }
 
             foreach ($adminToAddInAsso as $currentAdminForAssoc) {
                 if (!$currentAdminForAssoc->getAssociation()) {
                     $association->addProfil($currentAdminForAssoc);
+                    $manager->persist($association);
                 }
             }
 
