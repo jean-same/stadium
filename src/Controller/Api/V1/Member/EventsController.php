@@ -5,6 +5,7 @@ namespace App\Controller\Api\V1\Member;
 use App\Entity\Profil;
 use App\Repository\EventRepository;
 use App\Repository\ProfilRepository;
+use App\Service\Members\MembersEventsServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -20,12 +21,14 @@ class EventsController extends AbstractController
     private $entityManager;
     private $eventsRepository;
     private $profilRepository;
+    private $membersEventsServices;
 
-    public function __construct( ProfilRepository $profilRepository, EventRepository $eventsRepository , EntityManagerInterface $entityManager)
+    public function __construct( ProfilRepository $profilRepository, EventRepository $eventsRepository , EntityManagerInterface $entityManager , MembersEventsServices $membersEventsServices )
     {
         $this->eventsRepository = $eventsRepository;
         $this->profilRepository = $profilRepository;
         $this->entityManager = $entityManager;
+        $this->membersEventsServices = $membersEventsServices;
     }
     
     /**
@@ -36,7 +39,7 @@ class EventsController extends AbstractController
 
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
 
         $events = $profil->getEvent();
 
@@ -51,6 +54,10 @@ class EventsController extends AbstractController
 
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
+
+        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
+
+        $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
 
         $profil->addEvent($event);
 
