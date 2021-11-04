@@ -89,7 +89,8 @@ class Activity
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_activities_browse",
-                "api_backoffice_admin_association_activities_browse"
+                "api_backoffice_admin_association_activities_browse",
+                "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
