@@ -63,10 +63,17 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}/unregister", name="unregister", methods={"POST"})
      */
-    public function unregister(): Response
+    public function unregister( $eventId , $profilId ): Response
     {
-        return $this->render('api/v1/member/events/index.html.twig', [
-            'controller_name' => 'EventsController',
-        ]);
+
+        $event = $this->eventsRepository->find($eventId);
+        $profil = $this->profilRepository->find($profilId);
+
+        $profil->removeEvent($event);
+
+        $this->entityManager->persist($profil);
+        $this->entityManager->flush();
+        
+        return $this->json(Response::HTTP_OK);
     }
 }
