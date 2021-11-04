@@ -37,11 +37,11 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("", name="browse" , methods={"GET"})
+    * @Route("/{order}", name="browse" , methods={"GET"})
     */
-    public function browse(): Response
+    public function browse($order="asc"): Response
     {
-        $events = $this->eventRepository->findAll();
+        $events = $this->eventRepository->findBy([],["startDate"=>$order]);
 
         return $this->json($events, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_events_browse"]);
     }

@@ -37,12 +37,12 @@ class LessonsController extends AbstractController
     }
 
     /**
-    * @Route("", name="browse" , methods={"GET"})
+    * @Route("/{order}", name="browse" , methods={"GET"})
     */
-    public function browse(): Response
+    public function browse($order="asc"): Response
     {
 
-        $lessons = $this->lessonRepository->findAll();
+        $lessons = $this->lessonRepository->findBy([], ["startTime"=> $order]);
 
         return $this->json($lessons, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_lessons_browse"]);
     }
