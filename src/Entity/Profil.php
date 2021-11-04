@@ -93,7 +93,7 @@ class Profil
     private $picture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="profil")
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="profil", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      * @Groups(
      *      {

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Serializer;
+namespace App\Normalizer;
 
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
