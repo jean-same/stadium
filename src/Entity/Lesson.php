@@ -22,6 +22,7 @@ class Lesson
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */
@@ -35,6 +36,7 @@ class Lesson
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le niveau est obligatoire")
@@ -49,6 +51,7 @@ class Lesson
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      * @Assert\NotBlank(message="L'heure de debut est obligatoire")
@@ -65,6 +68,7 @@ class Lesson
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      * @Assert\NotBlank(message="L'heure de fin est obligatoire")
@@ -80,7 +84,8 @@ class Lesson
      *          "api_backoffice_superadmin_lessons_browse",
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
-     *          "api_backoffice_admin_association_lessons_browse"
+     *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le jour est obligatoire")
@@ -95,6 +100,7 @@ class Lesson
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_lessons_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le lieu est obligatoire")
