@@ -104,7 +104,7 @@ class Profil
     private $account;
 
     /**
-     * @ORM\OneToOne(targetEntity=File::class, inversedBy="profil", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=File::class, inversedBy="profil", cascade={"persist", "remove"}, fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
