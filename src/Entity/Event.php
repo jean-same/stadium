@@ -69,7 +69,8 @@ class Event
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_events_browse"
+     *          "api_backoffice_member_events_browse",
+     *          "api_backoffice_member_profiles_browse"
      *      }
      * )
      * @Assert\Type(type="\DateTime",
@@ -85,7 +86,8 @@ class Event
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_events_browse"
+     *          "api_backoffice_member_events_browse",
+     *          "api_backoffice_member_profiles_browse"
      *      }
      * )
      *@Assert\Type("\DateTime",
@@ -101,7 +103,8 @@ class Event
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_events_browse"
+     *          "api_backoffice_member_events_browse",
+     *          "api_backoffice_member_profiles_browse"
      *      }
      * )
      * @Assert\Type("\DateTimeInterface",
@@ -117,7 +120,8 @@ class Event
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_events_browse"
+     *          "api_backoffice_member_events_browse",
+     *          "api_backoffice_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le nombre de participants est obligatoire.")

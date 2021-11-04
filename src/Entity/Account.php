@@ -83,7 +83,7 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     private $association;
 
     /**
-     * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="account", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Profil::class, mappedBy="account", orphanRemoval=true , fetch="EAGER")
      * @Groups(
      *       {
      *          "api_backoffice_superadmin_accounts_browse" 
