@@ -41,11 +41,11 @@ class ProfilesController extends AbstractController
     }
 
     /**
-    * @Route("", name="browse" , methods={"GET"})
+    * @Route("/{order}", name="browse" , methods={"GET"})
     */
-    public function browse(): Response
+    public function browse($order): Response
     {
-        $profiles = $this->profilRepository->findAll();
+        $profiles = $this->profilRepository->findBy([] , ["lastName" => $order]);
 
         return $this->json($profiles, Response::HTTP_OK, [], ['groups' => "api_backoffice_superadmin_profiles_browse"]);
     }
