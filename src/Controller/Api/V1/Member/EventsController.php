@@ -76,6 +76,10 @@ class EventsController extends AbstractController
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
 
+        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
+
+        $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
+
         $profil->removeEvent($event);
 
         $this->entityManager->persist($profil);
