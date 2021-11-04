@@ -43,7 +43,7 @@ class ProfilesController extends AbstractController
     /**
     * @Route("/{order}", name="browse" , methods={"GET"})
     */
-    public function browse($order): Response
+    public function browse($order = "asc"): Response
     {
         $profiles = $this->profilRepository->findBy([] , ["lastName" => $order]);
 

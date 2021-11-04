@@ -35,11 +35,11 @@ class ActivitiesController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/", name="browse", methods={"GET"})
+     * @Route("/{order}", name="browse", methods={"GET"})
      */
-    public function browse(): Response
+    public function browse($order = "asc"): Response
     {
-        $allActivities = $this->activityRepository->findAll();
+        $allActivities = $this->activityRepository->findBy([] , [ "name" => $order ]);
 
         //dd($allActivities);
         return $this->json($allActivities, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_activities_browse']);
