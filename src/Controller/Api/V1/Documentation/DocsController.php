@@ -32,11 +32,11 @@ class DocsController extends AbstractController
     }
 
     /**
-     * @Route("/", name="admin")
+     * @Route("/admin", name="admin")
      */
     public function admin(): Response
     {
-        return $this->render('api/v1/documentation/docs/index.html.twig', [
+        return $this->render('api/v1/documentation/docs/admin.html.twig', [
             'controller_name' => 'DocsController',
         ]);
     }
