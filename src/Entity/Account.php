@@ -24,7 +24,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *       {
      *          "api_backoffice_superadmin_accounts_browse" , 
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_member_account_read"
      *      }
      * )
      */
@@ -36,7 +37,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *       {
      *          "api_backoffice_superadmin_accounts_browse" , 
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_member_account_read"
      *      }
      * )
      * @Assert\Email(
@@ -51,7 +53,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *       {
      *          "api_backoffice_superadmin_accounts_browse" , 
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_member_account_read"
      *      }
      * )
      */
@@ -64,7 +67,8 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *       {
      *          "api_backoffice_superadmin_accounts_browse" , 
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_member_account_read"
      *      }
      * )
      * @Assert\NotBlank(message="Mot de passe obligatoire")

@@ -25,6 +25,7 @@ class Activity
      *          "api_backoffice_superadmin_lessons_browse",
      *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_admin_association_activities_browse",
+     *          "api_member_activities_browse",
      *          "api_backoffice_member_profiles_browse"
      *          
      *      }
@@ -41,6 +42,7 @@ class Activity
      *          "api_backoffice_superadmin_lessons_browse",
      *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_admin_association_activities_browse",
+     *          "api_member_activities_browse",
      *          "api_backoffice_member_profiles_browse"
      *      }
      * )
@@ -58,6 +60,7 @@ class Activity
      *          "api_backoffice_superadmin_lessons_browse",
                 "api_backoffice_superadmin_associations_browse",
                 "api_backoffice_admin_association_activities_browse",
+                "api_member_activities_browse",
      *          "api_backoffice_member_profiles_browse"
      *      }
      * )
