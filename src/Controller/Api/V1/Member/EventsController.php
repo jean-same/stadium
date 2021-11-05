@@ -43,7 +43,7 @@ class EventsController extends AbstractController
 
         $events = $profil->getEvent();
 
-        return $this->json($events, Response::HTTP_OK, [], ['groups' => 'api_backoffice_member_events_browse']);
+        return $this->json($events, Response::HTTP_OK, [], ['groups' => 'api_member_events_browse']);
     }
 
     /**

@@ -29,7 +29,7 @@ class Profil
      *          "api_backoffice_admin_association_profiles_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -48,7 +48,7 @@ class Profil
 *               "api_backoffice_admin_association_profiles_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le prenom est obligatoire")
@@ -69,7 +69,7 @@ class Profil
      *          "api_backoffice_admin_association_profiles_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le prenom est obligatoire")
@@ -90,7 +90,7 @@ class Profil
      *          "api_backoffice_admin_association_profiles_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -113,7 +113,7 @@ class Profil
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_backoffice_admin_association_profiles_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -124,7 +124,7 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -135,7 +135,7 @@ class Profil
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -147,7 +147,7 @@ class Profil
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_member_activities_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
