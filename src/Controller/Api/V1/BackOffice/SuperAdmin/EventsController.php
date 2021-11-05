@@ -37,9 +37,9 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/{order}", name="browse" , methods={"GET"})
+    * @Route("/{order}", name="browse" , methods={"GET"}, priority=-1)
     */
-    public function browse($order="asc"): Response
+    public function browse(string $order = "asc"): Response
     {
         $events = $this->eventRepository->findBy([],["startDate"=>$order]);
 
@@ -49,7 +49,7 @@ class EventsController extends AbstractController
     /**
     * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
     */
-    public function read($id): Response
+    public function read( int $id): Response
     {
         $event = $this->eventRepository->find($id);
 
@@ -64,7 +64,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/{id}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
      */
-    public function edit(ValidatorInterface $validator, int $id, Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
+    public function edit( int $id, Request $request ): Response
     {
         
         $event = $this->eventRepository->find($id);
@@ -75,12 +75,12 @@ class EventsController extends AbstractController
         
         $jsonContent = $request->getContent();
 
-        $serializer->deserialize($jsonContent, Event::class, 'json', [
+        $this->serializer->deserialize($jsonContent, Event::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $event
         ]);
 
         
-        $errors = $validator->validate($event);
+        $errors = $this->validator->validate($event);
         
         if (count($errors) > 0) {
             $reponseAsArray = [
@@ -93,8 +93,8 @@ class EventsController extends AbstractController
 
 
         // lancer le flush
-        $entityManager->persist($event);
-        $entityManager->flush();
+        $this->entityManager->persist($event);
+        $this->entityManager->flush();
 
         $reponseAsArray = [
             'message' => 'Event mis à jour',
@@ -108,10 +108,10 @@ class EventsController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, SerializerInterface $serializer): Response
+    public function add(Request $request ): Response
     {
         $jsonContent = $request->getContent();
-        $event = $serializer->deserialize($jsonContent, Event::class, 'json');
+        $event = $this->serializer->deserialize($jsonContent, Event::class, 'json');
 
         $errors = $this->validator->validate($event);
 
