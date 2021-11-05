@@ -64,7 +64,11 @@ class EventsController extends AbstractController
         $this->entityManager->persist($profil);
         $this->entityManager->flush();
         
-        return $this->json(Response::HTTP_OK);
+        $reponseAsArray = [
+            'message' => 'Inscription prise en compte'
+        ];
+
+        return $this->json($reponseAsArray, Response::HTTP_CREATED);
     }
 
     /**
@@ -84,7 +88,11 @@ class EventsController extends AbstractController
 
         $this->entityManager->persist($profil);
         $this->entityManager->flush();
-        
-        return $this->json(Response::HTTP_OK);
+
+        $reponseAsArray = [
+            'message' => 'Desinscription prise en compte'
+        ];
+
+        return $this->json($reponseAsArray, Response::HTTP_CREATED);
     }
 }

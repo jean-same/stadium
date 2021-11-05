@@ -58,7 +58,7 @@ class ProfilesController extends AbstractController
                     return $this->getNotFoundResponse();
                 }
 
-                return $this->json($profile, Response::HTTP_OK, [], ['groups' => 'api_backoffice_member_profiles_browse']);
+        return $this->json($profile, Response::HTTP_OK, [], ['groups' => 'api_backoffice_member_profiles_browse']);
     }
 
     /**
