@@ -41,7 +41,7 @@ class ProfilesController extends AbstractController
     }
 
     /**
-    * @Route("/{order}", name="browse" , methods={"GET"})
+    * @Route("/{order}", name="browse" , methods={"GET"}, priority=-1)
     */
     public function browse($order = "asc"): Response
     {
