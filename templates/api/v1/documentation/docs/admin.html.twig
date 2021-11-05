@@ -1,20 +1,297 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DocsController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Activities
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/activities</td>
+                <td>Retrieves the collection of activities for an association</td>
+                </tr>
+            
+                <tr >
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/activities/{activityId} </td>
+                <td>Retrieves an activity ressource</td>
+                </tr>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <tr >
+                <th scope="row" class="text-center bg-success text-white">  POST  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/activities</td>
+                <td>Create an activity ressource</td>
+                </tr>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/Stadium/projet-o-sport/src/Controller/Api/V1/Documentation/DocsController.php'|file_link(0) }}">src/Controller/Api/V1/Documentation/DocsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/Stadium/projet-o-sport/templates/api/v1/documentation/docs/index.html.twig'|file_link(0) }}">templates/api/v1/documentation/docs/index.html.twig</a></code></li>
-    </ul>
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/activities/{activityId} </td>
+                <td>Update the activity ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-danger text-white">  DELETE  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/activities/{activityId} </td>
+                <td>Remove the activity ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Associations
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+     
+                <tr >
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId} </td>
+                <td>Retrieves an association ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId} </td>
+                <td>Update the association ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table> 
+         </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Events
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/events</td>
+                <td>Retrieves the collection of events for an association</td>
+                </tr>
+            
+                <tr >
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/events/{eventId} </td>
+                <td>Retrieves an event ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-success text-white">  POST  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/events</td>
+                <td>Create an event ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/events/{eventId} </td>
+                <td>Update the event ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-danger text-white">  DELETE  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/events/{eventId} </td>
+                <td>Remove the event ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table>      
+        </div>
+    </div>
+  </div>
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFour">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        Files
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr >
+                <th scope="row" class="text-center bg-success text-white">  POST  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files </td>
+                <td>Create a file ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files/{fileId} </td>
+                <td>Update the file ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-danger text-white">  DELETE  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files/{fileId} </td>
+                <td>Remove the file ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table>      
+        </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFive">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        Lessons
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/lessons</td>
+                <td>Retrieves the collection of lessons for an association</td>
+                </tr>
+            
+                <tr >
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/lessons/{lessonId} </td>
+                <td>Retrieves a lesson ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-success text-white">  POST  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/lessons</td>
+                <td>Create a lesson ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/lessons/{lessonId} </td>
+                <td>Update the lesson ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-danger text-white">  DELETE  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/lessons/{lessonId} </td>
+                <td>Remove the lesson ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table>      
+        </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSix">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseThree">
+        Profiles
+      </button>
+    </h2>
+    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Route</th>
+                <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles</td>
+                <td>Retrieves the collection of profiles for an association</td>
+                </tr>
+            
+                <tr >
+                <th scope="row" class="text-center bg-info text-white">  GET  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profileId} </td>
+                <td>Retrieves a profile ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-success text-white">  POST  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles</td>
+                <td>Create a profile ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-warning text-white">  PATCH  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profileId} </td>
+                <td>Update the profile ressource</td>
+                </tr>
+
+                <tr >
+                <th scope="row" class="text-center bg-danger text-white">  DELETE  </th>
+                <td>/api/v1/backoffice/admin/association/{associationId}/profiles/{profileId} </td>
+                <td>Remove the profile ressource</td>
+                </tr>
+
+                </tr>
+            </tbody>
+        </table>      
+        </div>
+    </div>
+  </div>
+
 </div>
 {% endblock %}
