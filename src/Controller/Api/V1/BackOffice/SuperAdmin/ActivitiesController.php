@@ -41,7 +41,6 @@ class ActivitiesController extends AbstractController
     {
         $allActivities = $this->activityRepository->findBy([] , [ "name" => $order ]);
 
-        //dd($allActivities);
         return $this->json($allActivities, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_activities_browse']);
     }
 

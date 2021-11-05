@@ -74,10 +74,6 @@ class AccountsController extends AbstractController
 
         $this->serializer->deserialize($jsonContent, Account::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $account]);
 
-        /*$clearPassword = $account->getPassword();
-        $hashedPassord = $this->passwordHasher->hashPassword($account, $clearPassword);
-        $account->setPassword($hashedPassord);*/
-
         $errors = $this->validator->validate($account);
 
         if (count($errors) > 0) {
@@ -103,15 +99,8 @@ class AccountsController extends AbstractController
     public function add(Request $request): Response
     {
         $jsonContent = $request->getContent();
-        // dd($jsonContent);
 
         $account = $this->serializer->deserialize($jsonContent, Account::class, 'json');
-
-        /*$clearPassword = $account->getPassword();
-        $hashedPassord = $this->passwordHasher->hashPassword($account, $clearPassword);
-        $account->setPassword($hashedPassord);*/
-
-
         $errors = $this->validator->validate($account);
 
         if (count($errors) > 0) {
@@ -128,7 +117,6 @@ class AccountsController extends AbstractController
         $responseAsArray = [
             'message' => 'Compte cré',
             'email' => $account->getEmail(),
-            //'password' => $account->getPassword(),
             'roles' => $account->getRoles(),
         ];
         return $this->json($responseAsArray, Response::HTTP_CREATED);

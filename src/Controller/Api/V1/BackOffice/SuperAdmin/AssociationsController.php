@@ -41,7 +41,6 @@ class AssociationsController extends AbstractController
     {
         $allAssociations = $this->associationRepository->findAll();
 
-        //dd($allAssociations);
         return $this->json($allAssociations, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_associations_browse']);
     }
 
