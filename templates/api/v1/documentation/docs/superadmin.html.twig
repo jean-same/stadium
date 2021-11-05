@@ -1,162 +1,335 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Accounts
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Type</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-      <th scope="col">Column heading</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="table-active">
-      <th scope="row">Active</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr>
-      <th scope="row">Default</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-primary">
-      <th scope="row">Primary</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-secondary">
-      <th scope="row">Secondary</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-success">
-      <th scope="row">Success</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-danger">
-      <th scope="row">Danger</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-warning">
-      <th scope="row">Warning</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-info">
-      <th scope="row">Info</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-light">
-      <th scope="row">Light</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-    <tr class="table-dark">
-      <th scope="row">Dark</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
-    </tr>
-  </tbody>
-</table>
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingTwo">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        Activities
-      </button>
-    </h2>
-    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Associations
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-    <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Events
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Files
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Lessons
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingThree">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        Profiles
-      </button>
-    </h2>
-    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-      </div>
-    </div>
-  </div>
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#Account" aria-expanded="true" aria-controls="Account">
+					Accounts
+				</button>
+			</h2>
+			<div id="Account" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/accounts/</td>
+								<td>Retrieve the list of accounts</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/accounts/{accountId}</td>
+								<td>Retrieve the details of an account</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/accounts/{accountId}</td>
+								<td>Allows editing an account</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/accounts/</td>
+								<td>Allows the addition of an account</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/accounts/{accountId}</td>
+								<td>Allows the deletion of an account</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingTwo">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Activities" aria-expanded="false" aria-controls="Activities">
+					Activities
+				</button>
+			</h2>
+			<div id="Activities" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
 
-</div>
+								<td>/api/v1/backoffice/superadmin/activities/</td>
+								<td>Retrieve the list of activities</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+
+								<td>/api/v1/backoffice/superadmin/activities/{activityId}</td>
+								<td>Retrieve the details of an activity</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/activities/{activityId}</td>
+								<td>Allows editing an activity</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/activities/</td>
+								<td>Allows the addition of an activity</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/activities/{activityId}</td>
+								<td>Allows the deletion of an activity</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Association" aria-expanded="false" aria-controls="Association">
+					Associations
+				</button>
+			</h2>
+			<div id="Association" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/associations/</td>
+								<td>Retrieve the list of associations</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/associations/{associationId}</td>
+								<td>Retrieve the details of an association</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/associations/{associationId}</td>
+								<td>Allows editing an association</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/associations/</td>
+								<td>Allows the addition of an association</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/associations/{associationId}</td>
+								<td>Allows the deletion of an association</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Events" aria-expanded="false" aria-controls="Events">
+					Events
+				</button>
+			</h2>
+			<div id="Events" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/events/</td>
+								<td>Retrieve the list of events</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/events/{eventId}</td>
+								<td>Retrieve the details of an event</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/events/{eventId}</td>
+								<td>Allows editing an event</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/events/</td>
+								<td>Allows the addition of an event</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/events/{eventId}</td>
+								<td>Allows the deletion of an event</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Files" aria-expanded="false" aria-controls="Files">
+					Files
+				</button>
+			</h2>
+			<div id="Files" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/files/</td>
+								<td>Retrieve the list of files</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/files/{fileId}</td>
+								<td>Retrieve the details of a file</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/files/{fileId}</td>
+								<td>Allows editing a file</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/files/</td>
+								<td>Allows the addition of a file</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/files/{fileId}</td>
+								<td>Allows the deletion of a file</td>
+							</tr>
+						</tbody>
+					</table>				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Lessons" aria-expanded="false" aria-controls="Lessons">
+					Lessons
+				</button>
+			</h2>
+			<div id="Lessons" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/lessons/</td>
+								<td>Retrieve the list of lessons</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/lessons/{lessonId}</td>
+								<td>Retrieve the details of a lesson</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/lessons/{lessonId}</td>
+								<td>Allows editing a lesson</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/lessons/</td>
+								<td>Allows the addition of a lesson</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/lessons/{lessonId}</td>
+								<td>Allows the deletion of a lesson</td>
+							</tr>
+						</tbody>
+					</table>				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Profiles" aria-expanded="false" aria-controls="Profiles">
+					Profiles
+				</button>
+			</h2>
+			<div id="Profiles" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/profiles/</td>
+								<td>Retrieve the list of profiles</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/backoffice/superadmin/profiles/{profilId}</td>
+								<td>Retrieve the details of a profil</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/backoffice/superadmin/profiles/{profilId}</td>
+								<td>Allows editing a profil</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/backoffice/superadmin/profiles/</td>
+								<td>Allows the addition of a profil</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/backoffice/superadmin/profiles/{profilId}</td>
+								<td>Allows the deletion of a profil</td>
+							</tr>
+						</tbody>
+					</table>				</div>
+			</div>
+		</div>
+
+	</div>
 {% endblock %}

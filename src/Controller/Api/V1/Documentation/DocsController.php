@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/docs", name="api_v1_docs")
+ * @Route("/api/docs", name="api_v1_docs_")
  */
 class DocsController extends AbstractController
 {
@@ -32,21 +32,21 @@ class DocsController extends AbstractController
     }
 
     /**
-     * @Route("/", name="admin")
+     * @Route("/admin", name="admin")
      */
     public function admin(): Response
     {
-        return $this->render('api/v1/documentation/docs/index.html.twig', [
+        return $this->render('api/v1/documentation/docs/admin.html.twig', [
             'controller_name' => 'DocsController',
         ]);
     }
 
     /**
-     * @Route("/", name="member")
+     * @Route("/member", name="member")
      */
     public function member(): Response
     {
-        return $this->render('api/v1/documentation/docs/index.html.twig', [
+        return $this->render('api/v1/documentation/docs/member.html.twig', [
             'controller_name' => 'DocsController',
         ]);
     }
