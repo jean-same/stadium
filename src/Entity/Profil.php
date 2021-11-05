@@ -138,7 +138,8 @@ class Profil
      * @ORM\ManyToMany(targetEntity=Activity::class, inversedBy="profiles", fetch="EAGER")
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_profiles_browse"
+     *          "api_backoffice_superadmin_profiles_browse",
+     *          "api_member_activities_browse"
      *      }
      * )
      */
