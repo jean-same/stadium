@@ -1,20 +1,229 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DocsController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingOne">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#Account" aria-expanded="true" aria-controls="Account">
+					Accounts
+				</button>
+			</h2>
+			<div id="Account" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>api/v1/member/profil/{profilId}/account</td>
+								<td>Retrieve the details of an account according to profil</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/member/profil/{profilId}/account/</td>
+								<td>Allows editing an account according to profil</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingTwo">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Activities" aria-expanded="false" aria-controls="Activities">
+					Activities
+				</button>
+			</h2>
+			<div id="Activities" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/member/profil/{profilId}/activities/</td>
+								<td>Retrieve the list of activities according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/activities/{activityId}/register</td>
+								<td>Allows registration to an activity according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/activities/{activityId}/unregister</td>
+								<td>Allows unregistration to an activity according to profil.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Association" aria-expanded="false" aria-controls="Association">
+					Associations
+				</button>
+			</h2>
+			<div id="Association" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/member/profil/{profilId}/association</td>
+								<td>Retrieve the details of the association according to profi.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/association</td>
+								<td>Allows the addition of an association according to profil.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Events" aria-expanded="false" aria-controls="Events">
+					Events
+				</button>
+			</h2>
+			<div id="Events" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/member/account/1/profil/1/events</td>
+								<td>Retrieve the list of events according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/events/{eventId}/register</td>
+								<td>Allows registration of an event according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/events/{eventId}/unregister</td>
+								<td>Allows unregistration of an event according to profil.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Files" aria-expanded="false" aria-controls="Files">
+					Files
+				</button>
+			</h2>
+			<div id="Files" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/member/profil/{profilId}/files/</td>
+								<td>Retrieve the details of a file according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>/api/v1/member/profil/{profilId}/files/</td>
+								<td>Allows editing a file according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>/api/v1/member/profil/{profilId}/files/</td>
+								<td>Allows the addition of a file according to profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-danger">DELETE</th>
+								<td>/api/v1/member/profil/{profilId}/files/</td>
+								<td>Allows the deletion of a file according to profil.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="headingThree">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#Profiles" aria-expanded="false" aria-controls="Profiles">
+					Profiles
+				</button>
+			</h2>
+			<div id="Profiles" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+				<div class="accordion-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">Method</th>
+								<th scope="col">Route</th>
+								<th scope="col">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>api/v1/member/profiles</td>
+								<td>Retrieve the list of profiles.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-info">GET</th>
+								<td>/api/v1/member/profiles/{profilId}</td>
+								<td>Retrieve the details of the profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-warning">PATCH</th>
+								<td>api/v1/member/profiles/{profilId}</td>
+								<td>Allows editing the profil.</td>
+							</tr>
+							<tr>
+								<th scope="row" class="text-center text-white bg-success">POST</th>
+								<td>api/v1/member/profiles</td>
+								<td>Allows the addition of a profil</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/Stadium/projet-o-sport/src/Controller/Api/V1/Documentation/DocsController.php'|file_link(0) }}">src/Controller/Api/V1/Documentation/DocsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/Stadium/projet-o-sport/templates/api/v1/documentation/docs/index.html.twig'|file_link(0) }}">templates/api/v1/documentation/docs/index.html.twig</a></code></li>
-    </ul>
-</div>
+	</div>
 {% endblock %}
