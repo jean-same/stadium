@@ -28,8 +28,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      */
@@ -47,8 +47,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le nom de l'association est obligatoire.")
@@ -67,8 +67,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le nom du président(e) est obligatoire.")
@@ -87,8 +87,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le prénom du président(e) est obligatoire.")
@@ -107,8 +107,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse de l'association est obligatoire.")
@@ -129,8 +129,8 @@ class Association
      *          "api_backoffice_admin_association_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
-     *          "api_backoffice_member_association_browse",
-     *          "api_backoffice_member_profiles_browse"
+     *          "api_member_association_browse",
+     *          "api_member_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="Le numéro de téléphone est obligatoire.")
