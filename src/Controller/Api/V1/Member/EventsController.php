@@ -39,7 +39,7 @@ class EventsController extends AbstractController
 
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
 
         $events = $profil->getEvent();
 
@@ -55,7 +55,7 @@ class EventsController extends AbstractController
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
 
         $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
 
@@ -80,7 +80,7 @@ class EventsController extends AbstractController
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_BE_HERE', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
 
         $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
 
