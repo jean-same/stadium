@@ -2,11 +2,16 @@
 
 namespace App\Controller\Api\V1\Member;
 
+use App\Entity\Association;
 use App\Repository\AssociationRepository;
 use App\Repository\ProfilRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/api/v1/member/profil/{profilId}/association", name="api_v1_member_account_profil_association")
@@ -16,11 +21,17 @@ class AssociationController extends AbstractController
 
     private $profilRepository;
     private $associationRepository;
+    private $serializer;
+    private $validator;
+    private $entityManager;
 
-    public function __construct( AssociationRepository $associationRepository, ProfilRepository $profilRepository )
+    public function __construct(AssociationRepository $associationRepository, ProfilRepository $profilRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
         $this->associationRepository = $associationRepository;
         $this->profilRepository = $profilRepository;
+        $this->serializer = $serializer;
+        $this->validator = $validator;
+        $this->entityManager = $entityManager;
     }
     /**
      * @Route("/", name="read", methods={"GET"})
@@ -30,7 +41,7 @@ class AssociationController extends AbstractController
 
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
         $association = $profil->getAssociation();
 
         return $this->json($association, Response::HTTP_OK, [], ['groups' => 'api_member_association_browse']);
@@ -39,10 +50,74 @@ class AssociationController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(): Response
+    public function add($profilId, Request $request, AssociationRepository $associationRepository): Response
     {
-        return $this->render('api/v1/member/association/index.html.twig', [
-            'controller_name' => 'AssociationController',
-        ]);
+        $profil = $this->profilRepository->find($profilId);
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
+
+        $associations = $associationRepository->findAll();
+        //dd($associations);
+
+        $jsonContent = $request->getContent();
+
+        $association = $this->serializer->deserialize($jsonContent, Association::class, 'json');
+
+        //dd($association->getName());
+        foreach ($associations as $asso) {
+            $namesAsso[] = $asso->getName();
+        }
+        foreach ($namesAsso as $nameAsso) {
+            if ($nameAsso == $association->getName()) {
+                return $this->json("Association trouvée", Response::HTTP_OK);
+            } else {
+                return $this->json("L'association n'existe pas", Response::HTTP_NOT_FOUND);
+            }
+        }
+
+        $errors = $this->validator->validate($association);
+
+        if (count($errors) > 0) {
+            $responseAsArray = [
+                'error' => true,
+                'message' => $errors
+            ];
+            return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->entityManager->persist($association);
+        $this->entityManager->flush();
+
+        $responseAsArray = [
+            'message' => 'Association ajoutée',
+            'name' => $association->getName()
+        ];
+        return $this->json($responseAsArray, Response::HTTP_OK);
+    }
+
+    /**
+     * @Route("/{associationId}/register", name="register", methods={"POST"})
+     */
+    public function register($profilId, $associationId): Response
+    {
+        $profil = $this->profilRepository->find($profilId);
+        $association = $this->associationRepository->find($associationId);
+
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
+
+        if ($profil->getAssociation() == null) {
+            $profil->setAssociation($association);
+            $this->entityManager->flush();
+        }
+        else {
+            $nameAsso = "Vous êtes déjà incrit dans l'association : " . $profil->getAssociation()->getName();
+            return $this->json($nameAsso, Response::HTTP_FORBIDDEN);
+        }
+
+        $responseAsArray = [
+            'message' => 'Association ajoutée',
+            'name' => $association->getName(),
+        ];
+
+        return $this->json($responseAsArray, Response::HTTP_OK);
     }
 }
