@@ -52,13 +52,15 @@ class ProfilesController extends AbstractController
      */
     public function read($profilId): Response
     {
-        $profile = $this->profilRepository->find($profilId);
+        $profil = $this->profilRepository->find($profilId);
 
-                if (is_null($profile)) {
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+
+                if (is_null($profil)) {
                     return $this->getNotFoundResponse();
                 }
 
-        return $this->json($profile, Response::HTTP_OK, [], ['groups' => 'api_member_profiles_browse']);
+        return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'api_member_profiles_browse']);
     }
 
     /**
@@ -67,6 +69,8 @@ class ProfilesController extends AbstractController
     public function edit($profilId , Request $request): Response
     {
         $profil = $this->profilRepository->find($profilId);
+
+        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
 
         if (is_null($profil)) {
             return $this->getNotFoundResponse();
