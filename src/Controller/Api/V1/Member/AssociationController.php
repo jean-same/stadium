@@ -48,53 +48,6 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @Route("/", name="add", methods={"POST"})
-     */
-    public function add($profilId, Request $request, AssociationRepository $associationRepository): Response
-    {
-        $profil = $this->profilRepository->find($profilId);
-        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
-
-        $associations = $associationRepository->findAll();
-        //dd($associations);
-
-        $jsonContent = $request->getContent();
-
-        $association = $this->serializer->deserialize($jsonContent, Association::class, 'json');
-
-        //dd($association->getName());
-        foreach ($associations as $asso) {
-            $namesAsso[] = $asso->getName();
-        }
-        foreach ($namesAsso as $nameAsso) {
-            if ($nameAsso == $association->getName()) {
-                return $this->json("Association trouvée", Response::HTTP_OK);
-            } else {
-                return $this->json("L'association n'existe pas", Response::HTTP_NOT_FOUND);
-            }
-        }
-
-        $errors = $this->validator->validate($association);
-
-        if (count($errors) > 0) {
-            $responseAsArray = [
-                'error' => true,
-                'message' => $errors
-            ];
-            return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $this->entityManager->persist($association);
-        $this->entityManager->flush();
-
-        $responseAsArray = [
-            'message' => 'Association ajoutée',
-            'name' => $association->getName()
-        ];
-        return $this->json($responseAsArray, Response::HTTP_OK);
-    }
-
-    /**
      * @Route("/{associationId}/register", name="register", methods={"POST"})
      */
     public function register($profilId, $associationId): Response
