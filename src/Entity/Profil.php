@@ -147,7 +147,7 @@ class Profil
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
      *          "api_member_activities_browse",
-     *          "api_member_profiles_browse"
+     *          "api_member_profiles_browse",
      *      }
      * )
      */
