@@ -119,6 +119,7 @@ class AppFixtures extends Fixture
         $accountAssoc = [];
         $accountAdmin = [];
         $eventCreatedArray = [];
+        $lessonsCreatedArray = [];
 
         $nb = 0;
         //$accountsList = [];
@@ -302,6 +303,23 @@ class AppFixtures extends Fixture
                 ->setPlace($faker->address())
                 ->setActivity($activity);
 
+            /*$nbProfilForLesson = mt_rand(0, count($adherentArray));
+            $profilToAddInLesson = $faker->randomElements($adherentArray, $nbProfilForLesson);
+
+            foreach ($profilToAddInLesson as $currentProfilForLesson) {
+                $testOne = ($currentProfilForLesson->getAssociation() == $lesson->getActivity()->getAssociation() );
+
+                if ($testOne) {
+                    foreach($lesson->getProfiles() as $currentProfil ){
+                        if($currentProfil != $currentProfilForLesson ){
+                            $lesson->addProfile($currentProfilForLesson);
+                        }
+                    }
+
+                }
+            }*/
+
+            $lessonsCreatedArray [] = $lesson;
             $manager->persist($lesson);
         }
 
@@ -312,6 +330,26 @@ class AppFixtures extends Fixture
             $associationForEvents->addEvent($currentEvent);
             $manager->persist($association);
         }
+
+
+        $nbProfilForLesson = mt_rand(0, count($adherentArray));
+        $profilToAddInLesson = $faker->randomElements($adherentArray, $nbProfilForLesson);
+
+        foreach ($profilToAddInLesson as $currentProfilForLesson) {
+
+                foreach($lessonsCreatedArray as $currentLesson ){
+                    $testOne = ($currentProfilForLesson->getAssociation() == $currentLesson->getActivity()->getAssociation() );
+                    if ($testOne) {
+                        if ($currentLesson != $currentProfilForLesson->getLesson()) {
+                            $currentLesson->addProfile($currentProfilForLesson);
+                            $manager->persist($currentLesson);
+                        }
+                    }
+                }
+        }
+
+
+        $manager->persist($lesson);
 
         $manager->flush();
     }

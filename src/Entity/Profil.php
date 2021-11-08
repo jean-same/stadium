@@ -154,7 +154,7 @@ class Profil
     private $activity;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Lesson::class, inversedBy="profiles")
+     * @ORM\ManyToMany(targetEntity=Lesson::class, inversedBy="profiles" , fetch="EAGER")
      */
     private $lesson;
 
