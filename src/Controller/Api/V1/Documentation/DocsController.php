@@ -7,12 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/docs", name="api_v1_docs_")
+ * @Route("/", name="api_v1_docs_")
  */
 class DocsController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("", name="home")
      */
     public function home(): Response
     {
@@ -22,7 +22,7 @@ class DocsController extends AbstractController
     }
 
     /**
-     * @Route("/superadmin", name="superadmin")
+     * @Route("/docs/superadmin", name="superadmin")
      */
     public function superadmin(): Response
     {
@@ -32,7 +32,7 @@ class DocsController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/docs/admin", name="admin")
      */
     public function admin(): Response
     {
@@ -42,7 +42,7 @@ class DocsController extends AbstractController
     }
 
     /**
-     * @Route("/member", name="member")
+     * @Route("/docs/member", name="member")
      */
     public function member(): Response
     {

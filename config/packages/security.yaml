@@ -34,6 +34,11 @@ security:
     main:
       lazy: true
       provider: app_user_provider
+      custom_authenticator: App\Security\DocumentationAuthenticator
+      logout:
+        path: app_logout
+        # where to redirect after logout
+        # target: app_any_route
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
@@ -53,3 +58,5 @@ security:
     - { path: ^/api/v1/backoffice/admin/association, roles: PUBLIC_ACCESS }
 
     - { path: ^/api/v1/backoffice/superadmin, roles: PUBLIC_ACCESS }
+
+    - { path: ^/docs, roles: ROLE_SUPER_ADMIN }

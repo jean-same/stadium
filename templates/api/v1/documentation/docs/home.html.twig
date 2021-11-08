@@ -1,5 +1,124 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+	{{ parent() }}
+	Home!
+{% endblock %}
+
 {% block body %}
-<p>A remplir plus tard ...</p>
+
+	<div class="container ">
+		<h1 class="text-center my-3">Welcome on Stadium api documentation</h1>
+		<h2>Introduction</h2>
+		<p>Welcome on the version 1 of the Stadium Database Api, this API provides endpoints to browse, read, edit , add and delete ressources.</p>
+		<p>For access to this API, you'll need a superadmin account, if you forgot your username please contact us
+			<a href="">stadium.valkyrie@gmail.com
+			</a>.
+		</p>
+		<p>All results are returned in JSON format.
+		</p>
+		<p>All Requests should be in the format "/api/v1/ENDPOINT", ex: "/api/v1/backoffice/superadmin/accounts/" .</p>
+		<p>In order to provide a quality API to our front-end team, we are working every day on new features. Find the complete list of features on our documentation.</p>
+
+		<div class="team">
+        <h1 class="text-center title-team"> Meet our team </h1>
+			<div class="team-div p-5 my-5">
+				<h1 class="text-center ">Team Front</h1>
+				<div class=" d-flex justify-content-between row">
+					<section class="profile col-4">
+						<header class="header full granimate">
+							<div class="details">
+								<img src="{{ asset('assets/m.png') }}" alt="John Doe" class="profile-pic">
+								<h1 class="heading">Jean-Louis</h1>
+								<h1 class="heading">Git Master</h1>
+								<div class="location">
+									<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor">
+										<path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+									</svg>
+									<p>Stadium</p>
+								</div>
+
+							</div>
+						</header>
+					</section>
+
+					<section class="profile col-4">
+						<header class="header full granimate">
+							<div class="details">
+								<img src="{{ asset('assets/f.jpg') }}" alt="John Doe" class="profile-pic">
+								<h1 class="heading">Stéphanie</h1>
+								<h1 class="heading">Scrum Master</h1>
+								<div class="location">
+									<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor">
+										<path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+									</svg>
+									<p>Stadium</p>
+								</div>
+
+							</div>
+
+						</header>
+					</section>
+
+					<section class="profile col-4">
+						<header class="header full granimate">
+							<div class="details">
+								<img src="{{ asset('assets/m.png') }}" alt="John Doe" class="profile-pic">
+								<h1 class="heading">Pablo</h1>
+								<h1 class="heading">Lead dev front</h1>
+								<div class="location">
+									<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor">
+										<path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+									</svg>
+									<p>Stadium</p>
+								</div>
+
+							</div>
+						</header>
+					</section>
+				</div>
+			</div>
+
+
+			<div class="team-div p-5 screen__content">
+				<h1 class="text-center">Team Back</h1>
+				<div class="container d-flex justify-content-evenly">
+					<section class="profile col-4">
+						<header class="header full granimate">
+							<div class="details">
+								<img src="{{ asset('assets/m.png') }}" alt="John Doe" class="profile-pic">
+								<h1 class="heading">Jean</h1>
+								<h1 class="heading">Lead dev back</h1>
+								<div class="location">
+									<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor">
+										<path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+									</svg>
+									<p>Stadium</p>
+								</div>
+
+							</div>
+						</header>
+					</section>
+
+					<section class="profile col-4">
+						<header class="header full granimate">
+							<div class="details">
+								<img src="{{ asset('assets/f.jpg') }}" alt="John Doe" class="profile-pic">
+								<h1 class="heading">Mélanie</h1>
+								<h1 class="heading">Product Owner</h1>
+								<div class="location">
+									<svg width="18" height="18" viewbox="0 0 24 24" fill="currentColor">
+										<path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12 ,2Z"></path>
+									</svg>
+									<p>Stadium</p>
+								</div>
+
+							</div>
+						</header>
+					</section>
+				</div>
+			</div>
+
+		</div>
+	</div>
 {% endblock %}
