@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\LessonRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -126,6 +128,16 @@ class Lesson
      */
     private $activity;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="lesson")
+     */
+    private $profiles;
+
+    public function __construct()
+    {
+        $this->profiles = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -199,6 +211,33 @@ class Lesson
     public function setActivity(?Activity $activity): self
     {
         $this->activity = $activity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Profil[]
+     */
+    public function getProfiles(): Collection
+    {
+        return $this->profiles;
+    }
+
+    public function addProfile(Profil $profile): self
+    {
+        if (!$this->profiles->contains($profile)) {
+            $this->profiles[] = $profile;
+            $profile->addLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfile(Profil $profile): self
+    {
+        if ($this->profiles->removeElement($profile)) {
+            $profile->removeLesson($this);
+        }
 
         return $this;
     }

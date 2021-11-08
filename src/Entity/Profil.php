@@ -153,10 +153,16 @@ class Profil
      */
     private $activity;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Lesson::class, inversedBy="profiles")
+     */
+    private $lesson;
+
     public function __construct()
     {
         $this->event = new ArrayCollection();
         $this->activity = new ArrayCollection();
+        $this->lesson = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -280,6 +286,30 @@ class Profil
     public function removeActivity(Activity $activity): self
     {
         $this->activity->removeElement($activity);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lesson[]
+     */
+    public function getLesson(): Collection
+    {
+        return $this->lesson;
+    }
+
+    public function addLesson(Lesson $lesson): self
+    {
+        if (!$this->lesson->contains($lesson)) {
+            $this->lesson[] = $lesson;
+        }
+
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): self
+    {
+        $this->lesson->removeElement($lesson);
 
         return $this;
     }
