@@ -121,7 +121,8 @@ class Lesson
      * @ORM\JoinColumn(nullable=false)
      * @Groups(
      *      {
-     *          "api_backoffice_superadmin_lessons_browse"
+     *          "api_backoffice_superadmin_lessons_browse",
+     *          "api_backoffice_superadmin_profiles_browse"
      *      }
      * )
      * @Assert\NotBlank(message="L'activité est obligatoire")
