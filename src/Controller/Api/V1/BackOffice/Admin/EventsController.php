@@ -119,13 +119,10 @@ class EventsController extends AbstractController
     */
     public function add(Request $request, $associationId): Response
     {
+        $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
         $event = $this->serializer->deserialize($jsonContent, Event::class, 'json');
-
-        if($event->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
-
+        $event->setAssociation($association);
 
         $errors = $this->validator->validate($event);
 

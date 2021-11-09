@@ -121,12 +121,11 @@ class ActivitiesController extends AbstractController
      */
     public function add(Request $request, $associationId): Response
     {
+        $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
         $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
-
-        if($activity->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        
+        $activity->setAssociation($association);
 
 
         $errors = $this->validator->validate($activity);
