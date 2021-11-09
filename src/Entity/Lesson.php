@@ -130,6 +130,11 @@ class Lesson
 
     /**
      * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="lesson")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_lessons_browse"
+     *      }
+     * )
      */
     private $profiles;
 

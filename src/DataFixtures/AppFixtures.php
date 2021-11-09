@@ -321,6 +321,24 @@ class AppFixtures extends Fixture
 
             $lessonsCreatedArray [] = $lesson;
             $manager->persist($lesson);
+
+            
+            $nbProfilForLesson = mt_rand(0, count($adherentArray));
+            $profilToAddInLesson = $faker->randomElements($adherentArray, $nbProfilForLesson);
+    
+            foreach ($profilToAddInLesson as $currentProfilForLesson) {
+    
+                    foreach($lessonsCreatedArray as $currentLesson ){
+                        $testOne = ($currentProfilForLesson->getAssociation() == $currentLesson->getActivity()->getAssociation() );
+                        if ($testOne) {
+                            if ($currentLesson != $currentProfilForLesson->getLesson()) {
+                                $currentLesson->addProfile($currentProfilForLesson);
+                                $manager->persist($currentLesson);
+                            }
+                        }
+                    }
+            }
+
         }
 
         $associationForEvents = $faker->randomElement($assocArray);
@@ -331,22 +349,6 @@ class AppFixtures extends Fixture
             $manager->persist($association);
         }
 
-
-        $nbProfilForLesson = mt_rand(0, count($adherentArray));
-        $profilToAddInLesson = $faker->randomElements($adherentArray, $nbProfilForLesson);
-
-        foreach ($profilToAddInLesson as $currentProfilForLesson) {
-
-                foreach($lessonsCreatedArray as $currentLesson ){
-                    $testOne = ($currentProfilForLesson->getAssociation() == $currentLesson->getActivity()->getAssociation() );
-                    if ($testOne) {
-                        if ($currentLesson != $currentProfilForLesson->getLesson()) {
-                            $currentLesson->addProfile($currentProfilForLesson);
-                            $manager->persist($currentLesson);
-                        }
-                    }
-                }
-        }
 
 
         $manager->persist($lesson);
