@@ -42,19 +42,16 @@ class AppFixtures extends Fixture
         ];
 
         $activitiesArray = [
-            "Aquagym",
             "Musculation",
             "Volley-ball",
             "Zumba",
             "Tennis",
-            "Tennis de table",
-            "Théâtre",
+            "Ping-pong",
             "Pilates",
             "Plongée",
             "Natation",
-            "Cardio-training",
-            "Course à pied",
-            "Chorale",
+            "Football",
+            "Running",
             "Badminton",
             "Basket-ball",
             "Boxing",
