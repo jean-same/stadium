@@ -104,6 +104,11 @@ class Activity
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_activities_browse"
+     *      }
+     * )
      */
     private $icon;
 
