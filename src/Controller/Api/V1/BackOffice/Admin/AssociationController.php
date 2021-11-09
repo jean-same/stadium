@@ -6,6 +6,7 @@ use App\Entity\Association;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,14 +27,16 @@ class AssociationController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager, AssociationServices $associationServices)
     {
         $this->accountRepository        = $accountRepository;
         $this->associationRepository    = $associationRepository;
         $this->validator                = $validator;
         $this->serializer               = $serializer;
         $this->entityManager            = $entityManager;
+        $this->associationServices      = $associationServices;
     }
     /**
     * @Route("/", name="browse", methods={"GET"})
@@ -41,7 +44,7 @@ class AssociationController extends AbstractController
     public function browse($associationId): Response
     {
 
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         return $this->json($association, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_browse"]);
     }
@@ -51,7 +54,7 @@ class AssociationController extends AbstractController
     */
     public function edit( $associationId , Request $request): Response
     {
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         $jsonContent = $request->getContent();
 

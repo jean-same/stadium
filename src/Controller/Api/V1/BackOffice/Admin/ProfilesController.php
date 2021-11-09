@@ -3,16 +3,17 @@
 namespace App\Controller\Api\V1\BackOffice\Admin;
 
 use App\Entity\Profil;
-use App\Repository\AssociationRepository;
 use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles", name="api_v1_backoffice_admin_profiles_")
@@ -24,14 +25,16 @@ class ProfilesController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(ProfilRepository $profilRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(ProfilRepository $profilRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager,  AssociationServices $associationServices)
     {
         $this->profilRepository = $profilRepository;
         $this->associationRepository = $associationRepository;
         $this->validator = $validator;
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
+        $this->associationServices = $associationServices;
     }
 
     /**
@@ -39,7 +42,7 @@ class ProfilesController extends AbstractController
      */
     public function browse(int $associationId): Response
     {
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         $profiles = $association->getProfils();
         //dd($activities);

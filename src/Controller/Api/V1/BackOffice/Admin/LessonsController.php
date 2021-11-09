@@ -3,16 +3,17 @@
 namespace App\Controller\Api\V1\BackOffice\Admin;
 
 use App\Entity\Lesson;
-use App\Repository\AssociationRepository;
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/api/v1/backoffice/admin/association/{associationId}/lessons", name="api_v1_back_office_admin_association_lessons_")
@@ -24,27 +25,31 @@ class LessonsController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(AssociationRepository $associationRepository, LessonRepository $lessonRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(AssociationRepository $associationRepository, LessonRepository $lessonRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager,  AssociationServices $associationServices)
     {
         $this->associationRepository = $associationRepository;
         $this->lessonRepository = $lessonRepository;;
         $this->validator = $validator;
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
+        $this->associationServices = $associationServices;
     }
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
     public function browse(int $associationId): Response
     {
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         $activitiesAssociation = $association->getActivities();
-        //dd($activities);
+        
         foreach ($activitiesAssociation as $activities) {
             $listLessons[] = $activities->getLessons();
         }
+
+
         return $this->json($listLessons, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_lessons_browse']);
     }
 
