@@ -102,6 +102,11 @@ class Activity
      */
     private $lessons;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icon;
+
     public function __construct()
     {
         $this->profiles = new ArrayCollection();
@@ -202,6 +207,18 @@ class Activity
                 $lesson->setActivity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }
