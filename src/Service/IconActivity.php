@@ -19,7 +19,7 @@ class IconActivity
             "Running" => "running.png",
             "Badminton" => "badminton.png",
             "Basket-ball" => "basket-ball.png",
-            "Boxe" => "boxe.png",
+            "Boxing" => "boxing.png",
             "Fitness" => "fitness.png"
         ];
 
