@@ -4,6 +4,7 @@ namespace App\Controller\Api\V1\Member;
 
 use App\Repository\ActivityRepository;
 use App\Repository\ProfilRepository;
+use App\Service\Members\MembersActivitiesServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,17 +19,15 @@ class ActivitiesController extends AbstractController
 {
     private $profilRepository;
     private $activityRepository;
-    private $serializer;
-    private $validator;
     private $entityManager;
+    private $membersActivitiesServices;
 
-    public function __construct(ProfilRepository $profilRepository, ActivityRepository $activityRepository, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    public function __construct(ProfilRepository $profilRepository, ActivityRepository $activityRepository, EntityManagerInterface $entityManager, MembersActivitiesServices $membersActivitiesServices)
     {
         $this->profilRepository = $profilRepository;
         $this->activityRepository = $activityRepository;
-        $this->serializer = $serializer;
-        $this->validator = $validator;
         $this->entityManager = $entityManager;
+        $this->membersActivitiesServices = $membersActivitiesServices;
     }
 
     /**
@@ -47,44 +46,48 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{activityId}/register", name="register", methods={"POST"})
      */
-    public function register($profilId, $activityId):Response
+    public function register($profilId, $activityId): Response
     {
         $profil = $this->profilRepository->find($profilId);
         $activity = $this->activityRepository->find($activityId);
 
         $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
 
+        $this->membersActivitiesServices->canRegisterOrUnregister($activity, $profil);
+
         $profil->addActivity($activity);
 
         $this->entityManager->flush();
-        
+
         $responseAsArray = [
             'message' => 'Inscription prise en compte',
             'name' => $activity->getName(),
         ];
 
-        return $this->json($responseAsArray,Response::HTTP_OK);
+        return $this->json($responseAsArray, Response::HTTP_CREATED);
     }
 
     /**
      * @Route("/{activityId}/unregister", name="unregister", methods={"POST"})
      */
-    public function unregister($profilId, $activityId):Response
+    public function unregister($profilId, $activityId): Response
     {
         $profil = $this->profilRepository->find($profilId);
         $activity = $this->activityRepository->find($activityId);
 
         $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
 
+        $this->membersActivitiesServices->canRegisterOrUnregister($activity, $profil);
+
         $profil->removeActivity($activity);
 
         $this->entityManager->flush();
-        
+
         $responseAsArray = [
             'message' => 'Désincription prise en compte',
             'name' => $activity->getName(),
         ];
 
-        return $this->json($responseAsArray,Response::HTTP_OK);
+        return $this->json($responseAsArray, Response::HTTP_OK);
     }
 }
