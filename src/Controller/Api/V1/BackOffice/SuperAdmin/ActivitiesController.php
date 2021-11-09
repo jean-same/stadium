@@ -5,6 +5,7 @@ namespace App\Controller\Api\V1\BackOffice\SuperAdmin;
 use App\Entity\Activity;
 use App\Repository\ActivityRepository;
 use App\Repository\AssociationRepository;
+use App\Service\IconActivity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -98,7 +99,7 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request): Response
+    public function add(Request $request, IconActivity $iconActivity): Response
     {
         $jsonContent = $request->getContent();
 
@@ -115,6 +116,9 @@ class ActivitiesController extends AbstractController
         }
 
         $this->entityManager->persist($activity);
+        $icon = $iconActivity->getIconForActivity($activity->getName());
+        $activity->setIcon($icon);
+
         $this->entityManager->flush();
 
         $responseAsArray = [
