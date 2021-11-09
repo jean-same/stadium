@@ -7,6 +7,7 @@ use App\Repository\AccountRepository;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,8 +29,9 @@ class ActivitiesController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, ActivityRepository $activityRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, ActivityRepository $activityRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager, AssociationServices $associationServices )
     {
         $this->accountRepository        = $accountRepository;
         $this->associationRepository    = $associationRepository;
@@ -37,6 +39,7 @@ class ActivitiesController extends AbstractController
         $this->validator                = $validator;
         $this->serializer               = $serializer;
         $this->entityManager            = $entityManager;
+        $this->associationServices      = $associationServices;
     }
 
     /**
@@ -45,7 +48,7 @@ class ActivitiesController extends AbstractController
     public function browse($associationId): Response
     {
 
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         $activities = $association->getActivities();
         return $this->json($activities, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_activities_browse"]);
@@ -118,12 +121,11 @@ class ActivitiesController extends AbstractController
      */
     public function add(Request $request, $associationId): Response
     {
+        $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
         $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
-
-        if($activity->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        
+        $activity->setAssociation($association);
 
 
         $errors = $this->validator->validate($activity);

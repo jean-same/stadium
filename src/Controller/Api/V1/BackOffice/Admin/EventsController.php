@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,14 +26,16 @@ class EventsController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(ValidatorInterface $validator, AssociationRepository $associationRepository, EventRepository $eventRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager)
+    public function __construct(ValidatorInterface $validator, AssociationRepository $associationRepository, EventRepository $eventRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager,  AssociationServices $associationServices)
     {
         $this->associationRepository    = $associationRepository;
         $this->eventRepository          = $eventRepository;
         $this->validator                = $validator;
         $this->serializer               = $serializer;
         $this->entityManager            = $entityManager;
+        $this->associationServices      = $associationServices;
     }
 
     /**
@@ -41,7 +44,7 @@ class EventsController extends AbstractController
     public function browse($associationId): Response
     {
 
-        $association = $this->associationRepository->find($associationId);
+        $association = $this->associationServices->getAssocFromUser();
 
         $events = $association->getEvents();
 
@@ -116,13 +119,10 @@ class EventsController extends AbstractController
     */
     public function add(Request $request, $associationId): Response
     {
+        $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
         $event = $this->serializer->deserialize($jsonContent, Event::class, 'json');
-
-        if($event->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
-
+        $event->setAssociation($association);
 
         $errors = $this->validator->validate($event);
 
