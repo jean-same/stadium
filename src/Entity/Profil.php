@@ -159,6 +159,11 @@ class Profil
 
     /**
      * @ORM\ManyToMany(targetEntity=Lesson::class, inversedBy="profiles" , fetch="EAGER")
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_profiles_browse"
+     *      }
+     * )
      */
     private $lesson;
 
