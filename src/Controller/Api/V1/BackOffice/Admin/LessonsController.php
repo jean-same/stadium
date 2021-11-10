@@ -44,7 +44,7 @@ class LessonsController extends AbstractController
         $association = $this->associationServices->getAssocFromUser();
 
         $activitiesAssociation = $association->getActivities();
-        
+
         foreach ($activitiesAssociation as $activities) {
             $listLessons[] = $activities->getLessons();
         }
@@ -59,34 +59,41 @@ class LessonsController extends AbstractController
     public function read(int $associationId, int $lessonId): Response
     {
         $lesson = $this->lessonRepository->find($lessonId);
-        //dd($lesson);
 
-        if(($lesson->getActivity()->getAssociation()->getId() != $associationId))
-        {
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
-        }
-
-        if(is_null($lesson)){
+        if (is_null($lesson)) {
             return $this->getNotFoundResponse();
         }
 
-        return $this->json($lesson, Response::HTTP_OK, [], ['groups'=>'api_backoffice_admin_association_lessons_browse']);
+        $match = $this->associationServices->checkAssocMatch($lesson);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
+
+        return $this->json($lesson, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_lessons_browse']);
     }
 
     /**
      * @Route("/{lessonId}", name="edit", methods={"PATCH"}, requirements={"lessonId"="\d+"})
      */
-    public function edit(int $associationId,int $lessonId, Request $request):Response
+    public function edit(int $associationId, int $lessonId, Request $request): Response
     {
-        $lesson=$this->lessonRepository->find($lessonId);
+        $lesson = $this->lessonRepository->find($lessonId);
 
-        if($lesson->getActivity()->getAssociation()->getId() != $associationId){
+        if (is_null($lesson)) {
+            return $this->getNotFoundResponse();
+        }
+
+        $match = $this->associationServices->checkAssocMatch($lesson);
+
+        if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
         $jsonContent = $request->getContent();
 
-        $this->serializer->deserialize($jsonContent, Lesson::class,'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $lesson]);
+        $this->serializer->deserialize($jsonContent, Lesson::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $lesson]);
 
         $errors = $this->validator->validate($lesson);
 
@@ -113,12 +120,11 @@ class LessonsController extends AbstractController
      */
     public function add(Request $request, int $associationId): Response
     {
-        $jsonContent=$request->getContent();
+        $jsonContent = $request->getContent();
 
-        $lesson=$this->serializer->deserialize($jsonContent, Lesson::class,'json');
+        $lesson = $this->serializer->deserialize($jsonContent, Lesson::class, 'json');
 
-        if($lesson->getActivity()->getAssociation()->getId() != $associationId)
-        {
+        if ($lesson->getActivity()->getAssociation()->getId() != $associationId) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
         $errors = $this->validator->validate($lesson);
@@ -148,13 +154,18 @@ class LessonsController extends AbstractController
     /**
      * @Route("/{lessonId}", name="delete", methods={"DELETE"}, requirements={"lessonId"="\d+"})
      */
-    public function delete(int $lessonId, int $associationId):Response
+    public function delete(int $lessonId, int $associationId): Response
     {
-        $lesson=$this->lessonRepository->find($lessonId);
+        $lesson = $this->lessonRepository->find($lessonId);
 
-        if($lesson->getActivity()->getAssociation()->getId() != $associationId)
-        {
-            return json_decode("Accès interdit", Response::HTTP_FORBIDDEN);
+        if (is_null($lesson)) {
+            return $this->getNotFoundResponse();
+        }
+
+        $match = $this->associationServices->checkAssocMatch($lesson);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
         $this->entityManager->remove($lesson);
@@ -163,12 +174,13 @@ class LessonsController extends AbstractController
         $responseAsArray = [
             'message' => 'Lesson supprimé',
             'level' => $lesson->getLevel(),
-            'activity'=>$lesson->getActivity()->getName()
+            'activity' => $lesson->getActivity()->getName()
         ];
         return $this->json($responseAsArray);
     }
 
-    private function getNotFoundResponse() {
+    private function getNotFoundResponse()
+    {
 
         $responseArray = [
             'error' => true,
