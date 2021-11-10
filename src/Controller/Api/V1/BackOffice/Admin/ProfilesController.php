@@ -57,14 +57,16 @@ class ProfilesController extends AbstractController
     {
         $profil = $this->profilRepository->find($profilId);
 
-        if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
-        }
-
         if (is_null($profil)) {
             return $this->getNotFoundResponse();
         }
 
+        $match = $this->associationServices->checkAssocMatch($profil);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }       
+        
         return $this->json($profil, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_profiles_browse']);
     }
 
@@ -75,12 +77,14 @@ class ProfilesController extends AbstractController
     {
         $profil = $this->profilRepository->find($profilId);
 
-        if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
-        }
-
         if (is_null($profil)) {
             return $this->getNotFoundResponse();
+        }
+
+        $match = $this->associationServices->checkAssocMatch($profil);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
         $jsonContent = $request->getContent();
@@ -149,14 +153,15 @@ class ProfilesController extends AbstractController
     {
         $profil = $this->profilRepository->find($profilId);
 
-        if ($profil->getAssociation()->getId() != $associationId) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
-        }
-
         if (is_null($profil)) {
             return $this->getNotFoundResponse();
         }
 
+        $match = $this->associationServices->checkAssocMatch($profil);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
         $this->entityManager->remove($profil);
         $this->entityManager->flush();
 
