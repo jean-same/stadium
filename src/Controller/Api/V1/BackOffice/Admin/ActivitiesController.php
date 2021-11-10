@@ -8,6 +8,7 @@ use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Service\Admin\AssociationServices;
+use App\Service\IconActivity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -128,7 +129,7 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("", name="add", methods={"POST"})
      */
-    public function add(Request $request, $associationId): Response
+    public function add(Request $request, $associationId, IconActivity $iconActivity): Response
     {
         $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
@@ -149,6 +150,9 @@ class ActivitiesController extends AbstractController
         }
 
         $this->entityManager->persist($activity);
+        $icon = $iconActivity->getIconForActivity($activity->getName());
+        $activity->setIcon($icon);
+        
         $this->entityManager->flush();
 
         $reponseAsArray = [
