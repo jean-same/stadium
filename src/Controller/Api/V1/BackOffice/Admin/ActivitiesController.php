@@ -51,7 +51,6 @@ class ActivitiesController extends AbstractController
     {
 
         $association = $this->associationServices->getAssocFromUser();
-
         $activities = $association->getActivities();
         return $this->json($activities, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_activities_browse"]);
     }
@@ -61,7 +60,13 @@ class ActivitiesController extends AbstractController
      */
     public function read($activityId, $associationId): Response
     {
+        //dd($activityId);
+
         $activity = $this->activityRepository->find($activityId);
+
+        if (is_null($activity)) {
+            return $this->getNotFoundResponse();
+        }
 
         $match = $this->associationServices->checkAssocMatch($activity);
 
@@ -69,9 +74,7 @@ class ActivitiesController extends AbstractController
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
-        // if (is_null($activity)) {
-        //     return $this->getNotFoundResponse();
-        // }
+
 
         return $this->json($activity, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_activities_browse']);
     }
@@ -84,15 +87,15 @@ class ActivitiesController extends AbstractController
 
         $activity = $this->activityRepository->find($activityId);
 
+        if (is_null($activity)) {
+            return $this->getNotFoundResponse();
+        }
+
         $match = $this->associationServices->checkAssocMatch($activity);
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
-
-        // if (is_null($activity)) {
-        //     return $this->getNotFoundResponse();
-        // }
 
         $jsonContent = $request->getContent();
 
@@ -163,14 +166,15 @@ class ActivitiesController extends AbstractController
     {
         $activity = $this->activityRepository->find($activityId);
 
+        if (is_null($activity)) {
+            return $this->getNotFoundResponse();
+        }
+
         $match = $this->associationServices->checkAssocMatch($activity);
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
-        // if (is_null($activity)) {
-        //     return $this->getNotFoundResponse();
-        // }
 
         $this->entityManager->remove($activity);
         $this->entityManager->flush();
