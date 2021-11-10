@@ -39,7 +39,7 @@ class LessonsController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(int $associationId): Response
+    public function browse(): Response
     {
         $association = $this->associationServices->getAssocFromUser();
 
@@ -56,7 +56,7 @@ class LessonsController extends AbstractController
     /**
      * @Route("/{lessonId}", name="read", methods={"GET"}, requirements={"lessonId"="\d+"})
      */
-    public function read(int $associationId, int $lessonId): Response
+    public function read( int $lessonId): Response
     {
         $lesson = $this->lessonRepository->find($lessonId);
 
@@ -154,7 +154,7 @@ class LessonsController extends AbstractController
     /**
      * @Route("/{lessonId}", name="delete", methods={"DELETE"}, requirements={"lessonId"="\d+"})
      */
-    public function delete(int $lessonId, int $associationId): Response
+    public function delete(int $lessonId): Response
     {
         $lesson = $this->lessonRepository->find($lessonId);
 

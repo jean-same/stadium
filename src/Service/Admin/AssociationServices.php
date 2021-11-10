@@ -44,9 +44,7 @@ class AssociationServices
     public function checkAssocMatchFiles($file)
     {
         $association = $this->getAssocFromUser();
-        // dd($association);
-        $assoDossier = $file->getProfil()->getAssociation();
-        //dd($assoDossier);
+        
         if ($file->getProfil()->getAssociation() == $association) {
             return true;
         } else {

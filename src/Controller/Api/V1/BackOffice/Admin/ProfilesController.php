@@ -40,7 +40,7 @@ class ProfilesController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse(int $associationId): Response
+    public function browse(): Response
     {
         $association = $this->associationServices->getAssocFromUser();
 
@@ -53,7 +53,7 @@ class ProfilesController extends AbstractController
     /**
      * @Route("/{profilId}", name="read", methods={"GET"}, requirements={"profilId"="\d+"})
      */
-    public function read(int $associationId, int $profilId): Response
+    public function read(int $profilId): Response
     {
         $profil = $this->profilRepository->find($profilId);
 
@@ -73,7 +73,7 @@ class ProfilesController extends AbstractController
     /**
      * @Route("/{profilId}", name="edit", methods={"PATCH"}, requirements={"profilId"="\d+"})
      */
-    public function edit(int $associationId, int $profilId, Request $request): Response
+    public function edit(int $profilId, Request $request): Response
     {
         $profil = $this->profilRepository->find($profilId);
 
@@ -149,7 +149,7 @@ class ProfilesController extends AbstractController
     /**
      * @Route("/{profilId}", name="delete", methods={"DELETE"}, requirements={"profilId"="\d+"})
      */
-    public function delete(int $associationId, int $profilId):Response
+    public function delete(int $profilId):Response
     {
         $profil = $this->profilRepository->find($profilId);
 

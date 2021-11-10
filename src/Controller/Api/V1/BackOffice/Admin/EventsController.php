@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}/events", name="api_v1_backoffice_admin_association_events")
+ * @Route("/api/v1/backoffice/admin/association/events", name="api_v1_backoffice_admin_association_events")
  */
 class EventsController extends AbstractController
 {
@@ -41,7 +41,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse($associationId): Response
+    public function browse(): Response
     {
 
         $association = $this->associationServices->getAssocFromUser();
@@ -54,7 +54,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"eventId"="\d+"})
      */
-    public function read($eventId, $associationId): Response
+    public function read($eventId): Response
     {
         $event = $this->eventRepository->find($eventId);
 
@@ -75,7 +75,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"eventId"="\d+"})
      */
-    public function edit(int $eventId, $associationId,  Request $request): Response
+    public function edit(int $eventId, Request $request): Response
     {
 
         $event = $this->eventRepository->find($eventId);
@@ -120,7 +120,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, $associationId): Response
+    public function add(Request $request): Response
     {
         $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
@@ -152,7 +152,7 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"eventId"="\d+"})
      */
-    public function delete(int $eventId, $associationId): Response
+    public function delete(int $eventId): Response
     {
         $event = $this->eventRepository->find($eventId);
 

@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Security;
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}/activities", name="api_v1_backoffice_admin_association_activities")
+ * @Route("/api/v1/backoffice/admin/association/activities", name="api_v1_backoffice_admin_association_activities")
  */
 class ActivitiesController extends AbstractController
 {
@@ -48,7 +48,7 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/", name="browse", methods={"GET"})
      */
-    public function browse($associationId): Response
+    public function browse(): Response
     {
 
         $association = $this->associationServices->getAssocFromUser();
@@ -59,10 +59,8 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"activityId"="\d+"})
      */
-    public function read($activityId, $associationId): Response
+    public function read($activityId): Response
     {
-        //dd($activityId);
-
         $activity = $this->activityRepository->find($activityId);
 
         if (is_null($activity)) {
@@ -83,7 +81,7 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"activityId"="\d+"})
      */
-    public function edit(int $activityId, int $associationId, Request $request): Response
+    public function edit(int $activityId, Request $request): Response
     {
 
         $activity = $this->activityRepository->find($activityId);
@@ -127,9 +125,9 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-     * @Route("", name="add", methods={"POST"})
+     * @Route("/", name="add", methods={"POST"})
      */
-    public function add(Request $request, $associationId, IconActivity $iconActivity): Response
+    public function add(Request $request, IconActivity $iconActivity): Response
     {
         $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
@@ -166,7 +164,7 @@ class ActivitiesController extends AbstractController
     /**
      * @Route("/{activityId}", name="delete", methods={"DELETE"}, requirements={"activityId"="\d+"})
      */
-    public function delete(int $activityId, int $associationId): Response
+    public function delete(int $activityId): Response
     {
         $activity = $this->activityRepository->find($activityId);
 
