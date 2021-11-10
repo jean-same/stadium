@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}", name="api_v1_backoffice_admin_association")
+ * @Route("/api/v1/backoffice/admin/association", name="api_v1_backoffice_admin_association")
  */
 class AssociationController extends AbstractController
 {
@@ -41,7 +41,7 @@ class AssociationController extends AbstractController
     /**
     * @Route("/", name="browse", methods={"GET"})
     */
-    public function browse($associationId): Response
+    public function browse(): Response
     {
 
         $association = $this->associationServices->getAssocFromUser();
@@ -52,7 +52,7 @@ class AssociationController extends AbstractController
     /**
     * @Route("/", name="edit", methods={"PATCH"}, requirements={"associationId"="\d+"})
     */
-    public function edit( $associationId , Request $request): Response
+    public function edit( Request $request): Response
     {
         $association = $this->associationServices->getAssocFromUser();
 
