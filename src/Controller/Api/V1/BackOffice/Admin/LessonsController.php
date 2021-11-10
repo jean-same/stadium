@@ -64,7 +64,7 @@ class LessonsController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        $match = $this->associationServices->checkAssocMatch($lesson);
+        $match = $this->associationServices->checkAssocMatchLessons($lesson);
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
@@ -85,7 +85,7 @@ class LessonsController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        $match = $this->associationServices->checkAssocMatch($lesson);
+        $match = $this->associationServices->checkAssocMatchLessons($lesson);
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
@@ -162,7 +162,7 @@ class LessonsController extends AbstractController
             return $this->getNotFoundResponse();
         }
 
-        $match = $this->associationServices->checkAssocMatch($lesson);
+        $match = $this->associationServices->checkAssocMatchLessons($lesson);
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);

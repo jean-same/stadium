@@ -32,7 +32,6 @@ class AssociationServices
 
     public function checkAssocMatch($entity)
     {
-
         $association = $this->getAssocFromUser();
 
         if ($entity->getAssociation() == $association) {
@@ -41,4 +40,18 @@ class AssociationServices
             return false;
         }
     }
+
+    public function checkAssocMatchLessons($entity)
+    {
+        $association = $this->getAssocFromUser();
+
+        if ($entity->getActivity()->getAssociation() == $association) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }
