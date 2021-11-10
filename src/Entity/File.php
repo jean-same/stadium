@@ -39,7 +39,12 @@ class File
      *          "api_member_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="Le numero de telephone est obligatoire")
+     * @Assert\NotBlank(message="Le numéro de téléphone est obligatoire.")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      exactMessage = "Veuillez entrer un numéro de teléphone valide ({{ limit }} chiffres)."
+     *      )
      */
     private $phoneNumber;
 
@@ -56,7 +61,8 @@ class File
      * )
      * @Assert\NotBlank(message="La date de naissance est obligatoire")
      * @Assert\Type(type="\DateTime",
-     *              message="problème date")
+     *              message="Le format de la date n'est pas valide (YYYY-MM-DD)")
+     * @Assert\LessThanOrEqual("-2 years", message="L'adhérent doit avoir au moins 2 ans")
      */
     private $dateOfBirth;
 
@@ -72,6 +78,9 @@ class File
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse est obligatoire")
+     * @Assert\Length(
+     *      min=15,
+     *      minMessage="L'adresse doit comporter au moins {{ limit }} caractères" )
      */
     private $address;
 
@@ -86,7 +95,7 @@ class File
      *          "api_member_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="La personne a contacté en cas d'urgence est obligatoire")
+     * @Assert\NotBlank(message="La personne a contacter en cas d'urgence est obligatoire")
      * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le nom doit faire entre 3 et 255 caracteres")
      */
     private $emergencyContactName;
@@ -102,8 +111,12 @@ class File
      *          "api_member_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="Le numero de la personne a contacté en cas d'urgence est obligatoire")
-     * @Assert\Length(min=10, minMessage="Le numero doit faire entre 10 et 10 caracteres", max=10, maxMessage="Le numero doit faire entre 10 et 10 caracteres")
+     * @Assert\NotBlank(message="Le numero de la personne a contacter en cas d'urgence est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 10,
+     *      exactMessage = "Veuillez entrer un numéro de teléphone valide ({{ limit }} chiffres)."
+     *      )
      */
     private $emergencyContactPhoneNumber;
 

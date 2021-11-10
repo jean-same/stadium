@@ -57,7 +57,7 @@ class Event
      *      }
      * )
      * @Assert\NotBlank(message="L'adresse de l'évenement est obligatoire.")
-     * @Assert\Length(min=15)
+     * @Assert\Length(min=5)
      */
     private $place;
 
@@ -74,7 +74,8 @@ class Event
      *      }
      * )
      * @Assert\Type(type="\DateTime",
-     *              message="problème date")
+     *              message="Le format de la date n'est pas valide (YYYY-MM-DD)")
+     * @Assert\GreaterThan("today", message="La date de début de l'évènement ne peut être antérieure à aujourd'hui")
      */
     private $startDate;
 
@@ -91,7 +92,8 @@ class Event
      *      }
      * )
      *@Assert\Type("\DateTime",
-     *              message="problème date")
+     *              message="Le format de la date n'est pas valide (YYYY-MM-DD)")
+     * @Assert\GreaterThan(propertyPath="startDate",message="La date de fin de l'évènement doit être supérieure à la date de début")
      */
     private $endDate;
 

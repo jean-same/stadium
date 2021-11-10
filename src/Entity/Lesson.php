@@ -59,9 +59,9 @@ class Lesson
      *          "api_backoffice_superadmin_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="L'heure de debut est obligatoire")
+     * @Assert\NotBlank(message="L'heure de début est obligatoire")
      * @Assert\Type(type="\DateTime",
-     *              message="problème date")
+     *              message="Le format de l'heure est incorrect (HH:MM)")
      */
     private $startTime;
 
@@ -79,7 +79,8 @@ class Lesson
      * )
      * @Assert\NotBlank(message="L'heure de fin est obligatoire")
      * @Assert\Type(type="\DateTime",
-     *              message="problème date")
+     *              message="Le format de la date est incorrect (HH:MM)")
+     * @Assert\GreaterThan(propertyPath="startTime", message="L'heure de fin doit être supérieure à l'heure de début")
      */
     private $endTime;
 
