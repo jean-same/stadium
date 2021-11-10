@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/api/v1/backoffice/admin/association/{associationId}/profiles/{profilId}/files", name="api_v1_backoffice_admin_association_files_")
+ * @Route("/api/v1/backoffice/admin/association/profiles/{profilId}/files", name="api_v1_backoffice_admin_association_files_")
  */
 class FilesController extends AbstractController
 {
@@ -43,7 +43,7 @@ class FilesController extends AbstractController
     /**
      * @Route("/{fileId}", name="edit", methods={"PATCH"}, requirements={"fileId"="\d+"})
      */
-    public function edit(int $associationId, int $profilId, int $fileId, Request $request): Response
+    public function edit( int $fileId, Request $request): Response
     {
         $file = $this->fileRepository->find($fileId);
 
@@ -83,11 +83,13 @@ class FilesController extends AbstractController
     /**
      * @Route("/", name="add", methods={"POST"})
      */
-    public function add(int $profilId, int $associationId, Request $request): Response
+    public function add(Request $request, $profilId): Response
     {
         $jsonContent = $request->getContent();
 
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
+        $profil = $this->profilRepository->find($profilId);
+        $file->setProfil($profil);
 
         $match = $this->associationServices->checkAssocMatchFiles($file);
 
@@ -122,7 +124,7 @@ class FilesController extends AbstractController
     /**
      * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"fileId"="\d+"})
      */
-    public function delete(int $fileId, int $profilId, int $associationId): Response
+    public function delete(int $fileId, int $profilId): Response
     {
         $file = $this->fileRepository->find($fileId);
         $profil = $this->profilRepository->find($profilId);
@@ -135,6 +137,10 @@ class FilesController extends AbstractController
 
         if (!$match) {
             return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
+        if($profil != $file->getProfil()){
+            return $this->json("Le dossier que vous voulez supprimer n'appartient pas à ce profil", Response::HTTP_FORBIDDEN);
         }
 
         // Profil is set to null to be able to delete after the second flush
