@@ -120,7 +120,7 @@ class FilesController extends AbstractController
     }
 
     /**
-     * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/{fileId}", name="delete", methods={"DELETE"}, requirements={"fileId"="\d+"})
      */
     public function delete(int $fileId, int $profilId, int $associationId): Response
     {

@@ -47,7 +47,7 @@ class Activity
      *      }
      * )
      * @Assert\NotBlank(message="Le nom de l'activité est obligatoire.")
-     * @Assert\Length(min=5)
+     * @Assert\Length(min=3)
      */
     private $name;
 
@@ -58,9 +58,9 @@ class Activity
      *          "api_backoffice_superadmin_activities_browse",
      *          "api_backoffice_superadmin_profiles_browse" , 
      *          "api_backoffice_superadmin_lessons_browse",
-     *           "api_backoffice_superadmin_associations_browse",
+     *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_admin_association_activities_browse",
-     *         "api_member_activities_browse",
+     *          "api_member_activities_browse",
      *          "api_member_profiles_browse"
      *      }
      * )
@@ -84,7 +84,7 @@ class Activity
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_activities_browse",
-     *           "api_backoffice_admin_association_activities_browse"
+     *          "api_backoffice_admin_association_activities_browse"
      *      }
      * )
      */
@@ -95,8 +95,8 @@ class Activity
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_activities_browse",
-     *           "api_backoffice_admin_association_activities_browse",
-     *         "api_backoffice_superadmin_associations_browse"
+     *          "api_backoffice_admin_association_activities_browse",
+     *          "api_backoffice_superadmin_associations_browse"
      *      }
      * )
      */

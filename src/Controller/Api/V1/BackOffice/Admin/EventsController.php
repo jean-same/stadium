@@ -52,7 +52,7 @@ class EventsController extends AbstractController
     }
 
     /**
-     * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"eventId"="\d+"})
      */
     public function read($eventId, $associationId): Response
     {
@@ -73,7 +73,7 @@ class EventsController extends AbstractController
 
 
     /**
-     * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+     * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"eventId"="\d+"})
      */
     public function edit(int $eventId, $associationId,  Request $request): Response
     {
@@ -150,7 +150,7 @@ class EventsController extends AbstractController
     }
 
     /**
-     * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"eventId"="\d+"})
      */
     public function delete(int $eventId, $associationId): Response
     {
