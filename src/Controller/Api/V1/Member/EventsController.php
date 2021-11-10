@@ -61,7 +61,6 @@ class EventsController extends AbstractController
 
         $profil->addEvent($event);
 
-        $this->entityManager->persist($profil);
         $this->entityManager->flush();
         
         $reponseAsArray = [
@@ -86,7 +85,6 @@ class EventsController extends AbstractController
 
         $profil->removeEvent($event);
 
-        $this->entityManager->persist($profil);
         $this->entityManager->flush();
 
         $reponseAsArray = [
