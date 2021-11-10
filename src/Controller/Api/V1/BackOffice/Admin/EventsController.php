@@ -52,18 +52,20 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
-    */
+     * @Route("/{eventId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     */
     public function read($eventId, $associationId): Response
     {
         $event = $this->eventRepository->find($eventId);
 
-        if($event->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
-
         if (is_null($event)) {
             return $this->getNotFoundResponse();
+        }
+
+        $match = $this->associationServices->checkAssocMatch($event);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
         return $this->json($event, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_events_browse']);
@@ -71,30 +73,31 @@ class EventsController extends AbstractController
 
 
     /**
-    * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
-    */
+     * @Route("/{eventId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+     */
     public function edit(int $eventId, $associationId,  Request $request): Response
     {
-        
-        $event = $this->eventRepository->find($eventId);
 
-        if($event->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        $event = $this->eventRepository->find($eventId);
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
         }
-        
+
+        $match = $this->associationServices->checkAssocMatch($event);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
         $jsonContent = $request->getContent();
 
         $this->serializer->deserialize($jsonContent, Event::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $event
         ]);
 
-        
         $errors = $this->validator->validate($event);
-        
+
         if (count($errors) > 0) {
             $reponseAsArray = [
                 'error' => true,
@@ -115,8 +118,8 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/", name="add", methods={"POST"})
-    */
+     * @Route("/", name="add", methods={"POST"})
+     */
     public function add(Request $request, $associationId): Response
     {
         $association = $this->associationServices->getAssocFromUser();
@@ -147,23 +150,25 @@ class EventsController extends AbstractController
     }
 
     /**
-    * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
-    */
+     * @Route("/{eventId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     */
     public function delete(int $eventId, $associationId): Response
     {
         $event = $this->eventRepository->find($eventId);
-
-        if($event->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
 
         if (is_null($event)) {
             return $this->getNotFoundResponse();
         }
 
+        $match = $this->associationServices->checkAssocMatch($event);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
         $this->entityManager->remove($event);
         $this->entityManager->flush();
-        
+
         $reponseAsArray = [
             'message' => 'Event supprimé',
             'name' => $event->getName()
@@ -172,8 +177,8 @@ class EventsController extends AbstractController
         return $this->json($reponseAsArray);
     }
 
-
-    private function getNotFoundResponse() {
+    private function getNotFoundResponse()
+    {
 
         $responseArray = [
             'error' => true,
