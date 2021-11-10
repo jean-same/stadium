@@ -53,8 +53,8 @@ class Profil
      *          "api_member_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="Le prenom est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le prenom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le prenom doit faire entre 3 et 255 caracteres")
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\Length(min=3, minMessage="Le prénom doit faire 3 caracteres minimum ", max=32, maxMessage="Le prenom doit faire 32 caracteres maximum")
      */
     private $firstName;
 
@@ -75,8 +75,8 @@ class Profil
      *          "api_member_profiles_browse"
      *      }
      * )
-     * @Assert\NotBlank(message="Le prenom est obligatoire")
-     * @Assert\Length(min=3, minMessage="Le nom doit faire entre 3 et 255 caracteres", max=255, maxMessage="Le nom doit faire entre 3 et 255 caracteres")
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(min=2, minMessage="Le nom doit faire 2 caracteres minimum ", max=32, maxMessage="Le nom doit faire 32 caracteres maximum")
      */
     private $lastName;
 
