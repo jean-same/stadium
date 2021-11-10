@@ -43,41 +43,49 @@ class FileUpdateCommand extends Command
         $paid = $input->getOption('paid');
         $valid = $input->getOption('valid');
         $validate = false;
+        //$file = $this->fileRepository->find($fileId);
 
-        if ($fileId && !$paid && !$valid ) {
-            $io->note(sprintf('You passed an argument: %s', $fileId));
-            $file = $this->fileRepository->find($fileId);
-            $file->setIsPaid(true);
-            $file->setIsValid(true);
-            $file->setIsComplete(true);
-            $validate = "complete";
-        }
-
-        if($valid && $fileId){
-            $file = $this->fileRepository->find($fileId);
-            $file->setIsValid(true);
-
-            if($file->getIsPaid()) {
-                $file->setIsComplete(true);
-            }
-            $validate = "valid";
-        }
-
-        if($paid && $fileId){
-            $file = $this->fileRepository->find($fileId);
-            $file->setIsPaid(true);
-
-            if($file->getIsValid()) {
-                $file->setIsComplete(true);
-            }
-            $validate = "paid";
-        }
-
-        if($validate){
-            $this->entityManager->flush($file);
-            $io->success("Your $validate field is set to true.");
+        if(!$fileId) {
+            $io->error("You need to pass a valid id");
         } else {
-            $io->error("Pass an argument file id to complete a file, plus an option paid or valid to pass a specific field to true");
+
+            $file = $this->fileRepository->find($fileId);
+            if(!$file){
+             $io->error("No file");
+            } else {
+                if ($fileId && !$paid && !$valid) {
+                    $io->note(sprintf('You passed an argument: %s', $fileId));
+                    $file->setIsPaid(true);
+                    $file->setIsValid(true);
+                    $file->setIsComplete(true);
+                    $validate = "complete";
+                }
+
+                if ($valid && $fileId) {
+                    $file->setIsValid(true);
+
+                    if ($file->getIsPaid()) {
+                        $file->setIsComplete(true);
+                    }
+                    $validate = "valid";
+                }
+
+                if ($paid && $fileId) {
+                    $file->setIsPaid(true);
+
+                    if ($file->getIsValid()) {
+                        $file->setIsComplete(true);
+                    }
+                    $validate = "paid";
+                }
+
+                if ($validate) {
+                    $this->entityManager->flush($file);
+                    $io->success("Your $validate field is set to true.");
+                } else {
+                    $io->error("Pass an argument file id to complete a file, plus an option paid or valid to pass a specific field to true");
+                }
+            }
         }
 
         
