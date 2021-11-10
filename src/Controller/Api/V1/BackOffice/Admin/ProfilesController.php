@@ -51,7 +51,7 @@ class ProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/{profilId}", name="read", methods={"GET"})
+     * @Route("/{profilId}", name="read", methods={"GET"}, requirements={"profilId"="\d+"})
      */
     public function read(int $associationId, int $profilId): Response
     {
@@ -71,7 +71,7 @@ class ProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/{profilId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+     * @Route("/{profilId}", name="edit", methods={"PATCH"}, requirements={"profilId"="\d+"})
      */
     public function edit(int $associationId, int $profilId, Request $request): Response
     {
@@ -147,7 +147,7 @@ class ProfilesController extends AbstractController
     }
 
     /**
-     * @Route("/{profilId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/{profilId}", name="delete", methods={"DELETE"}, requirements={"profilId"="\d+"})
      */
     public function delete(int $associationId, int $profilId):Response
     {

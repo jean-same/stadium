@@ -50,7 +50,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-    * @Route("/", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+    * @Route("/", name="edit", methods={"PATCH"}, requirements={"associationId"="\d+"})
     */
     public function edit( $associationId , Request $request): Response
     {

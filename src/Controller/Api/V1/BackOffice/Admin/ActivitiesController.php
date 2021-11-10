@@ -57,7 +57,7 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-     * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"activityId"="\d+"})
      */
     public function read($activityId, $associationId): Response
     {
@@ -81,7 +81,7 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-     * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+     * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"activityId"="\d+"})
      */
     public function edit(int $activityId, int $associationId, Request $request): Response
     {
@@ -164,7 +164,7 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-     * @Route("/{activityId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @Route("/{activityId}", name="delete", methods={"DELETE"}, requirements={"activityId"="\d+"})
      */
     public function delete(int $activityId, int $associationId): Response
     {
