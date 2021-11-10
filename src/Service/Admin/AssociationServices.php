@@ -41,6 +41,19 @@ class AssociationServices
         }
     }
 
+    public function checkAssocMatchFiles($file)
+    {
+        $association = $this->getAssocFromUser();
+        // dd($association);
+        $assoDossier = $file->getProfil()->getAssociation();
+        //dd($assoDossier);
+        if ($file->getProfil()->getAssociation() == $association) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function checkAssocMatchLessons($entity)
     {
         $association = $this->getAssocFromUser();
@@ -51,7 +64,4 @@ class AssociationServices
             return false;
         }
     }
-
-
-
 }
