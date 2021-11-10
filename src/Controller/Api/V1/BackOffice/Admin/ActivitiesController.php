@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/api/v1/backoffice/admin/association/{associationId}/activities", name="api_v1_backoffice_admin_association_activities")
@@ -30,8 +30,9 @@ class ActivitiesController extends AbstractController
     protected $serializer;
     protected $entityManager;
     protected $associationServices;
+    protected $security;
 
-    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, ActivityRepository $activityRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager, AssociationServices $associationServices )
+    public function __construct(ValidatorInterface $validator, AccountRepository $accountRepository, AssociationRepository $associationRepository, ActivityRepository $activityRepository, SerializerInterface $serializer, EntityManagerInterface $entityManager, AssociationServices $associationServices, Security $security)
     {
         $this->accountRepository        = $accountRepository;
         $this->associationRepository    = $associationRepository;
@@ -40,6 +41,7 @@ class ActivitiesController extends AbstractController
         $this->serializer               = $serializer;
         $this->entityManager            = $entityManager;
         $this->associationServices      = $associationServices;
+        $this->security = $security;
     }
 
     /**
@@ -49,54 +51,61 @@ class ActivitiesController extends AbstractController
     {
 
         $association = $this->associationServices->getAssocFromUser();
-
         $activities = $association->getActivities();
         return $this->json($activities, Response::HTTP_OK, [], ['groups' => "api_backoffice_admin_association_activities_browse"]);
     }
 
-        /**
-    * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
-    */
+    /**
+     * @Route("/{activityId}", name="read", methods={"GET"}, requirements={"id"="\d+"})
+     */
     public function read($activityId, $associationId): Response
     {
-        $activity = $this->activityRepository->find($activityId);
+        //dd($activityId);
 
-        if($activity->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        $activity = $this->activityRepository->find($activityId);
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
         }
+
+        $match = $this->associationServices->checkAssocMatch($activity);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
+
 
         return $this->json($activity, Response::HTTP_OK, [], ['groups' => 'api_backoffice_admin_association_activities_browse']);
     }
 
     /**
-    * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
-    */
+     * @Route("/{activityId}", name="edit", methods={"PATCH"}, requirements={"id"="\d+"})
+     */
     public function edit(int $activityId, int $associationId, Request $request): Response
     {
-        
-        $activity = $this->activityRepository->find($activityId);
 
-        if($activity->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        $activity = $this->activityRepository->find($activityId);
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
         }
-        
+
+        $match = $this->associationServices->checkAssocMatch($activity);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
         $jsonContent = $request->getContent();
 
         $this->serializer->deserialize($jsonContent, Activity::class, 'json', [
             AbstractNormalizer::OBJECT_TO_POPULATE => $activity
         ]);
 
-        
+
         $errors = $this->validator->validate($activity);
-        
+
         if (count($errors) > 0) {
             $reponseAsArray = [
                 'error' => true,
@@ -109,14 +118,14 @@ class ActivitiesController extends AbstractController
         $this->entityManager->flush();
 
         $reponseAsArray = [
-            'message' => 'Activity mis à jour',
+            'message' => 'Activité mise à jour',
             'name' => $activity->getName()
         ];
 
         return $this->json($reponseAsArray, Response::HTTP_CREATED);
     }
 
-        /**
+    /**
      * @Route("", name="add", methods={"POST"})
      */
     public function add(Request $request, $associationId): Response
@@ -124,7 +133,7 @@ class ActivitiesController extends AbstractController
         $association = $this->associationServices->getAssocFromUser();
         $jsonContent = $request->getContent();
         $activity = $this->serializer->deserialize($jsonContent, Activity::class, 'json');
-        
+
         $activity->setAssociation($association);
 
 
@@ -143,7 +152,7 @@ class ActivitiesController extends AbstractController
         $this->entityManager->flush();
 
         $reponseAsArray = [
-            'message' => 'Activity créé',
+            'message' => 'Activité créé',
             'name' => $activity->getName()
         ];
 
@@ -151,25 +160,27 @@ class ActivitiesController extends AbstractController
     }
 
     /**
-    * @Route("/{id}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
-    */
-    public function delete(int $id, int $associationId): Response
+     * @Route("/{activityId}", name="delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     */
+    public function delete(int $activityId, int $associationId): Response
     {
-        $activity = $this->activityRepository->find($id);
-
-        if($activity->getAssociation()->getId() != $associationId){
-            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN );
-        }
+        $activity = $this->activityRepository->find($activityId);
 
         if (is_null($activity)) {
             return $this->getNotFoundResponse();
         }
 
+        $match = $this->associationServices->checkAssocMatch($activity);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
+
         $this->entityManager->remove($activity);
         $this->entityManager->flush();
-        
+
         $reponseAsArray = [
-            'message' => 'Activity supprimé',
+            'message' => 'Activité supprimée',
             'name' => $activity->getName()
         ];
 
@@ -177,7 +188,8 @@ class ActivitiesController extends AbstractController
     }
 
 
-    private function getNotFoundResponse() {
+    private function getNotFoundResponse()
+    {
 
         $responseArray = [
             'error' => true,

@@ -6,6 +6,7 @@ use App\Entity\File;
 use App\Repository\AssociationRepository;
 use App\Repository\FileRepository;
 use App\Repository\ProfilRepository;
+use App\Service\Admin\AssociationServices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,8 +27,9 @@ class FilesController extends AbstractController
     protected $validator;
     protected $serializer;
     protected $entityManager;
+    protected $associationServices;
 
-    public function __construct(FileRepository $fileRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager, ProfilRepository $profilRepository)
+    public function __construct(FileRepository $fileRepository, AssociationRepository $associationRepository, ValidatorInterface $validator, SerializerInterface $serializer, EntityManagerInterface $entityManager, ProfilRepository $profilRepository, AssociationServices $associationServices)
     {
         $this->fileRepository = $fileRepository;
         $this->associationRepository = $associationRepository;
@@ -35,6 +37,7 @@ class FilesController extends AbstractController
         $this->serializer = $serializer;
         $this->entityManager = $entityManager;
         $this->profilRepository = $profilRepository;
+        $this->associationServices = $associationServices;
     }
 
     /**
@@ -44,10 +47,15 @@ class FilesController extends AbstractController
     {
         $file = $this->fileRepository->find($fileId);
 
-        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
+        if (is_null($file)) {
+            return $this->getNotFoundResponse();
         }
 
+        $match = $this->associationServices->checkAssocMatchFiles($file);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
+        }
         $jsonContent = $request->getContent();
 
         $this->serializer->deserialize($jsonContent, File::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $file]);
@@ -81,9 +89,12 @@ class FilesController extends AbstractController
 
         $file = $this->serializer->deserialize($jsonContent, File::class, 'json');
 
-        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
+        $match = $this->associationServices->checkAssocMatchFiles($file);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
+
         $errors = $this->validator->validate($file);
 
         if (count($errors) > 0) {
@@ -115,8 +126,15 @@ class FilesController extends AbstractController
     {
         $file = $this->fileRepository->find($fileId);
         $profil = $this->profilRepository->find($profilId);
-        if (($file->getProfil()->getId() != $profilId) || ($file->getProfil()->getAssociation()->getId() != $associationId)) {
-            return $this->json('Accès interdit', Response::HTTP_FORBIDDEN);
+
+        if (is_null($file)) {
+            return $this->getNotFoundResponse();
+        }
+
+        $match = $this->associationServices->checkAssocMatchFiles($file);
+
+        if (!$match) {
+            return $this->json("Accès interdit", Response::HTTP_FORBIDDEN);
         }
 
         // Profil is set to null to be able to delete after the second flush
