@@ -182,8 +182,8 @@ class EventsController extends AbstractController
 
         $responseArray = [
             'error' => true,
-            'userMessage' => 'Ressource non trouvé',
-            'internalMessage' => 'Cette evenement n\'existe pas',
+            'userMessage' => 'Ressource non trouvée',
+            'internalMessage' => 'Cet évènement n\'existe pas',
         ];
 
         return $this->json($responseArray, Response::HTTP_GONE);
