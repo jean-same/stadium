@@ -45,6 +45,23 @@ class AccountsController extends AbstractController
     }
 
     /**
+    * @Route("/adherents", name="browse_adherent", methods={"GET"})
+    */
+    public function browseAdherent(): Response
+    {
+        $allAccounts = $this->accountRepository->findAll();
+        $adherents [] = null;
+
+        foreach($allAccounts as $currentAccount){
+            if(in_array( "ROLE_ADHERENT", $currentAccount->getRoles(), ) ){
+                $adherents [] = $currentAccount;
+            }
+        }
+
+        return $this->json($adherents, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_accounts_browse']);
+    }
+
+    /**
      * @Route("/{id}", name="read", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function read(int $id): Response
