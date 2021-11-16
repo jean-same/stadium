@@ -184,6 +184,13 @@ class Association
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups(
+     *      {
+     *          "api_backoffice_superadmin_associations_browse",
+     *          "api_backoffice_admin_association_browse",
+     *          "api_backoffice_superadmin_accounts_browse"
+     *      }
+     * )
      */
     private $image;
 
