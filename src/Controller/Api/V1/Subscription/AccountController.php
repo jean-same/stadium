@@ -3,6 +3,7 @@
 namespace App\Controller\Api\V1\Subscription;
 
 use App\Entity\Account;
+use App\Entity\Association;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class AccountController extends AbstractController
     }
 
     /**
-    * @Route("/", name="", methods={"POST"})
+    * @Route("/new", name="new", methods={"POST"})
     */
     public function addAccount(Request $request): Response
     {
@@ -76,5 +77,40 @@ class AccountController extends AbstractController
         return $this->render('api/v1/subscription/account/index.html.twig', [
             'controller_name' => 'AccountController',
         ]);
+    }
+
+    /**
+    * @Route("/association/infos", name="", methods={"POST"})
+    */
+    public function addAssocInfos(Request $request): Response
+    {
+        $jsonContent = $request->getContent();
+        //dd($jsonContent);
+
+        $association = $this->serializer->deserialize($jsonContent, Association::class, 'json');
+
+        $errors = $this->validator->validate($association);
+
+        if (count($errors) > 0) {
+            $responseAsArray = [
+                'error' => true,
+                'message' => $errors
+            ];
+            return $this->json($responseAsArray, Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $this->entityManager->persist($association);
+        $this->entityManager->flush();
+
+        $responseAsArray = [
+            'message' => 'Association crée',
+            'id' => $association->getId(),
+            'name' => $association->getName(),
+            'presidentLastName' => $association->getPresidentLastName(),
+            'presidentFirstName' => $association->getPresidentFirstName(),
+            'address' => $association->getAddress(),
+            'phoneNumber' => $association->getPhoneNumber()
+        ];
+        return $this->json($responseAsArray, Response::HTTP_CREATED);
     }
 }
