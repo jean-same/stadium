@@ -6,25 +6,27 @@ class IconActivity
 {
     public function getIconForActivity($activityName)
     {
-        $activitiesArray = [
-            "Musculation" => "musculation.png",
-            "Volley-ball" => "volley-ball.png",
-            "Zumba" => "zumba.png",
-            "Tennis" => "tennis.png",
-            "Ping-pong" => "ping-pong.png",
-            "Pilates" => "pilates.png",
-            "Plongée" => "plongée.png",
-            "Natation" => "natation.png",
-            "Football" => "football.png",
-            "Running" => "running.png",
-            "Badminton" => "badminton.png",
-            "Basket-ball" => "basket-ball.png",
-            "Boxing" => "boxing.png",
-            "Fitness" => "fitness.png"
+        $iconsArray = [
+            "Musculation" => "fitness_center",
+            "Volley-ball" => "sports_volleyball",
+            "Zumba" => "music_note",
+            "Tennis" => "sports_tennis",
+            "Ping-pong" => "sports_tennis",
+            "Pilates" => "self_improvement",
+            "Plongée" => "water",
+            "Natation" => "pool",
+            "Football" => "sports_soccer",
+            "Running" => "directions_run",
+            "Badminton" => "sports_tennis",
+            "Basket-ball" => "sports_basketball",
+            "Boxing" => "sports_mma",
+            "Fitness" => "fitness_center",
+            "Evenement sportif" => "emoji_events",
+            "Evenement autre" => "people"
         ];
 
-        if (array_key_exists($activityName, $activitiesArray)) {
-            $icon = $activitiesArray[$activityName];
+        if (array_key_exists($activityName, $iconsArray)) {
+            $icon = $iconsArray[$activityName];
         } else {
             $icon = null;
         }

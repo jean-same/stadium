@@ -50,7 +50,7 @@ class AccountsController extends AbstractController
     public function browseAdherent(): Response
     {
         $allAccounts = $this->accountRepository->findAll();
-        $adherents [] = null;
+        //$adherents [] = null;
 
         foreach($allAccounts as $currentAccount){
             if(in_array( "ROLE_ADHERENT", $currentAccount->getRoles(), ) ){
