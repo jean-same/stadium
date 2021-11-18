@@ -23,8 +23,6 @@ body {
   height: 6rem;
   width: 6rem;
   object-fit: center;
-  border-radius: 50%;
-  border: 2px solid #fff;
 }
 
 .location p {
@@ -55,6 +53,7 @@ body {
   border-bottom: 2px solid #000;
 }
 
+/*
 .granimate {
   animation: hue 11s linear 0s infinite reverse;
 }
@@ -67,6 +66,7 @@ body {
     filter: hue-rotate(40deg);
   }
 }
+*/
 
 /* login form */
 
