@@ -2,17 +2,18 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
+use Faker\Factory;
+use App\Entity\File;
+use App\Entity\Event;
+use App\Entity\Lesson;
+use App\Entity\Profil;
+use DateTimeImmutable;
 use App\Entity\Account;
 use App\Entity\Activity;
 use App\Entity\Association;
-use App\Entity\Event;
-use App\Entity\File;
-use App\Entity\Lesson;
-use App\Entity\Profil;
-use App\Repository\AssociationRepository;
-use DateTime;
-use Faker\Factory;
 use Doctrine\Persistence\ObjectManager;
+use App\Repository\AssociationRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -122,11 +123,19 @@ class AppFixtures extends Fixture
         //$accountsList = [];
         for ($acc = 0; $acc <= 60; $acc++) {
             $account = new Account();
-            $hash = $this->passwordHasher->hashPassword($account, "password");
+
+            $year = 2021;
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1 , 28);
+
+            $datetimeImmutable  = new DateTimeImmutable();
+            $joinedAt = $datetimeImmutable ->setDate($year, $month, $day);
 
             $account->setEmail($faker->email())
                 ->setPassword("password")
-                ->setRoles($faker->randomElements($roleArray));
+                ->setRoles($faker->randomElements($roleArray))
+                ->setJoinedUsAt($joinedAt)
+                ;
 
             //$accountsList [] = $account;
             $manager->persist($account);
@@ -214,8 +223,18 @@ class AppFixtures extends Fixture
             $adminToAddInAsso = $faker->randomElements($adminArray, $nbAdminForAssoc);
 
             foreach ($profilToAddInAsso as $currentProfilForAssoc) {
+
+                $year = 2021;
+                $month = mt_rand(1, 12);
+                $day = mt_rand(1 , 28);
+    
+                $datetimeImmutable  = new DateTimeImmutable();
+                $joinedAt = $datetimeImmutable ->setDate($year, $month, $day);
+
                 if (!$currentProfilForAssoc->getAssociation()) {
                     $association->addProfil($currentProfilForAssoc);
+                    $currentProfilForAssoc->setJoinedAssocAt($joinedAt);
+                    $manager->persist($currentProfilForAssoc);
                     $manager->persist($association);
                 }
             }
@@ -258,14 +277,6 @@ class AppFixtures extends Fixture
 
             $manager->persist($event);
 
-            /* $associationForEvents = $faker->randomElement($assocArray);
-            $eventsForAsso = $faker->randomElements($eventCreatedArray, mt_rand(2 , 4 ));
-
-            foreach($eventsForAsso as $currentEvent){
-                $associationForEvents->addEvent($currentEvent);
-                $manager->persist($association);
-            } */
-
             //Creer des activités
             $activity = new Activity;
 
@@ -301,21 +312,6 @@ class AppFixtures extends Fixture
                 ->setPlace($faker->address())
                 ->setActivity($activity);
 
-            /*$nbProfilForLesson = mt_rand(0, count($adherentArray));
-            $profilToAddInLesson = $faker->randomElements($adherentArray, $nbProfilForLesson);
-
-            foreach ($profilToAddInLesson as $currentProfilForLesson) {
-                $testOne = ($currentProfilForLesson->getAssociation() == $lesson->getActivity()->getAssociation() );
-
-                if ($testOne) {
-                    foreach($lesson->getProfiles() as $currentProfil ){
-                        if($currentProfil != $currentProfilForLesson ){
-                            $lesson->addProfile($currentProfilForLesson);
-                        }
-                    }
-
-                }
-            }*/
 
             $lessonsCreatedArray[] = $lesson;
             $manager->persist($lesson);
