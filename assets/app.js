@@ -14,5 +14,7 @@ import './bootstrap';
 import './globalJs/bootstrap.bundle.min.js';
 import './globalJs/fontawesome.min.js';
 
+import './js/sidebar.js';
+
 //image
 import './img/Logo.svg'
