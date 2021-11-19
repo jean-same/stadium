@@ -13,3 +13,6 @@ import './styles/app.css';
 import './bootstrap';
 import './globalJs/bootstrap.bundle.min.js';
 import './globalJs/fontawesome.min.js';
+
+//image
+import './img/Logo.svg'
