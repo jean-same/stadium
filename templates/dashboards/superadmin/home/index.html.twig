@@ -1,20 +1,213 @@
 {% extends 'baseDashboard.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Superadmin{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/Apotheose/projet-o-sport/src/Controller/Dashboards/Superadmin/HomeController.php'|file_link(0) }}">src/Controller/Dashboards/Superadmin/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/Apotheose/projet-o-sport/templates/dashboards/superadmin/home/index.html.twig'|file_link(0) }}">templates/dashboards/superadmin/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+		<div id="main">
+			<header class="mb-3">
+				<a href="#" class="burger-btn d-block d-xl-none">
+					<i class="bi bi-justify fs-3"></i>
+				</a>
+			</header>
+
+			<div class="page-heading">
+				<h3>Stadium tableau de bord</h3>
+			</div>
+			<div class="page-content">
+				<section class="row">
+					<div class="col-12 col-lg-12">
+						<div class="row">
+							<div class="col-6 col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon assoc">
+													<i class="fas fa-users fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Associations</h5>
+												<h6 class="font-extrabold mb-0">
+													{{ associations | length }}
+												</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6 col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon user">
+													<i class="fas fa-user-lock fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">SuperAdmins</h5>
+												<h6 class="font-extrabold mb-0">{{ superAdmins | length }}</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6 col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon user">
+													<i class="fas fa-user-lock fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Admins</h5>
+												<h6 class="font-extrabold mb-0">{{ admins | length }}</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6 col-lg-3 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon user">
+													<i class="fas fa-user fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Adherents</h5>
+												<h6 class="font-extrabold mb-0">{{ adherents | length }}</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<section class="row">
+							<div class="col-12 col-lg-12">
+								<div class="row">
+									<div class="col-6 col-lg-3 col-md-6">
+										<div class="card">
+											<div class="card-body px-3 py-3-4">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="stats-icon rubriques">
+															<i class="fas fa-snowboarding fa-2x text-white"></i>
+														</div>
+													</div>
+													<div class="col-md-8">
+														<h5 class="text-muted font-bold">Activités</h5>
+														<h6 class="font-extrabold mb-0">{{ activities | length }}</h6>
+														<div class="col-lg-12 details-div">
+															<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-6 col-lg-3 col-md-6">
+										<div class="card">
+											<div class="card-body px-3 py-3-4">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="stats-icon rubriques">
+															<i class="fas fa-calendar-alt fa-2x text-white"></i>
+														</div>
+													</div>
+													<div class="col-md-8">
+														<h5 class="text-muted font-bold">Evenements</h5>
+														<h6 class="font-extrabold mb-0">{{ events | length }}</h6>
+														<div class="col-lg-12 details-div">
+															<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-6 col-lg-3 col-md-6">
+										<div class="card">
+											<div class="card-body px-3 py-3-4">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="stats-icon dossier">
+															<i class="fas fa-folder fa-2x text-white"></i>
+														</div>
+													</div>
+													<div class="col-md-8">
+														<h5 class="text-muted font-bold">Dossiers</h5>
+														<h6 class="font-extrabold mb-0">{{ files | length }}</h6>
+														<div class="col-lg-12 details-div">
+															<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-6 col-lg-3 col-md-6">
+										<div class="card">
+											<div class="card-body px-3 py-3-4">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="stats-icon rubriques">
+															<i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
+														</div>
+													</div>
+													<div class="col-md-8">
+														<h5 class="text-muted font-bold">Cours</h5>
+														<h6 class="font-extrabold mb-0">{{ lessons | length }}</h6>
+														<div class="col-lg-12 details-div">
+															<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="card">
+											<div class="card-header">
+												<h4>Graphique nouvelles association</h4>
+											</div>
+											<div class="card-body">
+												<div id="chart-profile-visit"></div>
+												{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+												{{ render_chart(chart, {'class': 'my-chart'}) }}
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</section>
+					</div>
+
+				</div>
+			</div>
 {% endblock %}
