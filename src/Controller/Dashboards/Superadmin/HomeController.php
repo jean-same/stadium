@@ -55,7 +55,7 @@ class HomeController extends AbstractController
         $admins = $this->accountRepository->findByRole("ROLE_ADMIN");
         $adherents = $this->accountRepository->findByRole("ROLE_ADHERENT");
 
-        $dataMonth = $this->chartGeneratorService->dataMonth();
+        $dataMonth = $this->chartGeneratorService->monthInitialize();
 
         foreach($associations as $association){
             $joinedAt = $association->getJoinedUsAt();

@@ -1,0 +1,66 @@
+{% extends 'baseDashboard.html.twig' %}
+
+{% block title %}Associations{% endblock %}
+
+{% block body %}
+	<div id="main">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="bi bi-justify fs-3"></i>
+			</a>
+		</header>
+
+		<div class="page-heading">
+			<h1>Associations</h1>
+		</div>
+		<div class="page-content">
+			<section id="content-types">
+				<div class="row">
+					{% for association in associations %}
+						{% set adherents = 0 %}
+						{% set admins = 0 %}
+						{% for profil in association.profils %}
+							{% if "ROLE_ADHERENT" in profil.account.roles %}
+								{% set adherents = adherents + 1 %}
+							{% else %}
+								{% set admins = admins + 1 %}
+							{% endif %}
+						{% endfor %}
+
+
+						<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+							<div class="card association">
+								<div class="card-content">
+									<div class="card-body">
+										<h4 class="card-title">{{ association.name }}
+										</h4>
+										<p class="card-text">
+											Admins:
+											{{ admins }}
+										</p>
+										<p class="card-text">
+											Adherents:
+											{{ adherents }}
+										</p>
+										<p class="card-text">
+											Activité:
+											{{ association.activities | length }}
+										</p>
+										<p class="card-text">
+											Evenements:
+											{{ association.events | length }}
+										</p>
+									</div>
+								</div>
+								<div class="card-footer d-flex justify-content-between">
+									<a href="#" class="btn btn-association">Voir plus</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+			</section>
+		</div>
+	</div>
+{% endblock %}

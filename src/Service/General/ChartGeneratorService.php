@@ -14,7 +14,7 @@ class ChartGeneratorService {
         $this->chartBuilder = $chartBuilder;
     }
 
-    public function dataMonth(){
+    public function monthInitialize(){
         return  $dataMonth = [
                     "Jan" => 0,
                     "Feb" => 0,
