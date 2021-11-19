@@ -96,6 +96,11 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $profil;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $joinedUsAt;
+
     public function __construct()
     {
         $this->profil = new ArrayCollection();
@@ -228,6 +233,18 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
                 $profil->setAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJoinedUsAt(): ?\DateTimeImmutable
+    {
+        return $this->joinedUsAt;
+    }
+
+    public function setJoinedUsAt(?\DateTimeImmutable $joinedUsAt): self
+    {
+        $this->joinedUsAt = $joinedUsAt;
 
         return $this;
     }

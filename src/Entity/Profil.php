@@ -167,6 +167,11 @@ class Profil
      */
     private $lesson;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $joinedAssocAt;
+
     public function __construct()
     {
         $this->event = new ArrayCollection();
@@ -319,6 +324,18 @@ class Profil
     public function removeLesson(Lesson $lesson): self
     {
         $this->lesson->removeElement($lesson);
+
+        return $this;
+    }
+
+    public function getJoinedAssocAt(): ?\DateTimeImmutable
+    {
+        return $this->joinedAssocAt;
+    }
+
+    public function setJoinedAssocAt(?\DateTimeImmutable $joinedAssocAt): self
+    {
+        $this->joinedAssocAt = $joinedAssocAt;
 
         return $this;
     }
