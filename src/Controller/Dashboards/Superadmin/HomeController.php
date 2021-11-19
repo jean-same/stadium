@@ -11,6 +11,7 @@ use App\Repository\AssociationRepository;
 use App\Repository\EventRepository;
 use App\Repository\FileRepository;
 use App\Repository\LessonRepository;
+use App\Service\General\ChartGeneratorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,8 +26,9 @@ class HomeController extends AbstractController
     private $eventRepository;
     private $fileRepository;
     private $lessonRepository;
+    private $chartGeneratorService;
 
-    public function __construct(AssociationRepository $associationRepository, AccountRepository $accountRepository, ActivityRepository $activityRepository, EventRepository $eventRepository, FileRepository $fileRepository, LessonRepository $lessonRepository)
+    public function __construct(AssociationRepository $associationRepository, AccountRepository $accountRepository, ActivityRepository $activityRepository, EventRepository $eventRepository, FileRepository $fileRepository, LessonRepository $lessonRepository, ChartGeneratorService $chartGeneratorService)
     {
         $this->accountRepository = $accountRepository;
         $this->associationRepository = $associationRepository;
@@ -34,6 +36,7 @@ class HomeController extends AbstractController
         $this->eventRepository = $eventRepository;
         $this->fileRepository = $fileRepository;
         $this->lessonRepository = $lessonRepository;
+        $this->chartGeneratorService = $chartGeneratorService;
     }
 
     /**
@@ -52,22 +55,7 @@ class HomeController extends AbstractController
         $admins = $this->accountRepository->findByRole("ROLE_ADMIN");
         $adherents = $this->accountRepository->findByRole("ROLE_ADHERENT");
 
-        $dataMonth = [
-            "Jan" => 0,
-            "Feb" => 0,
-            "Mar" => 0,
-            "Apr" => 0,
-            "May" => 0,
-            "Jun" => 0,
-            "Jul" => 0,
-            "Aug" => 0,
-            "Sep" => 0,
-            "Oct" => 0,
-            "Sep" => 0,
-            "Oct" => 0,
-            "Nov" => 0,
-            "Dec" => 0
-        ];
+        $dataMonth = $this->chartGeneratorService->dataMonth();
 
         foreach($associations as $association){
             $joinedAt = $association->getJoinedUsAt();
@@ -77,28 +65,7 @@ class HomeController extends AbstractController
 
         }
 
-        $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
-        $chart->setData([
-            'labels' => ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre'],
-            'datasets' => [
-                [
-                    'height' => '350px',
-                    'label' => 'Association',
-                    'backgroundColor' => '#d87444',
-                    'borderColor' => '#074666;',
-                    'data' => [ $dataMonth["Jan"] , $dataMonth["Feb"] , $dataMonth["Mar"] , $dataMonth["Apr"] , $dataMonth["May"] , $dataMonth["Jun"] , $dataMonth["Jul"] , $dataMonth["Aug"] , $dataMonth["Sep"] , $dataMonth["Oct"] , $dataMonth["Nov"] , $dataMonth["Dec"] ],
-                ],
-            ],
-        ]);
-
-
-        $chart->setOptions([
-            'scales' => [
-                'yAxes' => [
-                    ['ticks' => ['min' => 0, 'max' => 10]],
-                ],
-            ],
-        ]);
+        $chart = $this->chartGeneratorService->generateChart($dataMonth);
 
     return $this->render('dashboards/superadmin/home/index.html.twig',  compact('associations', 'superAdmins', 'admins', 'adherents', 'activities', 'events', 'files', 'lessons' , 'chart') );
     }
