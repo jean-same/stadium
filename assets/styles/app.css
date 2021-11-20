@@ -1,4 +1,9 @@
 
+.principal-color {
+  background-color: #074666;
+  color: #fff;
+}
+
   .btn .badge {
     border-radius: 50%;
     margin-left: 5px;
@@ -187,7 +192,12 @@
     background: #d87444;
     color: #fff;
   }
-  
+
+  .back-button {
+    margin: 0 auto;
+    width: max-content;
+  }
+
   .association-rubrique-details {
     padding: 0;
   }
@@ -914,5 +924,11 @@
   }
   .icon-mid:before {
     vertical-align: middle;
+  }
+
+  @media screen and (max-width: 590px) {
+    .profil-picture {
+      display: none;
+    }
   }
   

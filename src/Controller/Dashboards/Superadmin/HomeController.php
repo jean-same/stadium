@@ -2,9 +2,6 @@
 
 namespace App\Controller\Dashboards\Superadmin;
 
-
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\AccountRepository;
 use App\Repository\ActivityRepository;
 use App\Repository\AssociationRepository;
@@ -42,7 +39,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(ChartBuilderInterface $chartBuilder): Response
+    public function home(): Response
     {
         
         $activities = $this->activityRepository->findAll();

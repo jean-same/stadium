@@ -6,7 +6,7 @@
 	<div id="main">
 		<header class="mb-3">
 			<a href="#" class="burger-btn d-block d-xl-none">
-				<i class="bi bi-justify fs-3"></i>
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
 			</a>
 		</header>
 
@@ -53,7 +53,7 @@
 									</div>
 								</div>
 								<div class="card-footer d-flex justify-content-between">
-									<a href="#" class="btn btn-association">Voir plus</a>
+									<a href="{{ path('dashboard_superadmin_associations_read', { id : association.id }) }}" class="btn btn-association">Voir plus</a>
 								</div>
 							</div>
 						</div>
