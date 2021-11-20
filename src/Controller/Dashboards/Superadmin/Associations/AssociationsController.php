@@ -2,13 +2,14 @@
 
 namespace App\Controller\Dashboards\Superadmin\Associations;
 
-use App\Repository\AssociationRepository;
 use App\Repository\ProfilRepository;
+use App\Repository\AssociationRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Service\General\ChartGeneratorService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\Request;
 
 /**
 * @Route("/dashboards/superadmin/associations", name="dashboard_superadmin_associations_")
@@ -19,24 +20,31 @@ class AssociationsController extends AbstractController
     private $associationRepository;
     private $chartGeneratorService;
     private $profilRepository;
+    private $paginator;
 
-    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository)
+    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator)
     {
         $this->associationRepository = $associationRepository;
         $this->chartGeneratorService = $chartGeneratorService;
         $this->profilRepository = $profilRepository;
+        $this->paginator = $paginator;
     }
     
     /**
      * @Route("/", name="browse")
      */
-    public function browse(): Response
+    public function browse(Request $request): Response
     {
 
-        $associations = $this->associationRepository->findAll();
-        $admins = 0;
-        $adherents = 0;
+        //$associations = $this->associationRepository->findAll();
 
+        $associations = $this->paginator->paginate(
+            $this->associationRepository->findAll(),
+            $request->query->getInt('page', 1),
+            8
+        );
+
+        /*
         foreach ($associations as $association) {
             foreach ($association->getProfils() as $profil) {
                 $account = $profil->getAccount();
@@ -49,7 +57,7 @@ class AssociationsController extends AbstractController
                 }
             }
         }
-
+        */
         return $this->render('dashboards/superadmin/associations/index.html.twig',compact('associations'));
     }
     
