@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Activity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ActivityType extends AbstractType
@@ -21,13 +23,30 @@ class ActivityType extends AbstractType
                     'class' => "activity-name-field form-control"
                 ]
             ])
-            ->add('picture' , TextType::class, [
+           /* ->add('picture' , TextType::class, [
                 'required' => false,
                 'label' => 'Image',
                 'attr' => [
                     'placeholder' => "Image de l'activité",
                     'class' => 'activity-picture-field form-control'
                 ]
+            ]) */
+            ->add('picture', FileType::class, [
+                'label' => "Image de l'activité",
+                'required' => false,
+                'attr' => [
+                    'placeholder' => "Image de l'activité",
+                    'class' => 'activity-picture-field form-control'
+                                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/*'
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid picture',
+                    ])
+                ],
             ])
         ;
     }

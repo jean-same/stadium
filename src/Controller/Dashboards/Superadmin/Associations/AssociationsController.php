@@ -2,16 +2,17 @@
 
 namespace App\Controller\Dashboards\Superadmin\Associations;
 
-use App\Form\ActivityType;
 use App\Form\EventType;
+use App\Form\ActivityType;
 use App\Repository\ProfilRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\General\ChartGeneratorService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -24,14 +25,16 @@ class AssociationsController extends AbstractController
     private $chartGeneratorService;
     private $profilRepository;
     private $paginator;
+    private $slugger;
     private $em;
 
-    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em)
+    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em , SluggerInterface $slugger )
     {
         $this->associationRepository = $associationRepository;
         $this->chartGeneratorService = $chartGeneratorService;
         $this->profilRepository = $profilRepository;
         $this->paginator = $paginator;
+        $this->slugger = $slugger;
         $this->em = $em;
     }
     
@@ -75,6 +78,22 @@ class AssociationsController extends AbstractController
         if($activityForm->isSubmitted() && $activityForm->isValid() ){
             $activity = $activityForm->getData();
             $activity->setAssociation($association);
+
+            $activityPicture = $activityForm->get('picture')->getData();
+
+            if($activityPicture) {
+                $pictureUploaded = $this->slugger->slug($activity->getName() . '-' .uniqid()).'.' .$activityPicture->guessExtension();
+                /*$test = __DIR__ . '/../../../../../public/pictures/activity/';
+ 
+                dd($test);*/
+
+                $activityPicture->move(
+                    __DIR__ . '/../../../../../public/pictures/activity/',
+                    $pictureUploaded
+                );
+
+                $activity->setPicture($pictureUploaded);
+            }
 
             $this->em->persist($activity);
             $this->em->flush();
