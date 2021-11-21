@@ -15,41 +15,8 @@
 		<div class="page-heading">
 			<h1>Association</h1>
 		</div>
-
-                                <div class="modal fade text-left" id="activity-add" tabindex="-1" role="dialog"
-                                    aria-labelledby="myModalLabel33" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                                        role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel33"> Ajouter une activitée </h4>
-                                                <button type="button" class="close btn-danger" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            </div>
-                                            <div class="alert alert-danger form-errors"></div>
-                                            {{ form_start(formActivity , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical activity-form' } }) }}
-                                            {{ form_errors(formActivity) }}
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                            {{ form_row(formActivity.name) }}
-                                                    </div>
-                                                    <div class="form-group">
-                                                            {{ form_row(formActivity.picture) }}
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn principal-color">
-                                                        <i class="fas fa-save"></i>
-                                                        Créer
-                                                    </button>
-                                                </div>
-                                            {{ form_end(formActivity) }}
-                                        </div>
-                                    </div>
-                                </div>
-	{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %} 
+		{%  include "dashboards/superadmin/_forms/_activityForm.html.twig"  %} 
+		{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %} 
 		<div class="page-content">
 
 			<div class="row">

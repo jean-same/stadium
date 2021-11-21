@@ -27,8 +27,8 @@ const app = {
         const activityPicture = activityPictureField.value ;
         let errors = [];
 
-        if(activityName.length < 6 ){
-            errors.push("L'activité doit avoir une image")
+        if(activityName.length < 3 ){
+            errors.push("L'activité doit avoir un nom qui est superieur ou egal à 3")
         }
 
         if(activityPicture == ""){
