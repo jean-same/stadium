@@ -29,36 +29,27 @@
                                                 </button>
                                             </div>
                                             <div class="alert alert-danger form-errors"></div>
-                                            {{ form_start(form , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical activity-form' } }) }}
-                                            {{ form_errors(form) }}
+                                            {{ form_start(formActivity , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical activity-form' } }) }}
+                                            {{ form_errors(formActivity) }}
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                            {{ form_row(form.name) }}
+                                                            {{ form_row(formActivity.name) }}
                                                     </div>
                                                     <div class="form-group">
-                                                            {{ form_row(form.picture) }}
+                                                            {{ form_row(formActivity.picture) }}
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                   {# <button type="button" class="btn btn-light-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Close</span>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary ml-1"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">login</span>
-                                                    </button>#}
                                                     <button type="submit" class="btn principal-color">
                                                         <i class="fas fa-save"></i>
                                                         Créer
                                                     </button>
                                                 </div>
-                                            {{ form_end(form) }}
+                                            {{ form_end(formActivity) }}
                                         </div>
                                     </div>
                                 </div>
+	{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %} 
 		<div class="page-content">
 
 			<div class="row">
@@ -133,7 +124,8 @@
 							</li>
 							<li class="nav-item d-flex" role="presentation">
 								<a class="nav-link" id="evenements-tab" data-bs-toggle="tab" href="#evenements" role="tab" aria-controls="evenements" aria-selected="false">Evenements</a>
-								<a href="" class="rubrique-add-item">
+								<a href="#" class="rubrique-add-item" data-bs-toggle="modal"
+                                    data-bs-target="#event-form" id="event-form">
 									<i class="fas fa-plus"></i>
 								</a>
 							</li>

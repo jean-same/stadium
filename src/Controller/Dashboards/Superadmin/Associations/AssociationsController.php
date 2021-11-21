@@ -3,6 +3,7 @@
 namespace App\Controller\Dashboards\Superadmin\Associations;
 
 use App\Form\ActivityType;
+use App\Form\EventType;
 use App\Repository\ProfilRepository;
 use App\Repository\AssociationRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -69,7 +70,6 @@ class AssociationsController extends AbstractController
 
         //form activity
         $activityForm = $this->createForm(ActivityType::class);
-
         $activityForm->handleRequest($request);
 
         if($activityForm->isSubmitted() && $activityForm->isValid() ){
@@ -83,13 +83,30 @@ class AssociationsController extends AbstractController
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
-    
 
-        $form = $activityForm->createView();
+        //form event
+
+        $eventForm = $this->createForm(EventType::class);
+        $eventForm->handleRequest($request);
+
+        if($eventForm->isSubmitted() && $eventForm->isValid()){
+            $event = $eventForm->getData();
+            $event->setAssociation($association);
+
+            $this->em->persist($event);
+            $this->em->flush();
+            
+            $this->addFlash("success" , "Evenement ajouté avec success");
+
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        $formActivity = $activityForm->createView();
+        $formEvent = $eventForm->createView();
 
         $chart = $this->chartGeneratorService->generateChart($dataMonth);
 
-        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart' , 'form'));
+        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart' , 'formActivity' , 'formEvent'));
 
     }
 

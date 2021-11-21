@@ -15,7 +15,10 @@ import './globalJs/bootstrap.bundle.min.js';
 import './globalJs/fontawesome.min.js';
 
 import './js/sidebar.js';
+
+//form
 import './js/formActivity.js';
+import './js/forms/formEvent.js';
 
 //image
 import './img/Logo.svg'

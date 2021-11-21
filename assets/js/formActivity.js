@@ -28,11 +28,11 @@ const app = {
         let errors = [];
 
         if(activityName.length < 6 ){
-            errors.push("Au moins 7 caracters")
+            errors.push("L'activité doit avoir une image")
         }
 
         if(activityPicture == ""){
-            errors.push("Peut pas etre vide")
+            errors.push("L'activité doit avoir une image")
         }
 
         if(errors.length > 0){
