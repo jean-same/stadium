@@ -2,14 +2,16 @@
 
 namespace App\Controller\Dashboards\Superadmin\Associations;
 
+use App\Form\ActivityType;
 use App\Repository\ProfilRepository;
 use App\Repository\AssociationRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use App\Service\General\ChartGeneratorService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
 * @Route("/dashboards/superadmin/associations", name="dashboard_superadmin_associations_")
@@ -21,13 +23,15 @@ class AssociationsController extends AbstractController
     private $chartGeneratorService;
     private $profilRepository;
     private $paginator;
+    private $em;
 
-    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator)
+    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em)
     {
         $this->associationRepository = $associationRepository;
         $this->chartGeneratorService = $chartGeneratorService;
         $this->profilRepository = $profilRepository;
         $this->paginator = $paginator;
+        $this->em = $em;
     }
     
     /**
@@ -36,35 +40,19 @@ class AssociationsController extends AbstractController
     public function browse(Request $request): Response
     {
 
-        //$associations = $this->associationRepository->findAll();
-
         $associations = $this->paginator->paginate(
             $this->associationRepository->findAll(),
             $request->query->getInt('page', 1),
             8
         );
 
-        /*
-        foreach ($associations as $association) {
-            foreach ($association->getProfils() as $profil) {
-                $account = $profil->getAccount();
-                if (in_array("ROLE_ADHERENT", $account->getRoles())) {
-                    $adherents++;
-                }
-
-                if (in_array("ROLE_ADMIN", $account->getRoles())) {
-                    $admins++;
-                }
-            }
-        }
-        */
         return $this->render('dashboards/superadmin/associations/index.html.twig',compact('associations'));
     }
     
     /**
     * @Route("/{id}", name="read")
     */
-    public function read($id) {
+    public function read($id, Request $request) {
         $association = $this->associationRepository->find($id);
 
         $profiles = $association->getProfils();
@@ -79,9 +67,29 @@ class AssociationsController extends AbstractController
             }
         }
 
+        //form activity
+        $activityForm = $this->createForm(ActivityType::class);
+
+        $activityForm->handleRequest($request);
+
+        if($activityForm->isSubmitted() && $activityForm->isValid() ){
+            $activity = $activityForm->getData();
+            $activity->setAssociation($association);
+
+            $this->em->persist($activity);
+            $this->em->flush();
+            
+            $this->addFlash("success" , "Activité ajoutée avec success");
+
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+    
+
+        $form = $activityForm->createView();
+
         $chart = $this->chartGeneratorService->generateChart($dataMonth);
 
-        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart'));
+        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart' , 'form'));
 
     }
 
@@ -93,4 +101,5 @@ class AssociationsController extends AbstractController
 
         return $this->render('dashboards/superadmin/associations/readOneProfil.html.twig', compact('profil'));
     }
+
 }

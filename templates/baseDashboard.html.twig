@@ -19,6 +19,15 @@
 		{% endblock %}
 	</head>
 	<body id="app">
+				{% for rubrique, messages in app.flashes %}
+				<div class="alert alert-{{ rubrique }} ">
+					{% for message in messages %}
+						<p>
+							{{ message }}
+						</p>
+					{% endfor %}
+				</div>
+			{% endfor %}
 		{%  include "_partials/_sidebarDashboard.html.twig"  %} 
 		{% block body %}{% endblock %}
 	
