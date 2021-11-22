@@ -95,7 +95,6 @@ const app = {
     }
 
     if (!errors) {
-      console.log(dataErrors);
       document.querySelector(".event-form").submit();
     }
   },
