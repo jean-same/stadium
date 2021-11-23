@@ -62,7 +62,7 @@ class HomeController extends AbstractController
 
         }
 
-        $chart = $this->chartGeneratorService->generateChart($dataMonth);
+        $chart = $this->chartGeneratorService->generateChart($dataMonth, "Association");
 
     return $this->render('dashboards/superadmin/home/index.html.twig',  compact('associations', 'superAdmins', 'admins', 'adherents', 'activities', 'events', 'files', 'lessons' , 'chart') );
     }

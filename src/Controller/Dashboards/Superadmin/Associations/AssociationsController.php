@@ -123,7 +123,7 @@ class AssociationsController extends AbstractController
         $formActivity = $activityForm->createView();
         $formEvent = $eventForm->createView();
 
-        $chart = $this->chartGeneratorService->generateChart($dataMonth);
+        $chart = $this->chartGeneratorService->generateChart($dataMonth, "Adherents");
 
         return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart' , 'formActivity' , 'formEvent'));
 

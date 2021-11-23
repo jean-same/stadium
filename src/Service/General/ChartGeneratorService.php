@@ -33,14 +33,14 @@ class ChartGeneratorService {
                 ];
     }
 
-    public function generateChart($dataMonth){
+    public function generateChart($dataMonth, $entityName){
 
         $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
             'labels' => ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre'],
             'datasets' => [
                 [
-                    'label' => 'Association',
+                    'label' => $entityName,
                     'backgroundColor' => '#d87444',
                     'borderColor' => '#074666;',
                     'data' => [ $dataMonth["Jan"] , $dataMonth["Feb"] , $dataMonth["Mar"] , $dataMonth["Apr"] , $dataMonth["May"] , $dataMonth["Jun"] , $dataMonth["Jul"] , $dataMonth["Aug"] , $dataMonth["Sep"] , $dataMonth["Oct"] , $dataMonth["Nov"] , $dataMonth["Dec"] ],
