@@ -1,6 +1,7 @@
 {% extends 'baseDashboard.html.twig' %}
 
-{% block title %}{{ association.name }}
+{% block title %}
+	{{ association.name }}
 {% endblock %}
 
 {% block body %}
@@ -15,8 +16,8 @@
 		<div class="page-heading">
 			<h1>Association</h1>
 		</div>
-		{%  include "dashboards/superadmin/_forms/_activityForm.html.twig"  %} 
-		{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %} 
+		{%  include "dashboards/superadmin/_forms/_activityForm.html.twig"  %}
+		{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %}
 		<div class="page-content">
 
 			<div class="row">
@@ -55,7 +56,8 @@
 					</div>
 				</div>
 
-				<div class="card-body col-xl-6 col-lg-12">
+				<div
+					class="card-body col-xl-6 col-lg-12">
 					{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
 					{{ render_chart(chart, {'class': 'my-chart'}) }}
 
@@ -84,15 +86,13 @@
 							</li>
 							<li class="nav-item d-flex" role="presentation">
 								<a class="nav-link" id="activites-tab" data-bs-toggle="tab" href="#activites" role="tab" aria-controls="activites" aria-selected="false">Activités</a>
-								<a href="#" class="rubrique-add-item" data-bs-toggle="modal"
-                                    data-bs-target="#activity-add" id="activity-add">
+								<a href="#" class="rubrique-add-item" data-bs-toggle="modal" data-bs-target="#activity-add" id="activity-add">
 									<i class="fas fa-plus"></i>
 								</a>
 							</li>
 							<li class="nav-item d-flex" role="presentation">
 								<a class="nav-link" id="evenements-tab" data-bs-toggle="tab" href="#evenements" role="tab" aria-controls="evenements" aria-selected="false">Evenements</a>
-								<a href="#" class="rubrique-add-item" data-bs-toggle="modal"
-                                    data-bs-target="#event-form" id="event-form">
+								<a href="#" class="rubrique-add-item" data-bs-toggle="modal" data-bs-target="#event-form" id="event-form">
 									<i class="fas fa-plus"></i>
 								</a>
 							</li>
@@ -124,7 +124,7 @@
 															<td>{{ profil.lastName }}</td>
 															<td class="text-bold-500">{{ profil.picture }}</td>
 															<td class="text-center">{{ profil.file.isComplete ? "<i class='far fa-check-circle text-success'></i>" : "<i class='far fa-times-circle text-danger'></i>" }}</td>
-                                                            <td class="text-center">
+															<td class="text-center">
 																<a href="{{ path('dashboard_superadmin_associations_readOneProfil', { id : profil.id }) }}">
 																	<i class="fa fa-eye text-primary" aria-hidden="true"></i>
 																</a>
@@ -198,7 +198,7 @@
 												<tr>
 													<th>Nom</th>
 													<th>Endroit</th>
-													<th class="text-center">Max participants</th>
+													<th class="">Max participants</th>
 													<th class="text-center">Date de debut</th>
 													<th class="text-center">Date de fin</th>
 													<th class="text-center">Horaire</th>
@@ -212,18 +212,28 @@
 															{{ event.name }}
 														</td>
 														<td class="text-bold-500">{{ event.place }}</td>
-														<td class="text-bold-500">{{ event.maxParticipants }}</td>
+														<td class="text-bold-500">{{ event.maxParticipants }}
+															{% if event.profiles | length == event.maxParticipants %}
+																<span class="badge bg-success">
+																	Complet
+																</span>
+															{% else %}
+																<span class="badge bg-primary">
+																	{{ event.maxParticipants - event.profiles | length }} libres
+																</span>
+															{% endif %}
+														</td>
 														<td class="text-bold-500">{{ event.startDate | date("d/m/Y") }}</td>
 														<td class="text-bold-500">{{ event.endDate | date("d/m/Y") }}</td>
 														<td class="text-center">{{ event.schedule |format_datetime('none', 'short', locale='en') }}</td>
 														<td class="text-center">
 															<a href="">
-																<i class='bi bi-pencil-square'></i>
+																<i class="fas fa-edit text-warning"></i>
 															</a>
 														</td>
 														<td class="text-center">
 															<a href="">
-																<i class='bi bi-trash-fill'></i>
+																<i class="fa fa-trash text-danger" aria-hidden="true"></i>
 															</a>
 
 														</td>
