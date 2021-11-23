@@ -11,7 +11,7 @@
 			<link rel="preconnect" href="https://fonts.gstatic.com">
 			<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 			{{ encore_entry_link_tags('app') }}
-		
+
 		{% endblock %}
 
 		{% block javascripts %}
@@ -19,18 +19,19 @@
 		{% endblock %}
 	</head>
 	<body id="app">
-				{% for rubrique, messages in app.flashes %}
-				<div class="alert alert-{{ rubrique }} text-center">
-					{% for message in messages %}
-						<p>
-							{{ message }}
-						</p>
-					{% endfor %}
-				</div>
-			{% endfor %}
-		{%  include "_partials/_sidebarDashboard.html.twig"  %} 
+		{% for rubrique, messages in app.flashes %}
+			<div class="alert alert-{{ rubrique }} text-center">
+				{% for message in messages %}
+					<p>
+						{{ message }}
+					</p>
+				{% endfor %}
+			</div>
+		{% endfor %}
+		{%  include "_partials/_sidebarDashboard.html.twig" with {
+			'path' : path('dashboards_superadmin_home')	
+		}%}
 		{% block body %}{% endblock %}
-	
+
 	</body>
 </html>
-
