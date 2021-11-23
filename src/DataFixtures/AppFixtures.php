@@ -126,16 +126,15 @@ class AppFixtures extends Fixture
 
             $year = 2021;
             $month = mt_rand(1, 12);
-            $day = mt_rand(1 , 28);
+            $day = mt_rand(1, 28);
 
             $datetimeImmutable  = new DateTimeImmutable();
-            $joinedAt = $datetimeImmutable ->setDate($year, $month, $day);
+            $joinedAt = $datetimeImmutable->setDate($year, $month, $day);
 
             $account->setEmail($faker->email())
                 ->setPassword("password")
                 ->setRoles($faker->randomElements($roleArray))
-                ->setJoinedUsAt($joinedAt)
-                ;
+                ->setJoinedUsAt($joinedAt);
 
             //$accountsList [] = $account;
             $manager->persist($account);
@@ -149,6 +148,9 @@ class AppFixtures extends Fixture
                 }
                 if ($role == "ROLE_ADMIN") {
                     $accountAdmin[] = $account;
+                }
+                if ($role == "ROLE_SUPER_ADMIN") {
+                    $accountSuperAdmin[] = $account;
                 }
             }
         }
@@ -186,6 +188,21 @@ class AppFixtures extends Fixture
             $manager->persist($file);
         }
 
+        foreach ($accountSuperAdmin as $currentSuperAdminAccount) {
+            $nb++;
+            //Creer des profils
+            $profil = new Profil;
+
+            $profil->setFirstName($faker->firstName())
+                ->setLastName($faker->lastName())
+                ->setPicture("profil" . $nb . ".jpeg")
+                ->setAccount($currentSuperAdminAccount)
+                //->setAssociation($faker->randomElements($assocArray));
+            ;
+
+            $manager->persist($profil);
+        }
+
         foreach ($accountAdmin as $currentAdminAccount) {
             $nb++;
             //Creer des profils
@@ -202,6 +219,7 @@ class AppFixtures extends Fixture
             $manager->persist($profil);
             $adminArray[] = $profil;
         }
+
 
         //dd($adherentArray);
         $digit = 0;
@@ -226,10 +244,10 @@ class AppFixtures extends Fixture
 
                 $year = 2021;
                 $month = mt_rand(1, 12);
-                $day = mt_rand(1 , 28);
-    
+                $day = mt_rand(1, 28);
+
                 $datetimeImmutable  = new DateTimeImmutable();
-                $joinedAt = $datetimeImmutable ->setDate($year, $month, $day);
+                $joinedAt = $datetimeImmutable->setDate($year, $month, $day);
 
                 if (!$currentProfilForAssoc->getAssociation()) {
                     $association->addProfil($currentProfilForAssoc);

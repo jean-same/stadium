@@ -1,0 +1,52 @@
+{% extends 'baseDashboard.html.twig' %}
+
+{% block title %}Hello SuperadminController!
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+		<h1 class="text-center">
+			Liste des Super Admins
+		</h1>
+		<table class="table table-hover mb-0">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prenom</th>
+					<th class="">Emails</th>
+					<th colspan="2" class="text-center">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for superAdmin in superAdmins %}
+					<tr>
+						<td class="text-bold-500">
+							{% for profil in superAdmin.profil %}
+								{{ profil.lastName }}
+							{% endfor %}
+						</td>
+						<td class="text-bold-500">
+							{% for profil in superAdmin.profil %}
+								{{ profil.firstName }}
+							{% endfor %}
+						</td>
+						<td class="text-bold-500">{{ superAdmin.email }}
+						</td>
+
+						<td class="text-center">
+							<a href="">
+								<i class="fas fa-edit text-warning"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<a href="">
+								<i class="fa fa-trash text-danger" aria-hidden="true"></i>
+							</a>
+
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

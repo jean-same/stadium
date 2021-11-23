@@ -1,0 +1,111 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+/* login form */
+
+.containerForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20em;
+}
+
+.screen {
+  background: #fff;
+  position: relative;
+  min-width: 360px;
+  box-shadow: 0px 0px 2px #074666;
+  padding: 1em;
+  margin: 15% auto;
+}
+
+.login {
+  width: 350px;
+  padding-top: 56px;
+}
+
+.login__field {
+  padding: 15px 0px;
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.login__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__icon {
+  position: absolute;
+  bottom: 15px;
+  color: #074666;
+}
+
+.login__input {
+  border: none;
+  border-bottom: 2px solid #074666;
+  background: none;
+  font-weight: 700;
+  width: 90%;
+  margin-left: 1.5em;
+  transition: 0.2s;
+  color: #074666;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+  outline: none;
+  border-bottom-color: #02a5a5;
+}
+
+.login__submit {
+  background: #074666;
+  font-size: 20px;
+  margin: 1em auto;
+  padding: 10px 15px;
+  border: 1px solid #074666;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 50%;
+  color: #fff;
+  box-shadow: 0px 2px 2px #285185;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+  border-color: #031f44;
+  outline: none;
+}
+
+.title-login {
+  text-align: center;
+  margin: 0.5em;
+  color: #074666;
+  font-weight: bold;
+}
+
+.button__text {
+  margin: 0 auto;
+}
+.alert {
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}
+
+.alert-danger {
+  border: none;
+  color: #fff;
+  background-color: #e74c3c;
+}
