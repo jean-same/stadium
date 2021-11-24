@@ -29,13 +29,19 @@ class SuperadminController extends AbstractController
         return $this->render('dashboards/superadmin/accounts/superadmin/index.html.twig', compact('superAdmins'));
     }
 
-    #[Route('/delete/{id}', name: '')]
+    #[Route('/delete/{id}', name: 'delete')]
     public function delete($id): Response
     {
         $superAdmin = $this->accountRepository->find($id);
 
-        return $this->render('dashboards/superadmin/accounts/superadmin/index.html.twig', compact('superAdmins'));
+        if (!$superAdmin) {
+            return $this->json("Ce profil n'existe pas", Response::HTTP_NOT_FOUND);
+        }
+        $this->em->remove($superAdmin);
+        $this->em->flush();
+
+        $this->addFlash("success", "SuperAdmin supprimé avec succès");
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
-
-
 }
