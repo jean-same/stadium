@@ -18,6 +18,7 @@
 		</div>
 		{%  include "dashboards/superadmin/_forms/_activityForm.html.twig"  %}
 		{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %}
+
 		<div class="page-content">
 
 			<div class="row">
@@ -135,7 +136,7 @@
 																</a>
 															</td>
 															<td class="text-center">
-																<a href="">
+																<a href="{{ path('dashboard_superadmin_associations_deleteOneProfil', { id : profil.id }) }}">
 																	<i class="fa fa-trash text-danger" aria-hidden="true"></i>
 																</a>
 
@@ -219,7 +220,8 @@
 																</span>
 															{% else %}
 																<span class="badge bg-primary">
-																	{{ event.maxParticipants - event.profiles | length }} libres
+																	{{ event.maxParticipants - event.profiles | length }}
+																	libres
 																</span>
 															{% endif %}
 														</td>

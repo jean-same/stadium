@@ -7,6 +7,7 @@ use App\Form\ActivityType;
 use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
+use App\Service\Admin\AssociationServices;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\General\ChartGeneratorService;
@@ -16,8 +17,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
-* @Route("/dashboards/superadmin/associations", name="dashboard_superadmin_associations_")
-*/
+ * @Route("/dashboards/superadmin/associations", name="dashboard_superadmin_associations_")
+ */
 class AssociationsController extends AbstractController
 {
 
@@ -28,7 +29,7 @@ class AssociationsController extends AbstractController
     private $slugger;
     private $em;
 
-    public function __construct(AssociationRepository $associationRepository , ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em , SluggerInterface $slugger )
+    public function __construct(AssociationRepository $associationRepository, ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em, SluggerInterface $slugger)
     {
         $this->associationRepository = $associationRepository;
         $this->chartGeneratorService = $chartGeneratorService;
@@ -37,7 +38,7 @@ class AssociationsController extends AbstractController
         $this->slugger = $slugger;
         $this->em = $em;
     }
-    
+
     /**
      * @Route("/", name="browse")
      */
@@ -50,13 +51,14 @@ class AssociationsController extends AbstractController
             8
         );
 
-        return $this->render('dashboards/superadmin/associations/index.html.twig',compact('associations'));
+        return $this->render('dashboards/superadmin/associations/index.html.twig', compact('associations'));
     }
-    
+
     /**
-    * @Route("/{id}", name="read")
-    */
-    public function read($id, Request $request) {
+     * @Route("/{id}", name="read")
+     */
+    public function read($id, Request $request)
+    {
         $association = $this->associationRepository->find($id);
 
         $profiles = $association->getProfils();
@@ -75,14 +77,14 @@ class AssociationsController extends AbstractController
         $activityForm = $this->createForm(ActivityType::class);
         $activityForm->handleRequest($request);
 
-        if($activityForm->isSubmitted() && $activityForm->isValid() ){
+        if ($activityForm->isSubmitted() && $activityForm->isValid()) {
             $activity = $activityForm->getData();
             $activity->setAssociation($association);
 
             $activityPicture = $activityForm->get('picture')->getData();
 
-            if($activityPicture) {
-                $pictureUploaded = $this->slugger->slug($activity->getName() . '-' .uniqid()).'.' .$activityPicture->guessExtension();
+            if ($activityPicture) {
+                $pictureUploaded = $this->slugger->slug($activity->getName() . '-' . uniqid()) . '.' . $activityPicture->guessExtension();
                 /*$test = __DIR__ . '/../../../../../public/pictures/activity/';
  
                 dd($test);*/
@@ -97,8 +99,8 @@ class AssociationsController extends AbstractController
 
             $this->em->persist($activity);
             $this->em->flush();
-            
-            $this->addFlash("success" , "Activité ajoutée avec success");
+
+            $this->addFlash("success", "Activité ajoutée avec success");
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
@@ -108,14 +110,14 @@ class AssociationsController extends AbstractController
         $eventForm = $this->createForm(EventType::class);
         $eventForm->handleRequest($request);
 
-        if($eventForm->isSubmitted() && $eventForm->isValid()){
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
             $event = $eventForm->getData();
             $event->setAssociation($association);
 
             $this->em->persist($event);
             $this->em->flush();
-            
-            $this->addFlash("success" , "Evenement ajouté avec success");
+
+            $this->addFlash("success", "Evenement ajouté avec success");
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
@@ -125,17 +127,35 @@ class AssociationsController extends AbstractController
 
         $chart = $this->chartGeneratorService->generateChart($dataMonth, "Adherents");
 
-        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart' , 'formActivity' , 'formEvent'));
-
+        return $this->render('dashboards/superadmin/associations/read.html.twig', compact('association', 'chart', 'formActivity', 'formEvent'));
     }
 
     /**
-    * @Route("/profil/{id}", name="readOneProfil")
-    */
-    public function readOneProfil($id){
+     * @Route("/profil/{id}", name="readOneProfil")
+     */
+    public function readOneProfil($id)
+    {
         $profil = $this->profilRepository->find($id);
 
         return $this->render('dashboards/superadmin/associations/readOneProfil.html.twig', compact('profil'));
     }
 
+    /**
+     * @Route("/profil/delete/{id}", name="deleteOneProfil")
+     */
+    public function deleteOneProfil($id)
+    {
+        $profil = $this->profilRepository->find($id);
+
+        if (!$profil) {
+            return $this->json("Ce profil n'existe pas", Response::HTTP_NOT_FOUND);
+        }
+
+        $this->em->remove($profil);
+        $this->em->flush();
+
+        $this->addFlash("success", "Adherent supprimé avec succès");
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
+    }
 }
