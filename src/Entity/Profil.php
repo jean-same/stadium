@@ -47,7 +47,7 @@ class Profil
      *          "api_backoffice_superadmin_associations_browse",
      *          "api_backoffice_superadmin_events_browse",
      *          "api_backoffice_superadmin_lessons_browse",
-*               "api_backoffice_admin_association_profiles_browse",
+     *               "api_backoffice_admin_association_profiles_browse",
      *          "api_backoffice_admin_association_activities_browse",
      *          "api_backoffice_admin_association_events_browse",
      *          "api_member_profiles_browse"
@@ -124,7 +124,7 @@ class Profil
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="profils")
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="profils" , fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse",

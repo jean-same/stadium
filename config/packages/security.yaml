@@ -34,7 +34,7 @@ security:
     main:
       lazy: true
       provider: app_user_provider
-      custom_authenticator: App\Security\DocumentationAuthenticator
+      custom_authenticator: App\Security\DashboardsAuthenticator
       logout:
         path: app_logout
         # where to redirect after logout
@@ -58,6 +58,8 @@ security:
     - { path: ^/api/v1/backoffice/admin/association, roles: ROLE_ADMIN }
 
     - { path: ^/api/v1/backoffice/superadmin, roles: ROLE_SUPER_ADMIN }
+
+    - { path: ^/dashboards/admin, roles: ROLE_ADMIN }
 
     - { path: ^/dashboards/superadmin, roles: ROLE_SUPER_ADMIN }
 
