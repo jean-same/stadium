@@ -162,7 +162,7 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("profil" . $nb . ".jpeg")
+                ->setPicture("https://picsum.photos/200")
                 ->setAccount($currentAdherentAccount)
                 //->setAssociation($faker->randomElements($assocArray));
             ;
@@ -195,7 +195,7 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("profil" . $nb . ".jpeg")
+                ->setPicture("https://picsum.photos/200")
                 ->setAccount($currentSuperAdminAccount)
                 //->setAssociation($faker->randomElements($assocArray));
             ;
@@ -210,7 +210,7 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("profil" . $nb . ".jpeg")
+                ->setPicture("https://picsum.photos/200")
                 ->setAccount($currentAdminAccount)
                 //->setAssociation($faker->randomElements($assocArray));
             ;
@@ -277,6 +277,7 @@ class AppFixtures extends Fixture
                 ->setEndDate($faker->dateTimeThisMonth('+10 days'))
                 ->setSchedule($faker->dateTimeBetween())
                 ->setMaxParticipants(mt_rand(5, 100))
+                ->setPicture("https://picsum.photos/200")
                 ->setAssociation($association);
 
             $nbProfilForEvent = mt_rand(0, count($adherentArray));
@@ -301,7 +302,8 @@ class AppFixtures extends Fixture
             $currentActivity = $activitiesArray[mt_rand(0, count($activitiesArray) - 1)];
 
             $activity->setName($currentActivity)
-                ->setPicture("picActivity" . $nb . ".jpeg")
+                /*->setPicture("picActivity" . $nb . ".jpeg")*/
+                ->setPicture("https://picsum.photos/200")
                 ->setAssociation($association);
 
             $nbProfilForActivity = mt_rand(0, count($adherentArray));

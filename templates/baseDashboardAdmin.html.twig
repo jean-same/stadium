@@ -29,7 +29,8 @@
 			</div>
 		{% endfor %}
 		{%  include "_partials/_sidebarDashboard.html.twig" with {
-			'path' : path('dashboards_admin_home')	
+			'path' : path('dashboards_admin_home'),
+			'role' : 'Admin'
 		}%}
 		{% block body %}{% endblock %}
 
