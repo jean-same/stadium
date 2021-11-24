@@ -59,6 +59,8 @@ security:
 
     - { path: ^/api/v1/backoffice/superadmin, roles: ROLE_SUPER_ADMIN }
 
+    - { path: ^/dashboards/adherent, roles: ROLE_ADHERENT }
+
     - { path: ^/dashboards/admin, roles: ROLE_ADMIN }
 
     - { path: ^/dashboards/superadmin, roles: ROLE_SUPER_ADMIN }
