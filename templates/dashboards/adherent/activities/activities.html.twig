@@ -1,56 +1,73 @@
 {% extends 'baseDashboardAdherent.html.twig' %}
 
-{% block title %}Hello ActivitiesController!
+{% block title %}Activités
 {% endblock %}
 
 {% block body %}
 	<div id="main">
-
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
 		<div class="row">
 			{% if profile.association is not null %}
-				<h2>Mes activités</h2>
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">
+						Mes activités
+					</span>
+				</h2>
 				{% for activity in profile.activity %}
-					<div class="card col-3 p-0 event-card-body">
-						<img class="img-fluid event-card-body-picture" src="{{ activity.picture }}" alt=" card image cap">
+					<div
+						class="card col-3 p-0 activity-card-body" style="background: url({{ activity.picture }}); background-size: cover; ">
 						<div class="card-content text-center">
-							<div class="card-body event-card-body-adherent">
-								<h3 class="card-text">
+							<div class="card-body">
+								<h3 class="card-text activity-card-body-title">
 									<span class="text-bold-500"></span>
 									{{ activity.name }}
 								</h3>
-								<a href="{{ path('dashboards_adherent_activities_unregister', { slug : profile.slug , activityId : activity.id }) }}" class="btn btn-primary">Se désinscrire</a>
+								<a href="{{ path('dashboards_adherent_activities_unregister', { slug : profile.slug , activityId : activity.id }) }}" class="btn principal-color">Se désinscrire</a>
 							</div>
 						</div>
 					</div>
-					{% else %}
-
+				{% else %}
+					<div>
+						<h1 class="text-center default-color m-5">Vous n'avez pas d'activités à afficher
+						</h1>
+					</div>
 				{% endfor %}
 			</div>
 
 
 			<div class="row">
-				<h2>Les activités de :
-					{{profile.association.name}}
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">
+						Les activités de :
+						{{profile.association.name}}
+					</span>
 				</h2>
 				{% if activityNotSubscribedByTheProfile | length > 0 %}
 
 					{% for activity in activityNotSubscribedByTheProfile %}
-						<div class="card col-3 p-0 event-card-body">
-							<img class="img-fluid event-card-body-picture" src="{{ activity.picture }}" alt=" card image cap">
+						<div
+							class="card col-3 p-0 activity-card-body" style="background: url({{ activity.picture }}); background-size: cover; ">
 							<div class="card-content text-center">
-								<div class="card-body event-card-body-adherent">
-									<h3 class="card-text">
+								<div class="card-body">
+									<h3 class="card-text activity-card-body-title">
 										<span class="text-bold-500"></span>
 										{{ activity.name }}
 									</h3>
-									<a href="{{ path('dashboards_adherent_activities_register', { slug : profile.slug , activityId : activity.id }) }}" class="btn btn-primary">S'inscrire</a>
+									<a href="{{ path('dashboards_adherent_activities_register', { slug : profile.slug , activityId : activity.id }) }}" class="btn principal-color">S'inscrire</a>
 								</div>
 							</div>
 						</div>
 					{% endfor %}
 
-					{% else %}
-
+				{% else %}
+					<div>
+						<h1 class="text-center default-color m-5">Pas d'activités à afficher
+						</h1>
+					</div>
 				{% endif %}
 			{% else %}
 				<h1 class="text-center">

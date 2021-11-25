@@ -132,7 +132,7 @@ class Event
     private $maxParticipants;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
+     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event" , fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",

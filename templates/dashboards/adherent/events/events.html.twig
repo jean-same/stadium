@@ -5,61 +5,27 @@
 
 {% block body %}
 	<div id="main">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
 
-		<div class="row">
+		<div class="row events-div">
 			{% if profile.association is not null %}
-				<h2>Mes evenements</h2>
-				{% for event in profile.event %}
-					<div class="card col-3 p-0 event-card-body">
-						<img class="img-fluid event-card-body-picture" src="{{ event.picture }}" alt=" card image cap">
-						<div class="card-content text-center">
-							<div class="card-body event-card-body-adherent">
-								<h3 class="card-text">
-									<span class="text-bold-500"></span>
-									{{ event.name }}
-								</h3>
-								<p class="card-text">
-									<span class="text-bold-500"></span>
-									{{ event.startDate | date("d-m-Y") }}
-									-
-									{{ event.endDate | date("d-m-Y") }}
-								</p>
-								<p class="card-text">
-									<span class="text-bold-500"></span>
-									{{ event.schedule | format_datetime('none', 'short', locale='en') }}
-								</p>
-								<p class="card-text">
-									<span class="text-bold-500"></span>
-									{{ event.place}}
-								</p>
-								<p class="card-text">
-									<span class="text-bold-500">
-										Max Participants:
-									</span>
-									{{ event.maxParticipants }}
-								</p>
-								<a href="{{ path('dashboards_adherent_events_unregister', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">Se désinscrire</a>
-							</div>
-						</div>
-					</div>
-					{% else %}
-
-				{% endfor %}
-			</div>
-
-
-			<div class="row">
-
-				<h2>Les evenements de :
-					{{profile.association.name}}
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">Mes evenements</span>
 				</h2>
-				{% if eventNotSubscribedByTheProfile | length > 0 %}
+				{% for event in profile.event %}
+					{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
 
-					{% for event in eventNotSubscribedByTheProfile %}
-						<div class="card col-3 p-0 event-card-body">
-							<img class="img-fluid event-card-body-picture" src="{{ event.picture }}" alt=" card image cap">
-							<div class="card-content text-center">
-								<div class="card-body event-card-body-adherent">
+					<div class="card card-adherent mb-3 col-sm-4">
+						<div class="row g-0">
+							<div class="col-md-6 card-picture">
+								<img src="{{ event.picture }}" class="img-fluid rounded-start" alt="...">
+							</div>
+							<div class="col-md-6">
+								<div class="card-body card-body-adherent">
 									<h3 class="card-text">
 										<span class="text-bold-500"></span>
 										{{ event.name }}
@@ -79,12 +45,74 @@
 										{{ event.place}}
 									</p>
 									<p class="card-text">
-										<span class="text-bold-500">
-											Max Participants:
-										</span>
-										{{ event.maxParticipants }}
+										{% if nbPlacesLeft <= 0  %}
+											<span class="badge second-color-background">Complet</span>
+										{% else %}
+											<span class="text-bold-500 badge bg-{{ nbPlacesLeft > 10 ? 'success' : 'danger' }}">
+												{{ nbPlacesLeft }}
+												places libre
+											</span>
+										{% endif %}
 									</p>
-									<a href="{{ path('dashboards_adherent_events_register', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">S'inscrire</a>
+									<a href="{{ path('dashboards_adherent_events_unregister', { slug : profile.slug , eventId : event.id }) }}" class="btn principal-color">Se désinscrire</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% else %}
+
+				{% endfor %}
+			</div>
+
+
+			<div class="row events-div">
+
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">Les evenements de :
+						{{profile.association.name}}
+					</span>
+				</h2>
+				{% if eventNotSubscribedByTheProfile | length > 0 %}
+
+					{% for event in eventNotSubscribedByTheProfile %}
+						{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+						<div class="card card-adherent mb-3 col-md-4">
+							<div class="row g-0">
+								<div class="col-md-6 card-picture">
+									<img src="{{ event.picture }}" class="img-fluid rounded-start" alt="...">
+								</div>
+								<div class="col-md-6">
+									<div class="card-body card-body-adherent">
+										<h3 class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.name }}
+										</h3>
+										<p class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.startDate | date("d-m-Y") }}
+											-
+											{{ event.endDate | date("d-m-Y") }}
+										</p>
+										<p class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.schedule | format_datetime('none', 'short', locale='en') }}
+										</p>
+										<p class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.place}}
+										</p>
+										<p class="card-text">
+											{% if nbPlacesLeft <= 0  %}
+												<span class="badge second-color-background">Complet</span>
+											{% else %}
+												<span class="text-bold-500 badge bg-{{ nbPlacesLeft > 10 ? 'success' : 'danger' }} ">
+													{{ nbPlacesLeft }}
+													places libre
+												</span>
+											{% endif %}
+										</p>
+										<a href="{{ path('dashboards_adherent_events_register', { slug : profile.slug , eventId : event.id }) }}" class="btn principal-color">S'inscrire</a>
+									</div>
 								</div>
 							</div>
 						</div>

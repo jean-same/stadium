@@ -1,49 +1,63 @@
 {% extends 'baseDashboardAdherent.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Profils
 {% endblock %}
 
 {% block body %}
 	<div id="main">
-		<h1 class="text-center">Profils</h1>
-		<section class="profiles">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<h1>
+			<span class="title-adherent-pages">Profils</span>
+		</h1>
+		<section class="profiles" id="profiles">
 			<div class="row">
 				{% for profil in user.profil %}
-					<div class="card col-3 p-0 profil-card-body">
-						<img class="img-fluid profil-card-body-picture" src="{{ asset('pictures/profilPicture/')~ profil.picture }}" alt=" card image cap">
-						<div class="card-content">
-							<div class="card-body profil-card-body-adherent">
-								<p class="card-text">
-									<span class="text-bold-500">Nom :
-									</span>
-									{{ profil.lastName }}
-								</p>
-								<p class="card-text">
-									<span class="text-bold-500">Prenom :
-									</span>
-									{{ profil.firstName }}
-								</p>
-								{% if profil.association %}
-									<p class="card-text">
-										<span class="text-bold-500">Association :
-										</span>
-										<span class="badge bg-primary">{{ profil.association.name }}</span>
-									</p>
-								{% endif %}
+
+					<div class="card mb-3 col-lg-4 card-adherent-profile">
+						<div class="row g-0">
+							<div class="col-md-6 card-picture">
+								<img class="img-fluid profil-card-body-picture" src="{{ asset('pictures/profilPicture/')~ profil.picture }}" alt=" card image cap">
 							</div>
-						</div>
-						<div class="card-footer d-flex justify-content-between">
-							<a href="{{ path('dashboards_adherent_read', { slug : profil.slug }) }}" class="btn btn-primary">
-								<i class="fas fa-eye"></i>
-							</a>
-							<a href="{{ path('dashboards_adherent_edit', { slug : profil.slug }) }}" class="btn btn-warning">
-								<i class="fas fa-edit"></i>
-							</a>
-							{% if profil.association is null %}
-								<a href="{{ path('dashboards_adherent_delete', { slug : profil.slug }) }}" class="btn btn-danger">
-									<i class="fas fa-trash"></i>
-								</a>
-							{% endif %}
+							<div class="col-md-6">
+								<div class="card-body profil-card-body-adherent">
+									<p class="card-text">
+										<span class="text-bold-500">Nom :
+										</span>
+										{{ profil.lastName }}
+									</p>
+									<p class="card-text">
+										<span class="text-bold-500">Prenom :
+										</span>
+										{{ profil.firstName }}
+									</p>
+									{% if profil.association %}
+										<p class="card-text">
+											<span class="text-bold-500">Association :
+											</span>
+											<span class="badge principal-color">{{ profil.association.name }}</span>
+										</p>
+									{% endif %}
+								</div>
+								<div class="card-footer d-flex justify-content-between">
+									<a href="{{ path('dashboards_adherent_read', { slug : profil.slug }) }}" class="btn principal-color">
+										<i class="fas fa-eye"></i>
+									</a>
+									<a href="{{ path('dashboards_adherent_edit', { slug : profil.slug }) }}" class="btn btn-warning">
+										<i class="fas fa-edit"></i>
+									</a>
+									{% if profil.association is null %}
+										<a href="{{ path('dashboards_adherent_delete', { slug : profil.slug }) }}" class="btn btn-danger">
+											<i class="fas fa-trash"></i>
+										</a>
+									{% endif %}
+
+								</div>
+							</div>
 
 						</div>
 					</div>
