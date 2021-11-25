@@ -1,0 +1,18 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Hello AdherentsActionsController!
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+		<div class="row m-5">
+			<div class="card col-lg-3">
+				{%  include "dashboards/adherent/_rubriques_partials/_events.html.twig"  %}
+			</div>
+			<div class="card col-lg-3">
+				{%  include "dashboards/adherent/_rubriques_partials/_my_events.html.twig"  %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

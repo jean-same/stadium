@@ -135,7 +135,7 @@ class Profil
     private $association;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="profiles")
+     * @ORM\ManyToMany(targetEntity=Event::class, inversedBy="profiles", fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_profiles_browse",
@@ -171,6 +171,11 @@ class Profil
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $joinedAssocAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -336,6 +341,18 @@ class Profil
     public function setJoinedAssocAt(?\DateTimeImmutable $joinedAssocAt): self
     {
         $this->joinedAssocAt = $joinedAssocAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

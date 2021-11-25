@@ -49,7 +49,7 @@ class HomeController extends AbstractController
             } else {
                 $newProfil->setPicture("random.jpg");
             }
-
+            $newProfil->setSlug($this->slugger->slug(strtolower($newProfil->getLastName()) . '-' . strtolower($newProfil->getFirstName())));
             $newProfil->setAccount($user);
             $this->em->persist($newProfil);
             $this->em->flush();
@@ -61,6 +61,6 @@ class HomeController extends AbstractController
 
         $formProfil = $userForm->createView();
 
-        return $this->render('dashboards/adherent/home/index.html.twig', compact('user', 'formProfil'));
+        return $this->render('dashboards/adherent/index.html.twig', compact('user', 'formProfil'));
     }
 }

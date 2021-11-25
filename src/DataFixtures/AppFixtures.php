@@ -16,14 +16,17 @@ use Doctrine\Persistence\ObjectManager;
 use App\Repository\AssociationRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AppFixtures extends Fixture
 {
 
+    protected $slugger;
     protected $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, SluggerInterface $slugger)
     {
+        $this->slugger = $slugger;
         $this->passwordHasher = $passwordHasher;
     }
 
@@ -162,8 +165,9 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("https://picsum.photos/200")
+                ->setPicture("random.jpg")
                 ->setAccount($currentAdherentAccount)
+                ->setSlug($this->slugger->slug(strtolower($profil->getLastName()) . '-' . strtolower($profil->getFirstName())))
                 //->setAssociation($faker->randomElements($assocArray));
             ;
 
@@ -195,8 +199,9 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("https://picsum.photos/200")
+                ->setPicture("random.jpg")
                 ->setAccount($currentSuperAdminAccount)
+                ->setSlug($this->slugger->slug(strtolower($profil->getLastName()) . '-' . strtolower($profil->getFirstName())))
                 //->setAssociation($faker->randomElements($assocArray));
             ;
 
@@ -210,8 +215,9 @@ class AppFixtures extends Fixture
 
             $profil->setFirstName($faker->firstName())
                 ->setLastName($faker->lastName())
-                ->setPicture("https://picsum.photos/200")
+                ->setPicture("random.jpg")
                 ->setAccount($currentAdminAccount)
+                ->setSlug($this->slugger->slug(strtolower($profil->getLastName()) . '-' . strtolower($profil->getFirstName())))
                 //->setAssociation($faker->randomElements($assocArray));
             ;
 

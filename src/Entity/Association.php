@@ -173,7 +173,7 @@ class Association
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true , fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_associations_browse"
