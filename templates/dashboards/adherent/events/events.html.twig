@@ -37,7 +37,7 @@
 								</span>
 								{{ event.maxParticipants }}
 							</p>
-							<a href="{{ path('dashboards_adherent_adherents_actions_unregister', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">Se désinscrire</a>
+							<a href="{{ path('dashboards_adherent_events_unregister', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">Se désinscrire</a>
 						</div>
 					</div>
 				</div>
@@ -82,7 +82,7 @@
 									</span>
 									{{ event.maxParticipants }}
 								</p>
-								<a href="{{ path('dashboards_adherent_adherents_actions_register', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">S'inscrire</a>
+								<a href="{{ path('dashboards_adherent_events_register', { slug : profile.slug , eventId : event.id }) }}" class="btn btn-primary">S'inscrire</a>
 							</div>
 						</div>
 					</div>

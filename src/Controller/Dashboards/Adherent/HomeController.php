@@ -5,11 +5,12 @@ namespace App\Controller\Dashboards\Adherent;
 use App\Form\ProfilType;
 use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Service\Members\MembersProfilServices;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/dashboards/adherent', name: 'dashboards_adherent_')]
 class HomeController extends AbstractController
@@ -17,11 +18,13 @@ class HomeController extends AbstractController
 
     private $em;
     private $slugger;
+    private $membersProfilServices;
 
-    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger)
+    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
     {
         $this->em = $em;
         $this->slugger = $slugger;
+        $this->membersProfilServices = $membersProfilServices;
     }
 
     #[Route('/', name: 'home')]
@@ -62,5 +65,13 @@ class HomeController extends AbstractController
         $formProfil = $userForm->createView();
 
         return $this->render('dashboards/adherent/index.html.twig', compact('user', 'formProfil'));
+    }
+
+    #[Route('/{slug}', name: 'read')]
+    public function read($slug): Response
+    {
+        $profile = $this->membersProfilServices->getProfilFromUser($slug);
+
+        return $this->render('dashboards/adherent/read.html.twig', compact('profile'));
     }
 }

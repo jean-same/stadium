@@ -2,6 +2,7 @@
 
 namespace App\Controller\Dashboards\Adherent;
 
+
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Members\MembersEventsServices;
@@ -11,8 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Members\MembersNotSubscribeEventsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/dashboards/adherent/adherents', name: 'dashboards_adherent_adherents_actions_')]
-class AdherentsActionsController extends AbstractController
+
+#[Route('/dashboards/adherent', name: 'dashboards_adherent_events_')]
+class EventsController extends AbstractController
 {
 
     private $em;
@@ -28,14 +30,6 @@ class AdherentsActionsController extends AbstractController
         $this->membersProfilServices = $membersProfilServices;
     }
 
-    #[Route('/{slug}', name: 'read')]
-    public function read($slug): Response
-    {
-        $profile = $this->membersProfilServices->getProfilFromUser($slug);
-
-        return $this->render('dashboards/adherent/adherents_actions/read.html.twig', compact('profile'));
-    }
-
     #[Route('/{slug}/events', name: 'events')]
     public function events($slug , MembersNotSubscribeEventsService $membersNotSubscribeEventsService )
     {
@@ -43,7 +37,7 @@ class AdherentsActionsController extends AbstractController
 
         $eventNotSubscribedByTheProfile = $membersNotSubscribeEventsService->getEventsNotSubsribedByConnecteduser($profile);
 
-        return $this->render('dashboards/adherent/adherents_actions/events.html.twig', compact('profile', 'eventNotSubscribedByTheProfile'));
+        return $this->render('dashboards/adherent/events/events.html.twig', compact('profile', 'eventNotSubscribedByTheProfile'));
     }
 
     #[Route('/{slug}/events/{eventId}/register', name: 'register')]
