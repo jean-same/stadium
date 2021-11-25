@@ -3,7 +3,6 @@
 namespace App\Service\Members;
 
 use App\Repository\EventRepository;
-use Symfony\Bundle\MakerBundle\EventRegistry;
 
 class MembersNotSubscribeEventsService
 {
