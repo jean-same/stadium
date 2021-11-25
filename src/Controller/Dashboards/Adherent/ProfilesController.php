@@ -39,13 +39,10 @@ class ProfilesController extends AbstractController
         $editProfileForm->handleRequest($request);
 
         if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
-            $profilEdited = $editProfileForm->getData();
-
-            $profilEdited->setSlug($this->slugger->slug(strtolower($profilEdited->getLastName()) . '-' . strtolower($profilEdited->getFirstName())));
-
+            
             $this->em->flush();
             $this->addFlash("success", "Profil modifié avec success");
-            
+
             return $this->redirectToRoute('dashboards_adherent_home');
         }
 

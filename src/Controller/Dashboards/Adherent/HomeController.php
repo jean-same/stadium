@@ -52,7 +52,7 @@ class HomeController extends AbstractController
             } else {
                 $newProfil->setPicture("random.jpg");
             }
-            $newProfil->setSlug($this->slugger->slug(strtolower($newProfil->getLastName()) . '-' . strtolower($newProfil->getFirstName())));
+
             $newProfil->setAccount($user);
             $this->em->persist($newProfil);
             $this->em->flush();
