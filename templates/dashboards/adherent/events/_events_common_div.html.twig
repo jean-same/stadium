@@ -1,0 +1,40 @@
+<div class="card card-adherent mb-3 col-sm-4">
+	<div class="row g-0">
+		<div class="col-md-6 card-picture">
+			<img src="{{ event.picture }}" class="img-fluid rounded-start" alt="...">
+		</div>
+		<div class="col-md-6">
+			<div class="card-body card-body-adherent">
+				<h3 class="card-text">
+					<span class="text-bold-500"></span>
+					{{ event.name }}
+				</h3>
+				<p class="card-text">
+					<span class="text-bold-500"></span>
+					{{ event.startDate | date("d-m-Y") }}
+					-
+					{{ event.endDate | date("d-m-Y") }}
+				</p>
+				<p class="card-text">
+					<span class="text-bold-500"></span>
+					{{ event.schedule | format_datetime('none', 'short', locale='en') }}
+				</p>
+				<p class="card-text">
+					<span class="text-bold-500"></span>
+					{{ event.place}}
+				</p>
+				<p class="card-text">
+					{% if nbPlacesLeft <= 0  %}
+						<span class="badge second-color-background">Complet</span>
+					{% else %}
+						<span class="text-bold-500 badge bg-{{ nbPlacesLeft > 10 ? 'success' : 'danger' }}">
+							{{ nbPlacesLeft }}
+							places libre
+						</span>
+					{% endif %}
+				</p>
+				<a href="{{ path }}" class="btn principal-color"> {{ buttonName }} </a>
+			</div>
+		</div>
+	</div>
+</div>
