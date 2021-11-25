@@ -1,0 +1,15 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Edit
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+		<section class="new-profile-section">
+			<div class="formProfil-adherent">
+				<h1 class="text-center">Modifier</h1>
+				{%  include "dashboards/adherent/_forms/_modifyProfileForm.html.twig"  %}
+			</div>
+		</section>
+	</div>
+{% endblock %}
