@@ -23,8 +23,14 @@ class MembersNotSubscribeActivitiesService
             $profileActivitiesId[] = $profileActivity->getId();
         }
 
-        foreach ($profile->getAssociation()->getActivities() as $activity) {
-            $profileAssociationActivitiesId[] = $activity->GetId();
+        $association = $profile->getAssociation();
+
+        if ($association == null) {
+            return null;
+        } else {
+            foreach ($profile->getAssociation()->getActivities() as $activity) {
+                $profileAssociationActivitiesId[] = $activity->GetId();
+            }
         }
 
         foreach ($profileAssociationActivitiesId as $id) {

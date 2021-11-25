@@ -13,7 +13,7 @@ use App\Service\Members\MembersNotSubscribeEventsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-#[Route('/dashboards/adherent', name: 'dashboards_adherent_events_')]
+#[Route('/dashboards/adherent/{slug}/events', name: 'dashboards_adherent_events_')]
 class EventsController extends AbstractController
 {
 
@@ -30,7 +30,7 @@ class EventsController extends AbstractController
         $this->membersProfilServices = $membersProfilServices;
     }
 
-    #[Route('/{slug}/events', name: 'events')]
+    #[Route('/', name: 'events')]
     public function events($slug , MembersNotSubscribeEventsService $membersNotSubscribeEventsService )
     {
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
@@ -40,7 +40,7 @@ class EventsController extends AbstractController
         return $this->render('dashboards/adherent/events/events.html.twig', compact('profile', 'eventNotSubscribedByTheProfile'));
     }
 
-    #[Route('/{slug}/events/{eventId}/register', name: 'register')]
+    #[Route('/{eventId}/register', name: 'register')]
     public function register($eventId,  $slug): Response
     {
 
@@ -59,7 +59,7 @@ class EventsController extends AbstractController
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
-    #[Route('/{slug}/events/{eventId}/unregister', name: 'unregister')]
+    #[Route('/{eventId}/unregister', name: 'unregister')]
     public function unregister($eventId, $slug): Response
     {
 

@@ -3,12 +3,13 @@
 namespace App\Service\Members;
 
 use App\Repository\EventRepository;
+use Doctrine\ORM\EntityNotFoundException;
 
 class MembersNotSubscribeEventsService
 {
     private $eventsRepository;
 
-    public function __construct( EventRepository $eventRepository )
+    public function __construct(EventRepository $eventRepository)
     {
         $this->eventsRepository = $eventRepository;
     }
@@ -19,21 +20,31 @@ class MembersNotSubscribeEventsService
         $profileEventsId = [];
         $profileAssociationEventsId = [];
 
-        foreach ($profile->getEvent() as $profileEvent) {
-            $profileEventsId[] = $profileEvent->getId();
+        if ($profile->getEvent()) {
+            foreach ($profile->getEvent() as $profileEvent) {
+                $profileEventsId[] = $profileEvent->getId();
+            }
         }
 
-        
-        foreach ($profile->getAssociation()->getEvents() as $event) {
-            $profileAssociationEventsId[] = $event->GetId() ;
-        }
-        //dd($profileAssociationEventsId);
+        $association = $profile->getAssociation();
 
-        foreach($profileAssociationEventsId as $id){
-            if( !in_array($id , $profileEventsId) ){
+        if ($association == null) {
+            //throw new EntityNotFoundException("Cet adherent fait parti d'aucune association");
+            return null;
+        } else {
+            if ($profile->getAssociation()->getEvents()) {
+                foreach ($profile->getAssociation()->getEvents() as $event) {
+                    $profileAssociationEventsId[] = $event->GetId();
+                }
+            }
+        }
+
+
+        foreach ($profileAssociationEventsId as $id) {
+            if (!in_array($id, $profileEventsId)) {
                 $eventNotSubscribedByTheProfile[] = $this->eventsRepository->find($id);
             }
-        } 
+        }
 
         return $eventNotSubscribedByTheProfile;
     }
