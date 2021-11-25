@@ -39,7 +39,7 @@ class ProfilesController extends AbstractController
         $editProfileForm->handleRequest($request);
 
         if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
-            
+
             $this->em->flush();
             $this->addFlash("success", "Profil modifié avec success");
 
@@ -49,5 +49,17 @@ class ProfilesController extends AbstractController
         $formProfil = $editProfileForm->createView();
 
         return $this->render('dashboards/adherent/profiles/edit.html.twig', compact('formProfil'));
+    }
+
+    #[Route('/delete', name: 'delete')]
+    public function delete($slug): Response
+    {
+        $profile = $this->membersProfilServices->getProfilFromUser($slug);
+
+        $this->em->remove($profile);
+        $this->em->flush();
+        $this->addFlash("success", "Profil supprimé avec success");
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }

@@ -39,9 +39,12 @@
 							<a href="{{ path('dashboards_adherent_edit', { slug : profil.slug }) }}" class="btn btn-warning">
 								<i class="fas fa-edit"></i>
 							</a>
-							<a href="" class="btn btn-danger">
-								<i class="fas fa-trash"></i>
-							</a>
+							{% if profil.association is null %}
+								<a href="{{ path('dashboards_adherent_delete', { slug : profil.slug }) }}" class="btn btn-danger">
+									<i class="fas fa-trash"></i>
+								</a>
+							{% endif %}
+
 						</div>
 					</div>
 				{% else %}
