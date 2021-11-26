@@ -18,18 +18,10 @@
 					</span>
 				</h2>
 				{% for activity in profile.activity %}
-					<div
-						class="card col-3 p-0 activity-card-body" style="background: url({{ activity.picture }}); background-size: cover; ">
-						<div class="card-content text-center">
-							<div class="card-body">
-								<h3 class="card-text activity-card-body-title">
-									<span class="text-bold-500"></span>
-									{{ activity.name }}
-								</h3>
-								<a href="{{ path('dashboards_adherent_activities_unregister', { slug : profile.slug , activityId : activity.id }) }}" class="btn principal-color">Se désinscrire</a>
-							</div>
-						</div>
-					</div>
+					{%  include "dashboards/adherent/activities/_activities_common_div.html.twig" with {
+							'path' : path('dashboards_adherent_activities_unregister', { slug : profile.slug , activityId : activity.id }),
+							'buttonName' : "Se désinscrire"
+						}  %}
 				{% else %}
 					<div>
 						<h1 class="text-center default-color m-5">Vous n'avez pas d'activités à afficher
@@ -49,18 +41,10 @@
 				{% if activityNotSubscribedByTheProfile | length > 0 %}
 
 					{% for activity in activityNotSubscribedByTheProfile %}
-						<div
-							class="card col-3 p-0 activity-card-body" style="background: url({{ activity.picture }}); background-size: cover; ">
-							<div class="card-content text-center">
-								<div class="card-body">
-									<h3 class="card-text activity-card-body-title">
-										<span class="text-bold-500"></span>
-										{{ activity.name }}
-									</h3>
-									<a href="{{ path('dashboards_adherent_activities_register', { slug : profile.slug , activityId : activity.id }) }}" class="btn principal-color">S'inscrire</a>
-								</div>
-							</div>
-						</div>
+						{%  include "dashboards/adherent/activities/_activities_common_div.html.twig" with {
+							'path' : path('dashboards_adherent_activities_register', { slug : profile.slug , activityId : activity.id }),
+							'buttonName' : "S'inscrire"
+						}  %}
 					{% endfor %}
 
 				{% else %}
