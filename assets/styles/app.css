@@ -637,11 +637,49 @@ card-body-adherent-event-picture {
   margin: 3em auto;
 }
 
-.card .activity-card-body-title{
+.card .activity-card-body-title {
   background: rgba(255, 255, 255, 0.527);
   text-shadow: #fff 1px 1px 1px;
   font-weight: bold;
   margin-top: 1.5em;
+}
+
+.card-width {
+  width: 300px;
+}
+.carousel .carousel-inner {
+  width: 200px;
+}
+
+.div-carousel-card-body {
+  margin: 0 auto;
+}
+
+.carousel-item .carousel-body-caption {
+  background: rgba(0, 0, 0, 0.342);
+  text-shadow: rgb(0, 0, 0) 1px 1px 1px;
+  font-weight: bold;
+  padding: 1em;
+}
+
+#div-left-rubriques {
+  width: 700px;
+}
+
+.card-profile-home {
+  margin: 1em auto;
+}
+
+#news-div {
+  width: 450px;
+}
+
+.my-file {
+  margin: 1em auto 0;
+}
+
+.card-file {
+  min-height: 313px;
 }
 
 @media (max-width: 767px) {

@@ -1,6 +1,6 @@
 {% extends 'baseDashboardAdherent.html.twig' %}
 
-{% block title %}Hello AdherentsActionsController!
+{% block title %}Profil Home!
 {% endblock %}
 
 {% block body %}
@@ -13,13 +13,35 @@
 			</a>
 		</header>
 
-		<div class="row m-5">
-			<div class="card col-lg-3">
-				{%  include "dashboards/adherent/_rubriques_partials/_events.html.twig"  %}
+		<div class="row my-5">
+			<div class="col-lg-8 row" id="div-left-rubriques">
+				<div class="card col-sm-6 card-profile-home card-width">
+					{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
+					'title' : 'Evènements',
+					'variableToUse' : profile.association.events
+				} %}
+				</div>
+				<div class="card col-sm-6 card-profile-home card-width">
+					{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
+					'title' : 'Mes évènements',
+					'variableToUse' : profile.event
+				} %}
+				</div>
+				<div class="card col-sm-6 card-profile-home card-width">
+					{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
+					'title' : 'Activités',
+					'variableToUse' : profile.association.activities
+				} %}
+				</div>
+				<div class="card col-sm-6 card-profile-home card-width">
+					{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
+					'title' : 'Mes activités',
+					'variableToUse' : profile.activity
+				} %}
+				</div>
 			</div>
-			<div class="card col-lg-3">
-				{%  include "dashboards/adherent/_rubriques_partials/_my_events.html.twig"  %}
-			</div>
+
 		</div>
+
 	</div>
 {% endblock %}

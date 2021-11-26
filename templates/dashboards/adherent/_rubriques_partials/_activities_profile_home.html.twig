@@ -1,0 +1,21 @@
+<div class="card-header">
+	<h3 class="text-center">
+		{{title}}
+	</h3>
+</div>
+
+{% set associations = variableToUse %}
+<div class="card-body div-carousel-card-body">
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			{% for key ,association in associations %}
+				<div class="carousel-item {% if key == 0 %} active {% endif %}">
+					<img src="https://picsum.photos/400" class="d-block w-100" alt="...">
+					<div class="carousel-caption carousel-body-caption d-md-block">
+						<h5>{{association.name}}</h5>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
