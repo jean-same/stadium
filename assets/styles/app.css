@@ -669,6 +669,9 @@ card-body-adherent-event-picture {
 
 .card-profile-home {
   margin: 1em auto;
+  height: 290px;
+  border: 1px solid #074666;
+  border-radius: 0 0.7em 0 0.7em;
 }
 
 #news-div {
@@ -679,7 +682,7 @@ card-body-adherent-event-picture {
   margin: 1em auto 0;
 }
 
-.my-file .infos{
+.my-file .infos {
   min-width: 335px;
 }
 

@@ -22,28 +22,61 @@
 		<div class="row my-5">
 			<div class="col-lg-8 row" id="div-left-rubriques">
 				<div class="card col-sm-6 card-profile-home card-width">
-					{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
-					'title' : 'Evènements',
+					<div class="card-header">
+						<h3 class="title-adherent-pages">
+							Evènements
+						</h3>
+					</div>
+					{% if profile.association is not null %}
+						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
 					'variableToUse' : profile.association.events
 				} %}
+					{% else %}
+						{%  include "dashboards/adherent/_warning/_joinAnAssociation.html.twig" %}
+					{% endif %}
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
-					{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
-					'title' : 'Mes évènements',
+					<div class="card-header">
+						<h3 class="title-adherent-pages">
+							Mes évènements
+						</h3>
+					</div>
+					{% if profile.event is not null  %}
+						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
 					'variableToUse' : profile.event
 				} %}
+						{% else %}
+
+					{% endif %}
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
-					{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
-					'title' : 'Activités',
+					<div class="card-header">
+						<h3 class="title-adherent-pages">
+							Activités
+						</h3>
+					</div>
+					{% if profile.association is not null  %}
+
+						{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
 					'variableToUse' : profile.association.activities
 				} %}
+					{% else %}
+						{%  include "dashboards/adherent/_warning/_joinAnAssociation.html.twig" %}
+					{% endif %}
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
-					{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
-					'title' : 'Mes activités',
+					<div class="card-header">
+						<h3 class="title-adherent-pages">
+							Mes activités
+						</h3>
+					</div>
+					{% if profile.activity is not null  %}
+						{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
 					'variableToUse' : profile.activity
 				} %}
+						{% else %}
+
+					{% endif %}
 				</div>
 			</div>
 			<div

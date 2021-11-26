@@ -4,46 +4,55 @@
 			<h3 class="card-title title-adherent-pages">Mon dossier</h3>
 		</div>
 		<div class="card-body card-body-file row">
-			<div class="infos col-lg-8 col-sm-12">
-				<p>
-					<span class="font-extrabold">Contact d'urgence :</span>
-					{{ profile.file.emergencyContactName }}
-					,
-					{{ profile.file.emergencyContactPhoneNumber }}
+			{% if profile.file is not null %}
+				<div class="infos col-lg-8 col-sm-12">
+					<p>
+						<span class="font-extrabold">Contact d'urgence :</span>
+						{{ profile.file.emergencyContactName }}
+						,
+						{{ profile.file.emergencyContactPhoneNumber }}
+					</p>
+					<p>
+						<span class="font-extrabold">Cotisation à jour
+						</span>
+						:
+						<span>
+							{{ profile.file.isPaid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+						</span>
+					</p>
+					<p>
+						<span class="font-extrabold">Certificat médical
+						</span>
+						:
+						<span>
+							{{ profile.file.medicalCertificate ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+						</span>
+					</p>
+					<p>
+						<span class="font-extrabold">Règlement interieur
+						</span>
+						:
+						<span>
+							{{ profile.file.rulesOfProcedure ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+						</span>
+					</p>
+					<p>
+						<span class="font-extrabold">Dossier validé
+						</span>
+						:
+						<span>
+							{{ profile.file.isValid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+						</span>
+					</p>
+				</div>
+			{% else %}
+				<p class="text-center">
+					Pour rejoindre une association il faut remplir un dossier que l'association validera par la suite.
 				</p>
-				<p>
-					<span class="font-extrabold">Cotisation à jour
-					</span>
-					:
-					<span>
-						{{ profile.file.isPaid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-					</span>
+				<p class="text-center">
+					<a href="" class="btn principal-color">Remplir mon dossier</a>
 				</p>
-				<p>
-					<span class="font-extrabold">Certificat médical
-					</span>
-					:
-					<span>
-						{{ profile.file.medicalCertificate ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-					</span>
-				</p>
-				<p>
-					<span class="font-extrabold">Règlement interieur
-					</span>
-					:
-					<span>
-						{{ profile.file.rulesOfProcedure ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-					</span>
-				</p>
-				<p>
-					<span class="font-extrabold">Dossier validé
-					</span>
-					:
-					<span>
-						{{ profile.file.isValid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-					</span>
-				</p>
-			</div>
+			{% endif %}
 			<div class="col-lg-4 col-sm-12"></div>
 		</div>
 	</div>
