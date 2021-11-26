@@ -664,6 +664,7 @@ card-body-adherent-event-picture {
 
 #div-left-rubriques {
   width: 700px;
+  margin: 0 auto;
 }
 
 .card-profile-home {
@@ -671,15 +672,28 @@ card-body-adherent-event-picture {
 }
 
 #news-div {
-  width: 450px;
+  width: 100%;
 }
 
 .my-file {
   margin: 1em auto 0;
 }
 
+.my-file .infos{
+  min-width: 335px;
+}
+
 .card-file {
   min-height: 313px;
+}
+
+.card-file .card-body-file {
+  padding-bottom: 0;
+  padding-top: 0.2em;
+}
+
+.card .card-header {
+  padding-bottom: 0;
 }
 
 @media (max-width: 767px) {

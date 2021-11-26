@@ -13,6 +13,12 @@
 			</a>
 		</header>
 
+		<div class="header-home-profile">
+			<h2>Bienvenue
+				{{ profile.lastName }}
+			</h2>
+		</div>
+
 		<div class="row my-5">
 			<div class="col-lg-8 row" id="div-left-rubriques">
 				<div class="card col-sm-6 card-profile-home card-width">
@@ -38,6 +44,14 @@
 					'title' : 'Mes activités',
 					'variableToUse' : profile.activity
 				} %}
+				</div>
+			</div>
+			<div
+				class="col">
+				{#	 #}
+				{%  include "dashboards/adherent/_rubriques_partials/_file_profile_display_home.html.twig" %}
+				<div class="card col-sm-12 card-profile-home" id="news-div">
+					{%  include "dashboards/adherent/_rubriques_partials/_assoc_pictures_profile_home.html..twig" %}
 				</div>
 			</div>
 
