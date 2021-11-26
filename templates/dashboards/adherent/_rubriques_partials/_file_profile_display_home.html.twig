@@ -50,7 +50,7 @@
 					Pour rejoindre une association il faut remplir un dossier que l'association validera par la suite.
 				</p>
 				<p class="text-center">
-					<a href="" class="btn principal-color">Remplir mon dossier</a>
+					<a href="{{ path('dashboards_adherent_file_add', { slug : profile.slug }) }}" class="btn principal-color">Remplir mon dossier</a>
 				</p>
 			{% endif %}
 			<div class="col-lg-4 col-sm-12"></div>
