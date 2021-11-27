@@ -463,7 +463,7 @@
 }
 
 .card .btn-association {
-  background: #074666;
+  background: #02a5a5;
   color: #fff;
   width: 100%;
 }
@@ -698,6 +698,29 @@ card-body-adherent-event-picture {
 .card .card-header {
   padding-bottom: 0;
 }
+
+/* Associations list for adherent */
+.associations-adherent {
+  border: 2.5px solid #074666;
+  border-radius: 0 0.7em 0 0.7em;
+}
+
+.associations-adherent-body {
+}
+
+@media (min-width: 1300px) {
+  .card .associations-adherent-content {
+    min-height: 435px;
+  }
+}
+
+@media (min-width: 1750px) {
+  .card .associations-adherent-content {
+    min-height: 525px;
+  }
+}
+
+/* End associations list for adherent */
 
 @media (max-width: 767px) {
   .events-div .card-adherent {
