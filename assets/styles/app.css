@@ -705,7 +705,10 @@ card-body-adherent-event-picture {
   border-radius: 0 0.7em 0 0.7em;
 }
 
-.associations-adherent-body {
+.card .association-read-adherent{
+  margin: 1em auto;
+  width: 400px;
+  height: 400px;
 }
 
 @media (min-width: 1300px) {
@@ -722,6 +725,12 @@ card-body-adherent-event-picture {
 
 /* End associations list for adherent */
 
+/* Association details */
+.association-details-card{
+  height: 550px;
+}
+
+/* End */
 @media (max-width: 767px) {
   .events-div .card-adherent {
     height: 550px;
