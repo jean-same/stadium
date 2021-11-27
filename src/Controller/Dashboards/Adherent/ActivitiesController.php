@@ -19,7 +19,7 @@ class ActivitiesController extends AbstractController
     private $membersActivitiesServices;
     private $membersNotSubscribeActivitiesService;
 
-    public function __construct(EntityManagerInterface $em, MembersProfilServices $membersProfilServices, MembersActivitiesServices $membersActivitiesServices , ActivityRepository $activityRepository , MembersNotSubscribeActivitiesService $membersNotSubscribeActivitiesService)
+    public function __construct(EntityManagerInterface $em, MembersProfilServices $membersProfilServices, MembersActivitiesServices $membersActivitiesServices, ActivityRepository $activityRepository, MembersNotSubscribeActivitiesService $membersNotSubscribeActivitiesService)
     {
         $this->em = $em;
         $this->activityRepository = $activityRepository;
@@ -45,6 +45,10 @@ class ActivitiesController extends AbstractController
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
         $activity = $this->activityRepository->find($activityId);
 
+        if (!$activity) {
+            throw $this->createNotFoundException("Cet activité n'existe pas");
+        }
+
         $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
 
         $this->membersActivitiesServices->canRegisterOrUnregister($activity, $profile);
@@ -63,15 +67,18 @@ class ActivitiesController extends AbstractController
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
         $activity = $this->activityRepository->find($activityId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
+        if (!$activity) {
+            throw $this->createNotFoundException("Cet activité n'existe pas");
+        }
 
+        $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
         $this->membersActivitiesServices->canRegisterOrUnregister($activity, $profile);
 
         $profile->removeActivity($activity);
-        
+
         $this->em->flush();
         $this->addFlash("success", "Désinscription prise en compte");
-
+        
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }

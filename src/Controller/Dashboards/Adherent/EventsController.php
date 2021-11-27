@@ -31,7 +31,7 @@ class EventsController extends AbstractController
     }
 
     #[Route('/', name: 'events')]
-    public function events($slug , MembersNotSubscribeEventsService $membersNotSubscribeEventsService )
+    public function events($slug, MembersNotSubscribeEventsService $membersNotSubscribeEventsService)
     {
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
 
@@ -46,6 +46,10 @@ class EventsController extends AbstractController
 
         $event = $this->eventsRepository->find($eventId);
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
+
+        if (!$event) {
+            throw $this->createNotFoundException("Cet evenement n'existe pas");
+        }
 
         $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
 
@@ -65,6 +69,11 @@ class EventsController extends AbstractController
 
         $event = $this->eventsRepository->find($eventId);
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
+
+        if (!$event) {
+            throw $this->createNotFoundException("Cet evenement n'existe pas");
+        }
+
 
         $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
 

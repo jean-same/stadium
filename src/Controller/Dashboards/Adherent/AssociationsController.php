@@ -37,16 +37,28 @@ class AssociationsController extends AbstractController
     {
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
         $associations = $this->associationRepository->findBy(['slug' => $assocSlug]);
+        if (!$associations) {
+            throw $this->createNotFoundException("Cette association n'existe pas");
+        }
+
+
         $association = $associations[0];
+
         $profileSlug = $slug;
-        return $this->render('dashboards/adherent/associations/read.html.twig', compact('association', 'profileSlug' , 'profile'));
+        return $this->render('dashboards/adherent/associations/read.html.twig', compact('association', 'profileSlug', 'profile'));
     }
 
     #[Route('/{assocSlug}/register', name: 'register')]
     public function register($slug, $assocSlug): Response
     {
         $associations = $this->associationRepository->findBy(['slug' => $assocSlug]);
+
+        if (!$associations) {
+            throw $this->createNotFoundException("Cette association n'existe pas");
+        }
+
         $association = $associations[0];
+
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
 
         $this->denyAccessUnlessGranted('CAN_READ', $profile, "Accès interdit");
@@ -59,7 +71,7 @@ class AssociationsController extends AbstractController
             $this->addFlash("success", "Vous avez rejoint l'association avec succès");
             return $this->redirectToRoute('dashboards_adherent_read', ['slug' => $slug]);
         } else {
-            dd('error');
+            return $this->redirectToRoute('dashboards_adherent_read', ['slug' => $slug]);
         }
     }
 }
