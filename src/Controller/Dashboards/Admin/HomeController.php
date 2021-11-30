@@ -79,7 +79,6 @@ class HomeController extends AbstractController
                     $newAssociation->setImage("asso.png");
                 }
 
-                $newAssociation->setSlug($this->slugger->slug(strtolower($newAssociation->getName())));
                 $newAssociation->setAccount($account);
 
                 $this->em->persist($newAssociation);
