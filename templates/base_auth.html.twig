@@ -12,22 +12,22 @@
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 			<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 			<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,900;1,200&display=swap" rel="stylesheet">
+			<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
 			<link rel="stylesheet" href="{{ asset('assets/css/logo.css') }}">
 			<link rel="stylesheet" href="{{ asset('assets/css/Auth/login.css') }}">
 
 		{% endblock %}
+
+
+		{% block javascripts %}
+			<script src="//code.jquery.com/jquery.js"></script>
+			<!-- Load Flashy default JavaScript -->
+			<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+		{% endblock %}
 	</head>
 	<body>
-		{% for rubrique, messages in app.flashes %}
-			<div class="alert alert-{{ rubrique }} text-center">
-				{% for message in messages %}
-					<p>
-						{{ message }}
-					</p>
-				{% endfor %}
-			</div>
-		{% endfor %}
 
 		{% block body %}{% endblock %}
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
 	</body>
 </html>

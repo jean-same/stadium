@@ -6,6 +6,7 @@ use App\Form\FilesType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -15,12 +16,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FileController extends AbstractController
 {
     private $em;
+    private $flashy;
     private $slugger;
     private $membersProfilServices;
 
-    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
+    public function __construct(EntityManagerInterface $em, FlashyNotifier $flashy, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
     {
         $this->em = $em;
+        $this->flashy = $flashy;
         $this->slugger = $slugger;
         $this->membersProfilServices = $membersProfilServices;
     }
@@ -74,9 +77,9 @@ class FileController extends AbstractController
             $this->em->persist($newFileFormSubmitted);
             $this->em->flush();
 
-            $this->addFlash("success", "Dossier ajouté avec success");
+            $this->flashy->success('Dossier ajouté avec success!');
 
-            return $this->redirectToRoute('dashboards_adherent_read' ,[ 'slug' => $profile->getSlug()]  );
+            return $this->redirectToRoute('dashboards_adherent_read', ['slug' => $profile->getSlug()]);
         }
 
         $formFile = $profileForm->createView();

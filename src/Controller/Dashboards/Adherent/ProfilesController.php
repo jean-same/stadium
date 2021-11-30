@@ -2,11 +2,12 @@
 
 namespace App\Controller\Dashboards\Adherent;
 
-use App\Form\ProfilModifyType;
 use App\Form\ProfilType;
+use App\Form\ProfilModifyType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -18,12 +19,14 @@ class ProfilesController extends AbstractController
 
     private $em;
     private $slugger;
+    private $flashy;
     private $membersProfilServices;
 
-    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
+    public function __construct(EntityManagerInterface $em, FlashyNotifier $flashy, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
     {
         $this->em = $em;
         $this->slugger = $slugger;
+        $this->flashy = $flashy;
         $this->membersProfilServices = $membersProfilServices;
     }
 
@@ -41,7 +44,7 @@ class ProfilesController extends AbstractController
         if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
 
             $this->em->flush();
-            $this->addFlash("success", "Profil modifié avec success");
+            $this->flashy->success('Profil modifié avec success!');
 
             return $this->redirectToRoute('dashboards_adherent_home');
         }
@@ -58,7 +61,7 @@ class ProfilesController extends AbstractController
 
         $this->em->remove($profile);
         $this->em->flush();
-        $this->addFlash("success", "Profil supprimé avec success");
+        $this->flashy->success('Profil supprimé avec success!');
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }

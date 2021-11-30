@@ -7,6 +7,7 @@ use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -17,12 +18,14 @@ class HomeController extends AbstractController
 {
 
     private $em;
+    private $flashy;
     private $slugger;
     private $membersProfilServices;
 
-    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger, MembersProfilServices $membersProfilServices)
+    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger , FlashyNotifier $flashy, MembersProfilServices $membersProfilServices)
     {
         $this->em = $em;
+        $this->flashy = $flashy;
         $this->slugger = $slugger;
         $this->membersProfilServices = $membersProfilServices;
     }
@@ -57,7 +60,8 @@ class HomeController extends AbstractController
             $this->em->persist($newProfil);
             $this->em->flush();
 
-            $this->addFlash("success", "Profil ajouté avec success");
+            $this->flashy->success('Profil ajouté avec success!');
+            //$this->addFlash("success", "Profil ajouté avec success");
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }

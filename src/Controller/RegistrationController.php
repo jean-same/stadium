@@ -3,25 +3,28 @@
 namespace App\Controller;
 
 use App\Entity\Account;
-use App\Form\RegistrationFormType;
-use App\Repository\AccountRepository;
 use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
+use Symfony\Component\Mime\Address;
+use App\Repository\AccountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
+    private $flashy;
     private EmailVerifier $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, FlashyNotifier $flashy)
     {
+        $this->flashy = $flashy;
         $this->emailVerifier = $emailVerifier;
     }
 
@@ -69,8 +72,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-            $this->addFlash('success', 'Votre compte a été crée avec succes, verifiez votre boite mail pour la confirmation.');
-
+            $this->flashy->success('Votre compte a été crée avec succes, verifiez votre boite mail pour la confirmation!');
             return $this->redirectToRoute('app_login');
         }
 
@@ -104,7 +106,7 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Votre adresse mail a bien été verifié.');
+        $this->flashy->success('Votre adresse mail a bien été verifié.');
 
         return $this->redirectToRoute('app_login');
     }

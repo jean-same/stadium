@@ -5,6 +5,7 @@ namespace App\Controller\Dashboards\Adherent;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +15,14 @@ class AssociationsController extends AbstractController
 {
     private $membersProfilServices;
     private $associationRepository;
+    private $flashy;
     private $em;
 
-    public function __construct(AssociationRepository $associationRepository, EntityManagerInterface $em, MembersProfilServices $membersProfilServices)
+    public function __construct(AssociationRepository $associationRepository, FlashyNotifier $flashy, EntityManagerInterface $em, MembersProfilServices $membersProfilServices)
     {
         $this->associationRepository = $associationRepository;
         $this->membersProfilServices = $membersProfilServices;
+        $this->flashy = $flashy;
         $this->em = $em;
     }
 
@@ -68,7 +71,8 @@ class AssociationsController extends AbstractController
 
             $this->em->flush();
 
-            $this->addFlash("success", "Vous avez rejoint l'association avec succès");
+            $this->flashy->success("Vous avez rejoint l'association avec succès!");
+
             return $this->redirectToRoute('dashboards_adherent_read', ['slug' => $slug]);
         } else {
             return $this->redirectToRoute('dashboards_adherent_read', ['slug' => $slug]);

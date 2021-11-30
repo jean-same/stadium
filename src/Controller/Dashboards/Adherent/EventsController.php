@@ -7,6 +7,7 @@ use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Members\MembersEventsServices;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Members\MembersNotSubscribeEventsService;
@@ -18,13 +19,15 @@ class EventsController extends AbstractController
 {
 
     private $em;
+    private $flashy;
     private $eventsRepository;
     private $membersEventsServices;
     private $membersProfilServices;
 
-    public function __construct(EntityManagerInterface $em, MembersProfilServices $membersProfilServices,  EventRepository $eventsRepository, MembersEventsServices $membersEventsServices)
+    public function __construct(EntityManagerInterface $em, FlashyNotifier $flashy, MembersProfilServices $membersProfilServices,  EventRepository $eventsRepository, MembersEventsServices $membersEventsServices)
     {
         $this->em = $em;
+        $this->flashy = $flashy;
         $this->eventsRepository = $eventsRepository;
         $this->membersEventsServices = $membersEventsServices;
         $this->membersProfilServices = $membersProfilServices;
@@ -58,7 +61,7 @@ class EventsController extends AbstractController
         $profile->addEvent($event);
 
         $this->em->flush();
-        $this->addFlash("success", "Inscription prise en compte");
+        $this->flashy->success('Inscription prise en compte!');
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
@@ -82,8 +85,7 @@ class EventsController extends AbstractController
         $profile->removeEvent($event);
 
         $this->em->flush();
-
-        $this->addFlash("success", "Désinscription prise en compte");
+        $this->flashy->success('Désinscription prise en compte!');
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }

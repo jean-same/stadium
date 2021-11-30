@@ -3,25 +3,28 @@
 namespace App\Controller\Dashboards\Adherent;
 
 use App\Repository\ActivityRepository;
-use App\Service\Members\MembersActivitiesServices;
-use App\Service\Members\MembersNotSubscribeActivitiesService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Members\MembersProfilServices;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\Members\MembersActivitiesServices;
+use App\Service\Members\MembersNotSubscribeActivitiesService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/dashboards/adherent/{slug}/activities', name: 'dashboards_adherent_activities_')]
 class ActivitiesController extends AbstractController
 {
+    private $flashy;
     private $activityRepository;
     private $membersProfilServices;
     private $membersActivitiesServices;
     private $membersNotSubscribeActivitiesService;
 
-    public function __construct(EntityManagerInterface $em, MembersProfilServices $membersProfilServices, MembersActivitiesServices $membersActivitiesServices, ActivityRepository $activityRepository, MembersNotSubscribeActivitiesService $membersNotSubscribeActivitiesService)
+    public function __construct(EntityManagerInterface $em, FlashyNotifier $flashy, MembersProfilServices $membersProfilServices, MembersActivitiesServices $membersActivitiesServices, ActivityRepository $activityRepository, MembersNotSubscribeActivitiesService $membersNotSubscribeActivitiesService)
     {
         $this->em = $em;
+        $this->flashy = $flashy;
         $this->activityRepository = $activityRepository;
         $this->membersProfilServices = $membersProfilServices;
         $this->membersActivitiesServices = $membersActivitiesServices;
@@ -56,7 +59,7 @@ class ActivitiesController extends AbstractController
         $profile->addActivity($activity);
 
         $this->em->flush();
-        $this->addFlash("success", "Inscription prise en compte");
+        $this->flashy->success('Inscription prise en compte!');
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
@@ -77,8 +80,8 @@ class ActivitiesController extends AbstractController
         $profile->removeActivity($activity);
 
         $this->em->flush();
-        $this->addFlash("success", "Désinscription prise en compte");
-        
+        $this->flashy->success('Désinscription prise en compte!');
+
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }
