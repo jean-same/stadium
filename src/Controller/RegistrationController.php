@@ -33,23 +33,35 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd()
+
             // encode the plain password
+            $role = $request->request->get('role');
+
+            switch ($role) {
+                case 'association':
+                    $user->setRoles(["ROLE_ASSOC"]);
+                    break;
+                case 'adherent':
+                    $user->setRoles(["ROLE_ADHERENT"]);
+                    break;
+            }
+
             $user->setPassword(
-             $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 )
-            ); 
+            );
 
             $user->setPassword($form->get('password')->getData());
 
             $entityManager->persist($user);
-            //dd($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('stadiumplatform@gmail.com', 'Stadium Bot'))
                     ->to($user->getEmail())

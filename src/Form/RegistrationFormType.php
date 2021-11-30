@@ -21,7 +21,8 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add(
                 'email',
-                EmailType::class, [
+                EmailType::class,
+                [
                     'label' => false,
                 ]
             )
@@ -34,8 +35,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('password', RepeatedType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'invalid_message' => 'The password fields must match.',

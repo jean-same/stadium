@@ -17,7 +17,7 @@ body {
   min-width: 360px;
   box-shadow: 0px 0px 2px #074666;
   padding: 1em;
-  margin: 15% auto;
+  margin: 8% auto;
 }
 
 .login {
@@ -108,4 +108,56 @@ body {
   border: none;
   color: #fff;
   background-color: #e74c3c;
+}
+
+input[type="radio"] {
+  opacity: 0;
+  width: 100%;
+  height: 32px;
+  background-color: blue;
+  position: relative;
+  z-index: 1;
+}
+
+.roles-div {
+  display: flex;
+}
+
+.roles-div-title {
+  margin-bottom: 0;
+  text-align: center;
+  color: #074666;
+}
+
+.input-container {
+  height: 42px;
+  width: 100%;
+  line-height: 32px;
+  text-align: center;
+  position: relative;
+}
+.input-container:first-child label {
+  border-radius: 5px 0 0 5px;
+}
+.input-container:last-child label {
+  border-radius: 0 5px 5px 0;
+  border-right: 2px solid #ccc;
+}
+.label-checkbox {
+  width: 100%;
+  position: absolute;
+  border: 2px solid #ccc;
+  border-right: inherit;
+  top: 0;
+  left: 0;
+  color: #074666;
+}
+
+input:checked + .label-checkbox {
+  background-color: #074666;
+  top: 0;
+  left: 0;
+  border: 2px solid #044c70 !important;
+  z-index: 2;
+  color: white;
 }

@@ -40,6 +40,18 @@
 						{{ form_row(registrationForm.password.second, { 'attr' : { 'class' :'login__input', 'placeholder' : "Confirmez votre mot de passe"  } }) }}
 					</div>
 				</div>
+				<div>
+					<h2 class="roles-div-title">Vous êtes</h2>
+					<div class="roles-div login__field">
+						<div class="input-container">
+							<input type="radio" value="association" name="role"><label class="label-checkbox">Une association</label>
+						</div>
+						<div class="input-container">
+							<input type="radio" value="adherent" name="role" checked><label class="label-checkbox">Un adhérent</label>
+						</div>
+					</div>
+				</div>
+
 				<div class="login__field row">
 					{{ form_row(registrationForm.agreeTerms) }}
 				</div>
@@ -50,7 +62,7 @@
 				{{ form_end(registrationForm) }}
 				<div class="text-center mt-5 text-lg fs-4 mx-auto">
 					<p class='text-gray-600 ml-auto'>Vous avez déjà un compte?
-						<a href="auth-login.html" class="font-bold">
+						<a href="{{ path('app_login') }}" class="font-bold">
 							Connexion</a>.</p>
 				</div>
 			</div>
