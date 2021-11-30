@@ -85,7 +85,6 @@
   padding: 0 0.6rem;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
 }
 .form-group[class*="has-icon-"] .form-control-icon i,
 .form-group[class*="has-icon-"] .form-control-icon svg {

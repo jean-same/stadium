@@ -58,11 +58,12 @@ class DashboardsAuthenticator extends AbstractLoginFormAuthenticator
         $user = $this->security->getUser();
         $roleSuperAdmin = $this->authorizationCheckerInterface->isGranted("ROLE_SUPER_ADMIN", $user);
         $roleAdmin = $this->authorizationCheckerInterface->isGranted("ROLE_ADMIN", $user);
+        $roleAssoc = $this->authorizationCheckerInterface->isGranted("ROLE_ASSOC", $user);
         $roleAdherent = $this->authorizationCheckerInterface->isGranted("ROLE_ADHERENT", $user);
 
         if ($roleSuperAdmin) {
             return new RedirectResponse($this->urlGenerator->generate('dashboards_superadmin_home'));
-        } elseif ($roleAdmin) {
+        } elseif ($roleAdmin || $roleAssoc) {
             return new RedirectResponse($this->urlGenerator->generate('dashboards_admin_home'));
         } elseif ($roleAdherent) {
             return new RedirectResponse($this->urlGenerator->generate('dashboards_adherent_home'));

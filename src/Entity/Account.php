@@ -6,6 +6,7 @@ use App\Repository\AccountRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AccountRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class Account implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -71,7 +73,6 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      *          "api_member_account_read"
      *      }
      * )
-     * @Assert\NotBlank(message="Mot de passe obligatoire")
      * @Assert\Length(min=8, minMessage="Le mot de passe doit faire 8 caractères minimum")
      */
     private $password;
@@ -100,6 +101,11 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $joinedUsAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function __construct()
     {
@@ -245,6 +251,18 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     public function setJoinedUsAt(?\DateTimeImmutable $joinedUsAt): self
     {
         $this->joinedUsAt = $joinedUsAt;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
