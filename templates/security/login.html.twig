@@ -5,7 +5,14 @@
 
 
 {% block body %}
+	<a href="{{ path('home') }}">
+		<div class="logo-wrapper">
 
+			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+			<p class="logo-text">tadium</p>
+
+		</div>
+	</a>
 	<div class="containerForm">
 		<div class="screen">
 			<div>
@@ -45,18 +52,18 @@
 					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 					{#
-																				                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-																				                    See https://symfony.com/doc/current/security/remember_me.html
-																				
-																				                    <div class="checkbox mb-3">
-																				                        <label>
-																				                            <input type="checkbox" name="_remember_me"> Remember me
-																				                        </label>
-																				                    </div>
-																				                #}
+																																								                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																																								                    See https://symfony.com/doc/current/security/remember_me.html
+																																								
+																																								                    <div class="checkbox mb-3">
+																																								                        <label>
+																																								                            <input type="checkbox" name="_remember_me"> Remember me
+																																								                        </label>
+																																								                    </div>
+																																								                #}
 
 					<button class="button login__submit col-3 mx-auto">
-						<span class="button__text mx-auto">Sign in</span>
+						<span class="button__text mx-auto">Soumettre</span>
 					</button>
 				</form>
 

@@ -255,52 +255,6 @@ body {
   }
 }
 
-/* logo */
-.logo-wrapper {
-  position: absolute;
-  top: 2em;
-  left: 2em;
-  display: flex;
-  flex-direction: row;
-  width: 12em;
-  background-color: #074666;
-  border-radius: 15px;
-}
-.logo-wrapper .logo-image {
-  margin: 1.2em;
-  width: 85%;
-}
-.logo-wrapper .logo-text {
-  display: none;
-}
-@media (min-width: 768px) {
-  .logo-wrapper .logo-image {
-    width: 25%;
-    margin: 0.7em 0 0.7em 0.7em;
-  }
-  .logo-wrapper .logo-text {
-    display: block;
-    color: #02a5a5;
-    margin: 1.6em 1.2em 1.6em 0.1em;
-    font-size: 1.2em;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    align-self: center;
-  }
-}
-@media (max-width: 767px) {
-  .logo-wrapper {
-    width: 6em;
-  }
-
-  .wrapper-top-right img {
-    display: none;
-  }
-
-  .home .wrapper-mid .wrapper-mid-content .wrapper-mid-right {
-    margin: 0.9em;
-  }
-}
 
 /* button login */
 .button-wrapper-login {

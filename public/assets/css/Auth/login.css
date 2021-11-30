@@ -17,7 +17,7 @@ body {
   min-width: 360px;
   box-shadow: 0px 0px 2px #074666;
   padding: 1em;
-  margin: 8% auto;
+  margin: 15em auto 0;
 }
 
 .login {
@@ -161,3 +161,4 @@ input:checked + .label-checkbox {
   z-index: 2;
   color: white;
 }
+
