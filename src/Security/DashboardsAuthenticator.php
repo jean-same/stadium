@@ -4,6 +4,7 @@ namespace App\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -23,12 +24,14 @@ class DashboardsAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
+    private $flashy;
     private $security;
     protected $authorizationCheckerInterface;
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, Security $security, AuthorizationCheckerInterface $authorizationCheckerInterface)
+    public function __construct(UrlGeneratorInterface $urlGenerator, FlashyNotifier $flashy, Security $security, AuthorizationCheckerInterface $authorizationCheckerInterface)
     {
+        $this->flashy = $flashy;
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
         $this->authorizationCheckerInterface = $authorizationCheckerInterface;
@@ -61,6 +64,8 @@ class DashboardsAuthenticator extends AbstractLoginFormAuthenticator
         $roleAssoc = $this->authorizationCheckerInterface->isGranted("ROLE_ASSOC", $user);
         $roleAdherent = $this->authorizationCheckerInterface->isGranted("ROLE_ADHERENT", $user);
 
+        $this->flashy->success('Bienvenue sur Stadium!');
+
         if ($roleSuperAdmin) {
             return new RedirectResponse($this->urlGenerator->generate('dashboards_superadmin_home'));
         } elseif ($roleAdmin || $roleAssoc) {
@@ -68,7 +73,6 @@ class DashboardsAuthenticator extends AbstractLoginFormAuthenticator
         } elseif ($roleAdherent) {
             return new RedirectResponse($this->urlGenerator->generate('dashboards_adherent_home'));
         }
-
 
         // For example:
         //return new RedirectResponse($this->urlGenerator->generate('api_v1_docs_superadmin'));

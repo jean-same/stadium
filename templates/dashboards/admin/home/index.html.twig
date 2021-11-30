@@ -4,205 +4,282 @@
 {% endblock %}
 
 {% block body %}
-	{% set adherents = 0 %}
-	{% set admins = 0 %}
-	{% for profil in association.profils %}
-		{% if "ROLE_ADHERENT" in profil.account.roles %}
-			{% set adherents = adherents + 1 %}
-		{% else %}
-			{% set admins = admins + 1 %}
-		{% endif %}
-	{% endfor %}
+
 	<div id="main">
-		<header class="mb-3">
-			<a href="#" class="burger-btn d-block d-xl-none">
-				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
-			</a>
-		</header>
-		<div class="page-heading">
-			<h3>Tableau de bord:
-				{{ association.name }}
-			</h3>
+		{% if association is not null %}
+			{% set adherents = 0 %}
+			{% set admins = 0 %}
+			{% for profil in association.profils %}
+				{% if "ROLE_ADHERENT" in profil.account.roles %}
+					{% set adherents = adherents + 1 %}
+				{% else %}
+					{% set admins = admins + 1 %}
+				{% endif %}
+			{% endfor %}
+			<header class="mb-3">
+				<a href="#" class="burger-btn d-block d-xl-none">
+					<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+				</a>
+			</header>
+			<div class="page-heading">
+				<h3>Tableau de bord:
+					{{ association.name }}
+				</h3>
+			</div>
+			<div class="page-content">
+				<section class="row">
+					<div class="col-lg-4">
+						<div class="card col-lg-12">
+							<div class="card-body row">
+								<div class="info-profil col-sm-8">
+									<p>
+										<span class="font-extrabold">Président
+										</span>
+										:
+										<span>
+											{{ association.presidentLastName | upper }}
+											{{ association.presidentFirstName }}
+										</span>
+									</p>
+									<p>
+										<span class="font-extrabold">Adresse
+										</span>
+										:
+										<span>
+											{{ association.address }}
+										</span>
+									</p>
+									<p>
+										<span class="font-extrabold">Telephone
+										</span>
+										:
+										<span>
+											{{ association.phoneNumber | upper }}
+										</span>
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<section class="row">
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon user">
+													<i class="fas fa-user fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Adherents</h5>
+												<h6 class="font-extrabold mb-0">
+													{{ adherents }}
+												</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon user">
+													<i class="fas fa-user-lock fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Admins</h5>
+												<h6 class="font-extrabold mb-0">
+													{{ admins }}
+												</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon rubriques">
+													<i class="fas fa-snowboarding fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Activités</h5>
+												<h6 class="font-extrabold mb-0">{{ association.activities | length }}</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon rubriques">
+													<i class="fas fa-calendar-alt fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Evenements</h5>
+												<h6 class="font-extrabold mb-0">{{ association.events | length }}</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon dossier">
+													<i class="fas fa-folder fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Dossiers</h5>
+												<h6 class="font-extrabold mb-0">dfdf</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6">
+								<div class="card">
+									<div class="card-body px-3 py-3-4">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="stats-icon rubriques">
+													<i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<h5 class="text-muted font-bold">Cours</h5>
+												<h6 class="font-extrabold mb-0">fgfgf</h6>
+												<div class="col-lg-12 details-div">
+													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</section>
+				<section class="row">
+					<div class="card">
+						<div class="card-header">
+							<h4>Graphique nouvelles association</h4>
+						</div>
+						<div
+							class="card-body">
+							{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+							{{ render_chart(chart, {'class': 'my-chart'}) }}
+
+						</div>
+					</div>
+				</section>
+			{% else %}
+				<section id="basic-horizontal-layouts">
+					<div class="row match-height">
+						<div class="col-md-7 col-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Horizontal Form</h4>
+								</div>
+								<div class="card-content">
+									<div class="card-body">
+											{{ form_start(formAssociation , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-horizontal' } }) }}
+											<div class="form-body">
+											{{ form_errors(formAssociation) }}
+												<div class="row">
+													<div class="col-md-4">
+														<label>Nom de l'association</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.name , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Déscription</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.description , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Prénom du président</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.presidentLastName , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Nom du président</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.presidentFirstName , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Adresse</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.address , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Télephone</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.phoneNumber , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-md-4">
+														<label>Image</label>
+													</div>
+													<div class="col-md-8 form-group">
+														{{ form_row(formAssociation.image , {'attr': { 'class' : 'form-control' } }) }}
+													</div>
+													<div class="col-sm-12 d-flex justify-content-between">
+														<button type="reset" class="btn btn-light-secondary me-1 mb-1">Vider les champs</button>
+														<button type="submit" class="btn btn-primary me-1 mb-1">Soumettre le formulaire</button>
+													</div>
+													
+												</div>
+											</div>
+											{{ form_end(formAssociation) }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5 col-12">
+						
+									<h1>Right side</h1>
+						</div>
+					</div>
+				</section>
+			{% endif %}
+
 		</div>
-		<div class="page-content">
-			<section class="row">
-				<div class="col-lg-4">
-					<div class="card col-lg-12">
-						<div class="card-body row">
-							<div class="info-profil col-sm-8">
-								<p>
-									<span class="font-extrabold">Président
-									</span>
-									:
-									<span>
-										{{ association.presidentLastName | upper }}
-										{{ association.presidentFirstName }}
-									</span>
-								</p>
-								<p>
-									<span class="font-extrabold">Adresse
-									</span>
-									:
-									<span>
-										{{ association.address }}
-									</span>
-								</p>
-								<p>
-									<span class="font-extrabold">Telephone
-									</span>
-									:
-									<span>
-										{{ association.phoneNumber | upper }}
-									</span>
-								</p>
-							</div>
 
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-8">
-					<section class="row">
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon user">
-												<i class="fas fa-user fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Adherents</h5>
-											<h6 class="font-extrabold mb-0">
-												{{ adherents }}
-											</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon user">
-												<i class="fas fa-user-lock fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Admins</h5>
-											<h6 class="font-extrabold mb-0">
-												{{ admins }}
-											</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon rubriques">
-												<i class="fas fa-snowboarding fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Activités</h5>
-											<h6 class="font-extrabold mb-0">{{ association.activities | length }}</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon rubriques">
-												<i class="fas fa-calendar-alt fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Evenements</h5>
-											<h6 class="font-extrabold mb-0">{{ association.events | length }}</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon dossier">
-												<i class="fas fa-folder fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Dossiers</h5>
-											<h6 class="font-extrabold mb-0">dfdf</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6">
-							<div class="card">
-								<div class="card-body px-3 py-3-4">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="stats-icon rubriques">
-												<i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
-											</div>
-										</div>
-										<div class="col-md-8">
-											<h5 class="text-muted font-bold">Cours</h5>
-											<h6 class="font-extrabold mb-0">fgfgf</h6>
-											<div class="col-lg-12 details-div">
-												<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</section>
-				</div>
-			</section>
-			<section class="row">
-				<div class="card">
-					<div class="card-header">
-						<h4>Graphique nouvelles association</h4>
-					</div>
-					<div
-						class="card-body">
-						{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
-						{{ render_chart(chart, {'class': 'my-chart'}) }}
-
-					</div>
-				</div>
-			</section>
-
-
-		</div>
 	{% endblock %}
