@@ -23,9 +23,11 @@
 			<div class="col-lg-8 row" id="div-left-rubriques">
 				<div class="card col-sm-6 card-profile-home card-width">
 					<div class="card-header">
-						<h3 class="title-adherent-pages">
-							Evènements
-						</h3>
+						<a href="{{ path('dashboards_adherent_events_events' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir les évènements de ton association!">
+							<h3 class="title-adherent-pages">
+								Evènements
+							</h3>
+						</a>
 					</div>
 					{% if profile.association is not null %}
 						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
@@ -37,9 +39,12 @@
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
 					<div class="card-header">
-						<h3 class="title-adherent-pages">
-							Mes évènements
-						</h3>
+						<a href="{{ path('dashboards_adherent_events_events' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir tes évènements!">
+							<h3 class="title-adherent-pages">
+								Mes évènements
+
+							</h3>
+						</a>
 					</div>
 					{% if profile.event is not null  %}
 						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
@@ -51,9 +56,11 @@
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
 					<div class="card-header">
-						<h3 class="title-adherent-pages">
-							Activités
-						</h3>
+						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir les activités de ton association!">
+							<h3 class="title-adherent-pages">
+								Activités
+							</h3>
+						</a>
 					</div>
 					{% if profile.association is not null  %}
 
@@ -66,9 +73,11 @@
 				</div>
 				<div class="card col-sm-6 card-profile-home card-width">
 					<div class="card-header">
-						<h3 class="title-adherent-pages">
-							Mes activités
-						</h3>
+						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir tes activités!">
+							<h3 class="title-adherent-pages">
+								Mes activités
+							</h3>
+						</a>
 					</div>
 					{% if profile.activity is not null  %}
 						{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
