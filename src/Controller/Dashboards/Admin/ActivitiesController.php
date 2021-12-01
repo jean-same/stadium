@@ -3,6 +3,7 @@
 namespace App\Controller\Dashboards\Admin;
 
 use App\Form\ActivityType;
+use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +20,15 @@ class ActivitiesController extends AbstractController
     private $em;
     private $flashy;
     private $slugger;
+    private $activityRepository;
     private $associationServices;
-    public function __construct(FlashyNotifier $flashy, SluggerInterface $slugger, EntityManagerInterface $em, AssociationServices $associationServices)
+
+    public function __construct(FlashyNotifier $flashy, SluggerInterface $slugger, EntityManagerInterface $em, AssociationServices $associationServices, ActivityRepository $activityRepository)
     {
         $this->em = $em;
         $this->flashy = $flashy;
         $this->slugger = $slugger;
+        $this->activityRepository = $activityRepository;
         $this->associationServices = $associationServices;
     }
 
@@ -34,7 +38,6 @@ class ActivitiesController extends AbstractController
     {
         $association = $this->associationServices->getAssocFromUser();
         $activities = $association->getActivities();
-        //dd($activities);
 
         $newActivityForm = $this->createForm(ActivityType::class);
 
@@ -73,4 +76,27 @@ class ActivitiesController extends AbstractController
         return $this->render('dashboards/admin/activities/activities.html.twig', compact('association', 'activities', 'formActivity'));
     }
 
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete($id)
+    {
+
+        $activity = $this->activityRepository->find($id);
+
+        if (is_null($activity)) {
+            throw $this->createNotFoundException("Cet activité n'existe pas");
+        }
+
+        $match = $this->associationServices->checkAssocMatch($activity);
+
+        if (!$match) {
+            throw $this->createAccessDeniedException("Vous n'etes pas autoriser à réaliser cet action");
+        }
+
+        $this->em->remove($activity);
+        $this->em->flush();
+
+        $this->flashy->error("Activité supprimé avec success");
+
+        return $this->redirectToRoute("dashboards_admin_activities_activities");
+    }
 }
