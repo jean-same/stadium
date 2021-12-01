@@ -33,7 +33,8 @@ class EventsController extends AbstractController
     }
 
     #[Route('/', name: 'events')]
-    public function events(Request $request): Response
+    #[Route('/{id}/edit', name: 'edit')]
+    public function events(Request $request, $id = null): Response
     {
         $association = $this->associationServices->getAssocFromUser();
         $events = $association->getEvents();
@@ -43,7 +44,6 @@ class EventsController extends AbstractController
         if ($request->attributes->get('_route') == 'dashboards_admin_events_events') {
 
             $event = $newEventForm->getData();
-
             $newEventForm->handleRequest($request);
 
             if ($newEventForm->isSubmitted() && $newEventForm->isValid()) {
@@ -71,11 +71,56 @@ class EventsController extends AbstractController
 
                 $this->flashy->success("Evenement ajoutée avec success");
 
-                return $this->redirect($_SERVER['HTTP_REFERER']);
+                return $this->redirectToRoute('dashboards_admin_events_events');
             }
 
 
             $formEvent = $newEventForm->createView();
+        }
+
+        if ($request->attributes->get('_route') == 'dashboards_admin_events_edit') {
+            $event = $this->eventRepository->find($id);
+
+            if (is_null($event)) {
+                throw $this->createNotFoundException("Cet evenement n'existe pas");
+            }
+
+            $match = $this->associationServices->checkAssocMatch($event);
+
+            if (!$match) {
+                throw $this->createAccessDeniedException("Vous n'etes pas autoriser à réaliser cet action");
+            }
+            $eventFormEdit = $this->createForm(EventType::class, $event);
+
+            $eventFormEdit->handleRequest($request);
+
+            if ($eventFormEdit->isSubmitted() && $eventFormEdit->isValid()) {
+
+                $event = $eventFormEdit->getData();
+                //$activity->setAssociation($association);
+
+                $eventPicture = $eventFormEdit->get('picture')->getData();
+
+                if ($eventPicture) {
+                    $pictureUploaded = $this->slugger->slug($event->getName() . '-' . uniqid()) . '.' . $eventPicture->guessExtension();
+
+                    $eventPicture->move(
+                        __DIR__ . '/../../../../../public/pictures/activity/',
+                        $pictureUploaded
+                    );
+
+                    $event->setPicture($pictureUploaded);
+                }
+
+
+                $this->em->flush();
+
+                $this->flashy->success("Evenement modifié avec success");
+
+                return $this->redirectToRoute('dashboards_admin_events_events');
+            }
+
+            $formEvent = $eventFormEdit->createView();
         }
 
         return $this->render('dashboards/admin/events/events.html.twig', compact('events', 'formEvent'));
