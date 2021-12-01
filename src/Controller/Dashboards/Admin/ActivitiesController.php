@@ -34,44 +34,91 @@ class ActivitiesController extends AbstractController
 
 
     #[Route('/', name: 'activities')]
-    public function activities(Request $request): Response
+    #[Route('/{id}/edit', name: 'edit')]
+    public function activities(Request $request, $id = null): Response
     {
         $association = $this->associationServices->getAssocFromUser();
         $activities = $association->getActivities();
 
         $newActivityForm = $this->createForm(ActivityType::class);
 
-        $newActivityForm->handleRequest($request);
+        if ($request->attributes->get('_route') == 'dashboards_admin_activities_activities') {
 
-        if ($newActivityForm->isSubmitted() && $newActivityForm->isValid()) {
+            $newActivityForm->handleRequest($request);
 
-            $activity = $newActivityForm->getData();
-            $activity->setAssociation($association);
+            if ($newActivityForm->isSubmitted() && $newActivityForm->isValid()) {
 
-            $activityPicture = $newActivityForm->get('picture')->getData();
+                $activity = $newActivityForm->getData();
+                $activity->setAssociation($association);
 
-            if ($activityPicture) {
-                $pictureUploaded = $this->slugger->slug($activity->getName() . '-' . uniqid()) . '.' . $activityPicture->guessExtension();
+                $activityPicture = $newActivityForm->get('picture')->getData();
 
-                $activityPicture->move(
-                    __DIR__ . '/../../../../../public/pictures/activity/',
-                    $pictureUploaded
-                );
+                if ($activityPicture) {
+                    $pictureUploaded = $this->slugger->slug($activity->getName() . '-' . uniqid()) . '.' . $activityPicture->guessExtension();
 
-                $activity->setPicture($pictureUploaded);
-            } else {
-                $activity->setPicture("activity.png");
+                    $activityPicture->move(
+                        __DIR__ . '/../../../../../public/pictures/activity/',
+                        $pictureUploaded
+                    );
+
+                    $activity->setPicture($pictureUploaded);
+                } else {
+                    $activity->setPicture("activity.png");
+                }
+
+                $this->em->persist($activity);
+                $this->em->flush();
+
+                $this->flashy->success("Activité ajoutée avec success");
+
+                return $this->redirect($_SERVER['HTTP_REFERER']);
             }
-
-            $this->em->persist($activity);
-            $this->em->flush();
-
-            $this->flashy->success("Activité ajoutée avec success");
-
-            return $this->redirect($_SERVER['HTTP_REFERER']);
+            $formActivity = $newActivityForm->createView();
         }
 
-        $formActivity = $newActivityForm->createView();
+        if ($request->attributes->get('_route') == 'dashboards_admin_activities_edit') {
+            $activity = $this->activityRepository->find($id);
+
+            if (is_null($activity)) {
+                throw $this->createNotFoundException("Cet activité n'existe pas");
+            }
+
+            $match = $this->associationServices->checkAssocMatch($activity);
+
+            if (!$match) {
+                throw $this->createAccessDeniedException("Vous n'etes pas autoriser à réaliser cet action");
+            }
+            $activityFormEdit = $this->createForm(ActivityType::class, $activity);
+
+            $activityFormEdit->handleRequest($request);
+
+            if ($activityFormEdit->isSubmitted() && $activityFormEdit->isValid()) {
+
+                $activity = $activityFormEdit->getData();
+                //$activity->setAssociation($association);
+
+                $activityPicture = $activityFormEdit->get('picture')->getData();
+
+                if ($activityPicture) {
+                    $pictureUploaded = $this->slugger->slug($activity->getName() . '-' . uniqid()) . '.' . $activityPicture->guessExtension();
+
+                    $activityPicture->move(
+                        __DIR__ . '/../../../../../public/pictures/activity/',
+                        $pictureUploaded
+                    );
+
+                    $activity->setPicture($pictureUploaded);
+                }
+
+                $this->em->flush();
+
+                $this->flashy->success("Activité modifié avec success");
+
+                return $this->redirect($_SERVER['HTTP_REFERER']);
+            }
+
+            $formActivity = $activityFormEdit->createView();
+        }
 
         return $this->render('dashboards/admin/activities/activities.html.twig', compact('association', 'activities', 'formActivity'));
     }

@@ -15,7 +15,7 @@ class ActivityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name' , TextType::class, [
+            ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'Nom',
                 'attr' => [
@@ -23,7 +23,7 @@ class ActivityType extends AbstractType
                     'class' => "activity-name-field form-control"
                 ]
             ])
-           /* ->add('picture' , TextType::class, [
+            /* ->add('picture' , TextType::class, [
                 'required' => false,
                 'label' => 'Image',
                 'attr' => [
@@ -32,12 +32,13 @@ class ActivityType extends AbstractType
                 ]
             ]) */
             ->add('picture', FileType::class, [
+                'mapped' => false,
                 'label' => "Image de l'activité",
                 'required' => false,
                 'attr' => [
                     'placeholder' => "Image de l'activité",
                     'class' => 'activity-picture-field form-control'
-                                ],
+                ],
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -47,8 +48,7 @@ class ActivityType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid picture',
                     ])
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
