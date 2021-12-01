@@ -3,6 +3,7 @@
 namespace App\Controller\Dashboards\Admin;
 
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Admin\AssociationServices;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,16 @@ class EventsController extends AbstractController
     private $em;
     private $flashy;
     private $slugger;
+    private $eventRepository;
     private $associationServices;
 
 
-    public function __construct(FlashyNotifier $flashy, SluggerInterface $slugger, EntityManagerInterface $em, AssociationServices $associationServices)
+    public function __construct(FlashyNotifier $flashy, SluggerInterface $slugger, EntityManagerInterface $em, AssociationServices $associationServices, EventRepository $eventRepository)
     {
         $this->em = $em;
         $this->flashy = $flashy;
         $this->slugger = $slugger;
+        $this->eventRepository = $eventRepository;
         $this->associationServices = $associationServices;
     }
 
@@ -36,7 +39,7 @@ class EventsController extends AbstractController
         $events = $association->getEvents();
 
         $newEventForm = $this->createForm(EventType::class);
-        
+
         if ($request->attributes->get('_route') == 'dashboards_admin_events_events') {
 
             $event = $newEventForm->getData();
@@ -76,5 +79,22 @@ class EventsController extends AbstractController
         }
 
         return $this->render('dashboards/admin/events/events.html.twig', compact('events', 'formEvent'));
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete($id)
+    {
+        $event = $this->eventRepository->find($id);
+
+        if (is_null($event)) {
+            throw $this->createNotFoundException("Cet activité n'existe pas");
+        }
+
+        $this->em->remove($event);
+        $this->em->flush();
+
+        $this->flashy->success("Evenement supprimé avec success");
+
+        return $this->redirectToRoute('dashboards_admin_events_events');
     }
 }
