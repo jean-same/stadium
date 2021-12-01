@@ -14,6 +14,23 @@
   background: #d87444;
 }
 
+.white-background{
+  background-color: #fff ;
+}
+
+.padding-bottom-default{
+  padding-bottom: 5em;
+}
+
+.border-radius-default {
+  border-radius: calc(0.7rem - 1px) calc(0.7rem - 1px) calc(0.7rem - 1px) calc(0.7rem - 1px);
+}
+
+.border-default{
+  border: 1px solid #074666;
+  border-radius: calc(0.7rem - 1px) calc(0.7rem - 1px) calc(0.7rem - 1px) calc(0.7rem - 1px);
+}
+
 .title-adherent-pages {
   color: #074666;
   border-bottom: 3px solid #074666;

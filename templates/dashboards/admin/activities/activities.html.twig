@@ -1,0 +1,76 @@
+{% extends 'baseDashboardAdmin.html.twig' %}
+
+{% block title %}Hello ActivitiesController!
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+		<section id="basic-vertical-layouts">
+			<div class="row match-height">
+				<div class="col-md-8 col-12">
+					<div class="white-background border-radius-default padding-bottom-default row">
+						<h1 class="title-adherent-pages">
+							Vos activités
+						</h1>
+						{% for activity in activities %}
+							<div class="card col-lg-3 p-0 activity-card-body" style="background: url({{ activity.picture }}); background-size: cover; ">
+								<div class="card-content text-center border-default">
+									<div class="card-body">
+										<h3 class="card-text activity-card-body-title">
+											<span class="text-bold-500"></span>
+											{{ activity.name }}
+										</h3>
+									</div>
+									<div class="card-footer d-flex justify-content-between">
+										<a href="" class="btn bg-warning text-white">
+											<i class="fas fa-edit"></i>
+										</a>
+										<a href="" class="btn bg-danger text-white">
+											<i class="fas fa-trash"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							{% else %}
+
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-md-4 col-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Ajouter une activité</h4>
+						</div>
+						<div class="card-content">
+							<div class="card-body">
+								{{ form_start(formActivity , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical' } }) }}
+								<div class="form-body">
+									<div class="row">
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formActivity.name) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formActivity.picture) }}
+											</div>
+										</div>
+										<div class="col-12 d-flex justify-content-between">
+											<button type="reset" class="btn btn-light-secondary me-1 mb-1">Vider les champs</button>
+											<button type="submit" class="btn btn-primary me-1 mb-1">Soumettre</button>
+										</div>
+									</div>
+								</div>
+								{{ form_end(formActivity) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+{% endblock %}

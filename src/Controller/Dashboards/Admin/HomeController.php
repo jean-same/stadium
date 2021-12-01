@@ -45,7 +45,7 @@ class HomeController extends AbstractController
         $association = $this->associationServices->getAssocFromUser();
         $associationForm = $this->createForm(AssociationType::class);
 
-;        if ($association != null) {
+        if ($association != null) {
             $profiles = $association->getProfils();
             $dataMonth = $this->chartGeneratorService->monthInitialize();
 
