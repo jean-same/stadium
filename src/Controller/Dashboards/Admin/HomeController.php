@@ -45,7 +45,7 @@ class HomeController extends AbstractController
         $association = $this->associationServices->getAssocFromUser();
         $associationForm = $this->createForm(AssociationType::class);
 
-        if ($association != null) {
+;        if ($association != null) {
             $profiles = $association->getProfils();
             $dataMonth = $this->chartGeneratorService->monthInitialize();
 
@@ -70,7 +70,8 @@ class HomeController extends AbstractController
                 if ($newAssociationPicture) {
                     $pictureUploaded = $this->slugger->slug($newAssociation->getName() . '-' . uniqid()) . '.' . $newAssociationPicture->guessExtension();
                     $newAssociationPicture->move(
-                        __DIR__ . '/../../../../public/pictures/associations/',
+                        //__DIR__ . '/../../../../public/pictures/associations/',
+                        $_SERVER['DOCUMENT_ROOT'] . '/pictures/associations/',
                         $pictureUploaded
                     );
 

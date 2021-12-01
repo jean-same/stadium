@@ -33,7 +33,11 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function browse(Request $request): Response
     {
-        $user = $this->getUser();
+        $file = dirname(__FILE__, 4);
+        $test = $_SERVER['DOCUMENT_ROOT'];
+
+        /*dd( $test*/
+        $user = $this->getUser(); 
 
         $userForm = $this->createForm(ProfilType::class);
 
@@ -47,7 +51,8 @@ class HomeController extends AbstractController
                 $pictureUploaded = $this->slugger->slug($newProfil->getlastName() . $newProfil->getfirstName() . '-' . uniqid()) . '.' . $newProfilPicture->guessExtension();
 
                 $newProfilPicture->move(
-                    __DIR__ . '/../../../../public/pictures/profilPicture/',
+                    //__DIR__ . '/../../../../public/pictures/profilPicture/',
+                    $_SERVER['DOCUMENT_ROOT'] . '/pictures/profilPicture/',
                     $pictureUploaded
                 );
 
