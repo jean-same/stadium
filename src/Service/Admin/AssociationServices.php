@@ -62,4 +62,15 @@ class AssociationServices
             return false;
         }
     }
+
+    public function getAdherentFromAssoc(){
+        $users = $this->getAssocFromUser()->getProfils();
+        $adherents = [];
+        foreach($users as $user){
+            if(in_array("ROLE_ADHERENT", $user->getAccount()->getRoles() )){
+                $adherents[] = $user;
+            }
+        }
+        return $adherents;
+    }
 }
