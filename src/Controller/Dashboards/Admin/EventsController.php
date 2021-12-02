@@ -74,7 +74,7 @@ class EventsController extends AbstractController
                 return $this->redirectToRoute('dashboards_admin_events_events');
             }
 
-
+            $formTile = "Ajouter un evenement";
             $formEvent = $newEventForm->createView();
         }
 
@@ -120,10 +120,11 @@ class EventsController extends AbstractController
                 return $this->redirectToRoute('dashboards_admin_events_events');
             }
 
+            $formTile = "Modifier";
             $formEvent = $eventFormEdit->createView();
         }
 
-        return $this->render('dashboards/admin/events/events.html.twig', compact('events', 'formEvent'));
+        return $this->render('dashboards/admin/events/events.html.twig', compact('events', 'formEvent', 'formTile'));
     }
 
     #[Route('/delete/{id}', name: 'delete')]
