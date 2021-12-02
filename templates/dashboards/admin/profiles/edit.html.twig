@@ -1,0 +1,27 @@
+{% extends 'baseDashboardAdmin.html.twig' %}
+
+{% block title %}Hello ProfilesController!
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+		<div class="row">
+			{{ form_start(formProfil) }}
+
+			{{ form_row(formProfil.firstName) }}
+			{{ form_row(formProfil.lastName) }}
+			{{ form_row(formProfil.picture) }}
+			<button type="submit" class="btn principal-color w-100">
+				Modifier
+			</button>
+			{{ form_end(formProfil) }}
+		</div>
+	</div>
+
+{% endblock %}

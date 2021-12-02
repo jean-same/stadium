@@ -2,6 +2,7 @@
 
 namespace App\Controller\Dashboards\Admin;
 
+use App\Form\ProfilType;
 use App\Repository\ProfilRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Service\Admin\AssociationServices;
@@ -9,6 +10,8 @@ use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route('/dashboards/admin/profiles', name: 'dashboards_admin_profiles_')]
 class ProfilesController extends AbstractController
@@ -19,7 +22,7 @@ class ProfilesController extends AbstractController
     private $associationServices;
 
 
-    public function __construct(FlashyNotifier $flashy,  EntityManagerInterface $em, ProfilRepository $profilRepository , AssociationServices $associationServices)
+    public function __construct(FlashyNotifier $flashy,  EntityManagerInterface $em, ProfilRepository $profilRepository, AssociationServices $associationServices)
     {
         $this->em = $em;
         $this->flashy = $flashy;
@@ -36,8 +39,53 @@ class ProfilesController extends AbstractController
         return $this->render('dashboards/admin/profiles/profiles.html.twig', compact('profiles'));
     }
 
+    #[Route('/edit/{slug}', name: 'edit')]
+    public function edit($slug, Request $request)
+    {
+        $profilToEdit = $this->profilRepository->findBy(['slug' => $slug]);
+
+        if (!$profilToEdit) {
+            throw new NotFoundHttpException("Cet adhérent n'existe pas");
+        }
+
+        $profil = $profilToEdit[0];
+
+        $editProfileForm = $this->createForm(ProfilType::class, $profil);
+
+        $editProfileForm->handleRequest($request);
+
+        if ($editProfileForm->isSubmitted() && $editProfileForm->isValid()) {
+            $profilToEdit = $editProfileForm->getData();
+
+            $profileToEditPicture = $editProfileForm->get('picture')->getData();
+
+            if ($profileToEditPicture) {
+                $pictureUploaded = $this->slugger->slug($profilToEdit->getlastName() . $profilToEdit->getfirstName() . '-' . uniqid()) . '.' . $profileToEditPicture->guessExtension();
+
+                $profileToEditPicture->move(
+                    //__DIR__ . '/../../../../public/pictures/profilPicture/',
+                    $_SERVER['DOCUMENT_ROOT'] . '/pictures/profilPicture/',
+                    $pictureUploaded
+                );
+
+                $profilToEdit->setPicture($pictureUploaded);
+            }
+
+            $this->em->flush();
+
+            $this->flashy->success('Profil modifié avec success!');
+
+            return $this->redirectToRoute('dashboards_admin_profiles_profiles');
+        }
+
+        $formProfil = $editProfileForm->createView();
+
+        return $this->render('dashboards/admin/profiles/edit.html.twig', compact('formProfil'));
+    }
+
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete($id){
+    public function delete($id)
+    {
         $profil = $this->profilRepository->find($id);
 
         $this->em->remove($profil);

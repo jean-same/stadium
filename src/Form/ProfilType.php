@@ -33,6 +33,7 @@ class ProfilType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'label' => "Photo de l'adherent",
+                'mapped' => false,
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control'

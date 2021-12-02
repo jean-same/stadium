@@ -1,6 +1,6 @@
 {% extends 'baseDashboardAdmin.html.twig' %}
 
-{% block title %}Hello ProfilesController!
+{% block title %}Profiles
 {% endblock %}
 
 {% block body %}
@@ -52,7 +52,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="#" class="text-white bg-warning">
+									<a href="{{ path('dashboards_admin_profiles_edit' , { slug : profile.slug } ) }}" class="text-white bg-warning">
 										<i class="fas fa-edit"></i>
 									</a>
 								</li>
@@ -72,4 +72,4 @@
 			{% endfor %}
 		</div>
 	</div>
-</div>{% endblock %}
+{% endblock %}
