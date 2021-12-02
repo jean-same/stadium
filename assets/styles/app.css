@@ -1,4 +1,5 @@
 @import "./bootstrap.css";
+@import "./Events/eventsCard.css";
 
 .principal-color {
   background-color: #02a5a5;
@@ -1602,3 +1603,7 @@ a {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: 0.5s;
 }
+
+/* End profiles admin */
+
+/* Events */
