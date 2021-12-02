@@ -1,5 +1,6 @@
 @import "./bootstrap.css";
 @import "./Events/eventsCard.css";
+@import "./Admins/admins.css";
 
 .principal-color {
   background-color: #02a5a5;
