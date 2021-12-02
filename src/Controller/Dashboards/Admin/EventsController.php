@@ -63,7 +63,7 @@ class EventsController extends AbstractController
 
                     $event->setPicture($pictureUploaded);
                 } else {
-                    $event->setPicture("event.png");
+                    $event->setPicture("random.jpg");
                 }
 
                 $this->em->persist($event);
@@ -105,7 +105,7 @@ class EventsController extends AbstractController
                     $pictureUploaded = $this->slugger->slug($event->getName() . '-' . uniqid()) . '.' . $eventPicture->guessExtension();
 
                     $eventPicture->move(
-                        __DIR__ . '/../../../../../public/pictures/activity/',
+                        __DIR__ . '/../../../../../public/pictures/event/',
                         $pictureUploaded
                     );
 

@@ -25,7 +25,7 @@
 							<div class="">
 								<div class="card-events">
 									<div class="card-event-header">
-										<img src="{{ event.picture }}" alt="rover"/>
+										<img src="{{ asset('pictures/event/')~ event.picture }}" alt="rover"/>
 									</div>
 									<div class="card-event-body">
 										{% if nbPlacesLeft <= 0  %}
