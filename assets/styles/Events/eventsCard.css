@@ -7,19 +7,26 @@
 }
 
 */
-.div-events-list {
+.div-events-content {
   margin-bottom: 10px;
   background: #fff;
   border-radius: 1em;
 }
 
+.div-events-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
 .card-events {
   margin-top: 10px;
+  margin-bottom: 10px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  width: 300px;
+  width: 290px;
 }
 .card-event-header img {
   width: 100%;
