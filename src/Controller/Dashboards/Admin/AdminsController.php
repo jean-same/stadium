@@ -9,6 +9,7 @@ use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route('/dashboards/admin/admins', name: 'dashboards_admin_admins_')]
 class AdminsController extends AbstractController
@@ -34,5 +35,23 @@ class AdminsController extends AbstractController
         $admins = $this->associationServices->getAdminFromAssoc();
 
         return $this->render('dashboards/admin/admins/admins.html.twig', compact('admins'));
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete($id)
+    {
+        $admin = $this->profilRepository->find($id);
+
+        if (!$admin) {
+            throw new NotFoundHttpException("Cet admin n'existe pas");
+        }
+
+        $this->em->remove($admin);
+
+        $this->em->flush();
+
+        $this->flashy->success('Admin supprimé avec succes');
+
+        return $this->redirectToRoute('dashboards_admin_admins_browse');
     }
 }
