@@ -64,3 +64,9 @@
   background: #074666;
   color: #fff;
 }
+
+@media (max-width: 752px) {
+    .activities-page-member {
+        justify-content: space-around;
+      }
+}
