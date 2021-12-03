@@ -1,4 +1,3 @@
-
 #div-left-rubriques .carousel .inner-carousel {
   width: 230px;
 }
@@ -68,4 +67,8 @@
 .card-inner .p-nbPlaces span {
   padding: 0.3em;
   font-size: 1.2em;
+}
+
+.card-event-actions .profil {
+  margin: 0 auto;
 }

@@ -1,13 +1,24 @@
-{% set associations = variableToUse %}
+{% set activities = variableToUse %}
+
 <div class="card-body div-carousel-card-body">
 	<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-		<div class="carousel-inner">
-			{% for key ,association in associations %}
+		<div class="carousel-inner inner-carousel-width">
+			{% for key ,activity in activities %}
+
 				<div class="carousel-item {% if key == 0 %} active {% endif %}">
-					<img src="https://picsum.photos/400" class="d-block w-100" alt="...">
-					<div class="carousel-caption carousel-body-caption d-md-block">
-						<h5>{{association.name}}</h5>
+					<div class="box-container">
+						<div class="box box-body">
+							<img src="{{ asset('pictures/activity/')~ activity.picture }}" alt="">
+							<div class="caption">
+								<div class="content">
+									<span>{{activity.name}}</span>
+								</div>
+								<div class="fab-btn">
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
 			{% endfor %}
 		</div>

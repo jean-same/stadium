@@ -54,7 +54,7 @@
 
 					{% endif %}
 				</div>
-				<div class="card col-sm-6 card-profile-home card-width">
+				<div class="card col-sm-6 card-activity-home-member">
 					<div class="card-header">
 						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir les activités de ton association!">
 							<h3 class="title-adherent-pages">
@@ -71,7 +71,7 @@
 						{%  include "dashboards/adherent/_warning/_joinAnAssociation.html.twig" %}
 					{% endif %}
 				</div>
-				<div class="card col-sm-6 card-profile-home card-width">
+				<div class="card col-sm-6 card-activity-home-member">
 					<div class="card-header">
 						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir tes activités!">
 							<h3 class="title-adherent-pages">
@@ -99,25 +99,4 @@
 
 		</div>
 
-		{# dfdf 
-
-		<div class="card-home">
-			<div class="cover">
-				<img src="https://media.pitchfork.com/photos/5c7d593e3a5a154e7b62f576/1:1/w_600/Dido_StillOnMyMind.jpg" alt="cover"/>
-
-			</div>
-			<div class="card-content">
-				<h4>
-					<a href="#">Still on My Mind</a>
-				</h4>
-				<p>
-					<a href="#">Dido</a>
-				</p>
-			</div>
-		</div>
-
-
-	</div>
-
-	 #}
-{% endblock %}
+	{% endblock %}
