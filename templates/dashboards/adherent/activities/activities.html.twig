@@ -17,6 +17,7 @@
 						Mes activités
 					</span>
 				</h2>
+				<div class="activities-page-member">
 				{% for activity in profile.activity %}
 					{%  include "dashboards/adherent/activities/_activities_common_div.html.twig" with {
 							'path' : path('dashboards_adherent_activities_unregister', { slug : profile.slug , activityId : activity.id }),
@@ -28,6 +29,7 @@
 						</h1>
 					</div>
 				{% endfor %}
+				</div>
 			</div>
 
 
@@ -38,6 +40,7 @@
 						{{profile.association.name}}
 					</span>
 				</h2>
+				<div class="activities-page-member">
 				{% if activityNotSubscribedByTheProfile | length > 0 %}
 
 					{% for activity in activityNotSubscribedByTheProfile %}
@@ -53,6 +56,7 @@
 						</h1>
 					</div>
 				{% endif %}
+				</div>
 			{% else %}
 				<h1 class="text-center">
 					Pas d'activités

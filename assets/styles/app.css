@@ -1,5 +1,6 @@
 @import "./bootstrap.css";
 @import "./Events/eventsCard.css";
+@import "./Activity/activityCard.css";
 @import "./Admins/admins.css";
 @import "./Profiles/profiles.css";
 @import "./CardHomeMember/cardEvent.css";
