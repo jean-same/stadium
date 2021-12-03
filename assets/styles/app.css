@@ -2,6 +2,7 @@
 @import "./Events/eventsCard.css";
 @import "./Admins/admins.css";
 @import "./Profiles/profiles.css";
+@import "./CardHomeMember/cardEvent.css";
 
 .principal-color {
   background-color: #02a5a5;
@@ -606,7 +607,7 @@
 }
 
 */
-
+/*
 .profiles {
   margin: 3em 0;
 }
@@ -653,7 +654,7 @@ card-body-adherent-event-picture {
   padding: 5px;
   border: none;
 }
-
+*/
 .activity-card-body {
   height: 200px;
   width: 200px;
