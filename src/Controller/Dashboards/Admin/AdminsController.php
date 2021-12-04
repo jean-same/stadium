@@ -42,13 +42,11 @@ class AdminsController extends AbstractController
     #[Route('/edit/{slug}', name: 'edit')]
     public function edit($slug, Request $request)
     {
-        $adminToEdit = $this->profilRepository->findBy(['slug' => $slug]);
+        $admin = $this->profilRepository->findOneBySlug(['slug' => $slug]);
 
-        if (!$adminToEdit) {
+        if (!$admin) {
             throw new NotFoundHttpException("Cet admin n'existe pas");
         }
-
-        $admin = $adminToEdit[0];
 
         $editAdminForm = $this->createForm(ProfilType::class, $admin);
 

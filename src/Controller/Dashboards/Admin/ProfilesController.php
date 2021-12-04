@@ -42,13 +42,11 @@ class ProfilesController extends AbstractController
     #[Route('/edit/{slug}', name: 'edit')]
     public function edit($slug, Request $request)
     {
-        $profilToEdit = $this->profilRepository->findBy(['slug' => $slug]);
+        $profil = $this->profilRepository->findOneBySlug(['slug' => $slug]);
 
-        if (!$profilToEdit) {
+        if (!$profil) {
             throw new NotFoundHttpException("Cet adhérent n'existe pas");
         }
-
-        $profil = $profilToEdit[0];
 
         $editProfileForm = $this->createForm(ProfilType::class, $profil);
 

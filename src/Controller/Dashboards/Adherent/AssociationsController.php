@@ -39,13 +39,10 @@ class AssociationsController extends AbstractController
     public function read($assocSlug, $slug): Response
     {
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
-        $associations = $this->associationRepository->findBy(['slug' => $assocSlug]);
-        if (!$associations) {
+        $association = $this->associationRepository->findOneBySlug(['slug' => $assocSlug]);
+        if (!$association) {
             throw $this->createNotFoundException("Cette association n'existe pas");
         }
-
-
-        $association = $associations[0];
 
         $profileSlug = $slug;
         return $this->render('dashboards/adherent/associations/read.html.twig', compact('association', 'profileSlug', 'profile'));
@@ -54,13 +51,11 @@ class AssociationsController extends AbstractController
     #[Route('/{assocSlug}/register', name: 'register')]
     public function register($slug, $assocSlug): Response
     {
-        $associations = $this->associationRepository->findBy(['slug' => $assocSlug]);
+        $association = $this->associationRepository->findOneBySlug(['slug' => $assocSlug]);
 
-        if (!$associations) {
+        if (!$association) {
             throw $this->createNotFoundException("Cette association n'existe pas");
         }
-
-        $association = $associations[0];
 
         $profile = $this->membersProfilServices->getProfilFromUser($slug);
 
