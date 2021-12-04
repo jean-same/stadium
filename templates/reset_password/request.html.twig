@@ -1,0 +1,44 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Reset your password
+{% endblock %}
+
+{% block body %}
+
+	<a href="{{ path('home') }}">
+		<div class="logo-wrapper">
+			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+			<p class="logo-text">tadium</p>
+		</div>
+	</a>
+
+	<div class="containerForm">
+		<div class="screen">
+			{% for flashError in app.flashes('reset_password_error') %}
+				<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+			{% endfor %}
+			<h1 class="title-login">Resinitialiser votre mot de passe</h1>
+
+			{{ form_start(requestForm) }}
+			<div class="login__field row">
+				<div class="col-1">
+					<i class="login__icon fas fa-at"></i>
+				</div>
+				<div class="col">
+					{{ form_row(requestForm.email, { 'attr' : { 'class' : 'login__input' , 'placeholder' : "Renseignez votre adresse mail" } }) }}
+				</div>
+			</div>
+			<div>
+				<small class="title-login">
+					Renseignez votre adresse email et on vous enverra un lien pour reinitialiser votre mot de passe.
+				</small>
+			</div>
+
+			<button type="submit" class="button login__submit col-6">
+				<span class="button__text mx-auto">Envoyer</span>
+			</button>
+			{{ form_end(requestForm) }}
+		</div>
+	</div>
+
+{% endblock %}

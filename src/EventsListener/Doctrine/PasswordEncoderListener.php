@@ -23,8 +23,9 @@ class PasswordEncoderListener
     }
 
     public function preUpdate(Account $account)
-    {
-        $hash = $this->passwordHasher->hashPassword($account, $account->getPassword());
+    { /*
+        $hash = $this->passwordHasher->hashPassword( $account, $account->getPassword());
         $account->setPassword($hash);
+        */
     }
 }

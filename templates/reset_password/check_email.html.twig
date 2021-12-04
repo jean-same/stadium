@@ -1,0 +1,25 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Password Reset Email Sent
+{% endblock %}
+
+{% block body %}
+	<a href="{{ path('home') }}">
+		<div class="logo-wrapper">
+			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+			<p class="logo-text">tadium</p>
+		</div>
+	</a>
+
+	<div class="containerForm">
+		<div class="screen">
+			<p>
+				Si un compte correspondant à votre e-mail existe, un e-mail vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe. Ce lien expirera dans
+				{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+			</p>
+			<p>Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+				<a href="{{ path('app_forgot_password_request') }}">réessayer</a>.</p>
+
+		</div>
+	</div>
+{% endblock %}
