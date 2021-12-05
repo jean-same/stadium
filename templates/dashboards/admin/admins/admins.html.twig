@@ -11,15 +11,20 @@
 			</a>
 		</header>
 
+		<div class="m-2">
+			<p>Bienvenue sur la page d'administration de vos admins.</p>
+			<p>Pour ajouter un admin cliquez sur le boutton ajouter, renseignez son adresse mail et un mot de passe, il recevra un mail de confirmation pour confirmer son compte.</p>
+			<a href="{{ path('dashboards_admin_admins_add' ) }}" class="btn principal-color my-3">Ajouter</a>
+		</div>
+
 		<div class="admins-div">
+
 			{% for admin in admins %}
 
 				<div class="card-admin">
-					<div class="card-header" 
-                    style="background-image: url({{ asset('pictures/associations/')~ admin.association.image }}) ; "
-                    >
-						
-                        <div class="card-photo">
+					<div class="card-header" style="background-image: url({{ asset('pictures/associations/')~ admin.association.image }}) ; ">
+
+						<div class="card-photo">
 							<img src="{{ asset('pictures/admin/')~ admin.picture }}" alt="">
 						</div>
 					</div>

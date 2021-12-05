@@ -1,0 +1,28 @@
+{% extends 'baseDashboardAdmin.html.twig' %}
+
+{% block title %}Ajouter admin
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+		<div class="row col-4">
+			{{ form_start(registrationForm) }}
+
+			{{ form_row(registrationForm.email , { 'attr' : { 'placeholder' : "Renseignez l'adresse mail" } }) }}
+			{{ form_row(registrationForm.password.first , { 'attr' : { 'placeholder' : "Choisissez un mot de passe" } }) }}
+			{{ form_row(registrationForm.password.second , { 'attr' : { 'placeholder' : "Confirmez le mot de passe" } }) }}
+			{{ form_row(registrationForm.agreeTerms) }}
+			<button type="submit" class="btn principal-color w-100">
+				Ajouter
+			</button>
+			{{ form_end(registrationForm) }}
+		</div>
+	</div>
+
+{% endblock %}
