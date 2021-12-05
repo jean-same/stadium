@@ -21,6 +21,7 @@
         "jquery": "^3.6.0",
         "mapbox-gl": "^2.6.1",
         "moment": "^2.29.1",
-        "places.js": "^1.19.0"
+        "places.js": "^1.19.0",
+        "slick-carousel": "^1.8.1"
     }
 }

@@ -9,13 +9,15 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 //import './styles/bootstrap.css';
-
+import './js/slick.js';
 import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
 import './globalJs/bootstrap.bundle.min.js';
 import './globalJs/fontawesome.min.js';
+
 
 import './js/sidebar.js';
 
@@ -28,4 +30,6 @@ import './img/Logo.svg'
 
 import './js/places/places.js';
 import './js/map/map.js';
+
+
 
