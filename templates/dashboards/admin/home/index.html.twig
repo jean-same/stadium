@@ -246,7 +246,7 @@
 													<label>Adresse</label>
 												</div>
 												<div class="col-md-8 form-group">
-													{{ form_row(formAssociation.address , {'attr': { 'class' : 'form-control' } }) }}
+													{{ form_row(formAssociation.address , {'attr': { 'class' : 'form-control association-address' } }) }}
 												</div>
 												<div class="col-md-4">
 													<label>Télephone</label>
@@ -259,6 +259,18 @@
 												</div>
 												<div class="col-md-8 form-group">
 													{{ form_row(formAssociation.image , {'attr': { 'class' : 'form-control' } }) }}
+												</div>
+												<div class="col-md-8 form-group">
+													{{ form_row(formAssociation.postCode , {'attr': { 'class' : 'form-control' } }) }}
+												</div>
+												<div class="col-md-8 form-group">
+													{{ form_row(formAssociation.lat , {'attr': { 'class' : 'form-control' } }) }}
+												</div>
+												<div class="col-md-8 form-group">
+													{{ form_row(formAssociation.lng , {'attr': { 'class' : 'form-control' } }) }}
+												</div>
+												<div class="col-md-8 form-group">
+													{{ form_row(formAssociation.city , {'attr': { 'class' : 'form-control' } }) }}
 												</div>
 												<div class="col-sm-12 d-flex justify-content-between">
 													<button type="reset" class="btn btn-light-secondary me-1 mb-1">Vider les champs</button>

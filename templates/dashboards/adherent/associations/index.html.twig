@@ -12,10 +12,12 @@
 				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
 			</a>
 		</header>
-	
+
 		<div class="search my-5">
-		<h2>Recherche personalisée</h2>
-		<p> Renseignez une adresse et une distance pour avoir la liste des associations qui sont dans le secteur. </p>
+			<h2>Recherche personalisée</h2>
+			<p>
+				Renseignez une adresse et une distance pour avoir la liste des associations qui sont dans le secteur.
+			</p>
 			{{ form_start(formSearch , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical' } }) }}
 			{{ form_errors(formSearch) }}
 			<div class="form-group">
@@ -42,42 +44,24 @@
 
 		</div>
 		<div class="row">
-		<h1 class="title-adherent-pages">Associations</h1>
-			{% for association in associations %}
+			<h1 class="title-adherent-pages">Associations</h1>
+			<div class="div-associations-list">
+				{% for association in associations %}
 
-				<div
-					class="col-lg-3 col-md-4 col-sm-6">
-					{#<div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">#}
-					<div class="card association associations-adherent">
-						<div class="card-content associations-adherent-content">
-							<div class="card-body associations-adherent-body">
-								<img class="img-fluid w-100" src="https://picsum.photos/200" alt="Card image cap">
-								<h4 class="card-title">{{ association.name }}
-								</h4>
-								<p class="card-text">
-									Adresse:
-									{{ association.address }}
-
-								</p>
-								<p class="card-text">
-									Téléphone:
-									{{ association.phoneNumber }}
-
-								</p>
-								<p class="card-text">
-									Cotisation moyen: N/A
-
-								</p>
-							</div>
-						</div>
-						<div class="card-footer d-flex justify-content-between">
-							<a href="{{ path('dashboards_adherent_associations_read', { slug: profileSlug , assocSlug : association.slug }) }}" class="btn btn-association">Voir plus</a>
+					<div class="card-association-list">
+						<div class="img" style="background: url({{ asset('pictures/associations/')~ association.image }}); background-size: cover;"></div>
+						<div class="content">
+							<h3>{{ association.address }}</h3>
+							<p>Cotisation moyen: N/A</p>
+							<a href="{{ path('dashboards_adherent_associations_read', { slug: profileSlug , assocSlug : association.slug }) }}" class="btn button">Voir plus</a>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
 
+
+				{% endfor %}
+			</div>
 		</div>
+
 
 	</div>
 

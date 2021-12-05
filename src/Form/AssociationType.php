@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -74,7 +75,12 @@ class AssociationType extends AbstractType
                 'attr' => [
                     'placeholder' => "Décrivez brièvement votre association"
                 ]
-            ]);
+            ])
+            ->add('postCode' , HiddenType::class)
+            ->add('lat' , HiddenType::class)
+            ->add('lng' , HiddenType::class)
+            ->add('city' , HiddenType::class)
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
