@@ -74,12 +74,12 @@
 .tag-danger {
   background-color: #dc3545 !important;
 }
-
+/*
 .card-body p {
   font-size: 13px;
   margin: 0 0 40px;
 }
-
+*/
 .card-events .card-event-actions {
   display: flex;
   justify-content: space-between;

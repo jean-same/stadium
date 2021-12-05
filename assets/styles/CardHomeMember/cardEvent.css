@@ -45,15 +45,15 @@
   border-radius: 20px;
 }
 
-.card-content {
+.card-inner .card-content {
   font-family: "Montserrat", sans-serif;
   color: #fafafa;
 }
-.card-content h4 {
+.card-inner .card-content h4 {
   margin-bottom: 6px;
   color: #fff;
 }
-.card-content p {
+.card-inner .card-content p {
   height: 2.5em;
   font-size: 14px;
   color: #fff;

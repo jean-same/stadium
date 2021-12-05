@@ -26,3 +26,5 @@ import './js/forms/formEvent.js';
 //image
 import './img/Logo.svg'
 
+import './js/places/places.js';
+

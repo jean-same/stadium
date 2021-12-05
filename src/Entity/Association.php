@@ -204,6 +204,26 @@ class Association
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="float" , scale=4 , precision=6 , nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float", scale=4 , precision=7  , nullable=true)
+     */
+    private $lng;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $postCode;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $city;
+
     public function __construct()
     {
         $this->profils = new ArrayCollection();
@@ -421,6 +441,54 @@ class Association
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?float $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?int
+    {
+        return $this->postCode;
+    }
+
+    public function setPostCode(?int $postCode): self
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

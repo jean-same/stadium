@@ -2,6 +2,7 @@
 
 namespace App\Controller\Dashboards\Adherent;
 
+use App\Form\AssociationSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use App\Service\Members\MembersProfilServices;
@@ -9,6 +10,7 @@ use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/dashboards/adherent/{slug}/associations', name: 'dashboards_adherent_associations_')]
 class AssociationsController extends AbstractController
@@ -27,12 +29,26 @@ class AssociationsController extends AbstractController
     }
 
     #[Route('/', name: 'browse')]
-    public function browse($slug): Response
+    public function browse($slug, Request $request): Response
     {
+        $searchForm = $this->createForm(AssociationSearchType::class);
+
         $associations = $this->associationRepository->findAll();
         $profileSlug = $slug;
 
-        return $this->render('dashboards/adherent/associations/index.html.twig', compact('associations', 'profileSlug'));
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $lat = $searchForm->get('lat')->getData();
+            $lng = $searchForm->get('lng')->getData();
+            $distance = $searchForm->get('distance')->getData();
+
+            $associations = $this->associationRepository->findByDistance($lat, $lng, $distance);
+        }
+
+        $formSearch = $searchForm->createView();
+
+        return $this->render('dashboards/adherent/associations/index.html.twig', compact('associations', 'profileSlug', 'formSearch'));
     }
 
     #[Route('/{assocSlug}', name: 'read')]
