@@ -6,6 +6,18 @@
 @import "./CardHomeMember/cardEvent.css";
 @import "./CardHomeMember/cardActivity.css";
 
+.association-read-rubriques {
+  min-height: 500px;
+}
+
+.association-read-map {
+  margin: 2em 0;
+}
+
+#map {
+  height: 400px;
+}
+
 .principal-color {
   background-color: #02a5a5;
   color: #fff;

@@ -27,4 +27,5 @@ import './js/forms/formEvent.js';
 import './img/Logo.svg'
 
 import './js/places/places.js';
+import './js/map/map.js';
 
