@@ -683,7 +683,7 @@
 }
 
 .nav-tabs .nav-link.active:after {
-  background-color: #02a5a5;
+  background-color: #d87444;
   bottom: 0;
   box-shadow: 0 2px 5px rgba(67, 94, 190, 0.5);
   content: "";
