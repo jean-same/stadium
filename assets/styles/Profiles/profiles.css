@@ -75,7 +75,6 @@
 }
 
 .card-profiles-admins .list-infos {
-  position: relative;
   display: flex;
   justify-content: space-between;
   padding: 0;
@@ -94,12 +93,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 20%;
-  background: transparent;
   font-size: 1.5em;
   color: #444;
-  text-decoration: none;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: 0.5s;
 }
 
 @media (max-width: 940px) {

@@ -12,6 +12,9 @@
 			</a>
 		</header>
 		<div class="row">
+			<h1>
+				<span class="title-adherent-pages">Profils</span>
+			</h1>
 			{% for profile in profiles %}
 				{% set fileComplete = null %}
 				{% set paid = null %}
@@ -22,9 +25,9 @@
 					{% set paid = profile.file.isPaid %}
 				{% endif %}
 
-				<div class="card-profiles-admins col-lg-3">
+				<div class="card-profiles-admins col-lg-3 my-5">
 					<div class="img-bx">
-						<img src="https://i.postimg.cc/dQ7zWbS5/img-4.jpg" alt="img"/>
+						<img src="{{ asset('pictures/profilPicture/')~ profile.picture }} " alt="{{ profile.firstName }} "/>
 					</div>
 					<div class="content">
 						<div class="detail">
