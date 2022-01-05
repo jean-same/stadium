@@ -23,14 +23,14 @@ class EventsController extends AbstractController
     private $profilRepository;
     private $membersEventsServices;
 
-    public function __construct( ProfilRepository $profilRepository, EventRepository $eventsRepository , EntityManagerInterface $entityManager , MembersEventsServices $membersEventsServices )
+    public function __construct(ProfilRepository $profilRepository, EventRepository $eventsRepository, EntityManagerInterface $entityManager, MembersEventsServices $membersEventsServices)
     {
         $this->eventsRepository = $eventsRepository;
         $this->profilRepository = $profilRepository;
         $this->entityManager = $entityManager;
         $this->membersEventsServices = $membersEventsServices;
     }
-    
+
     /**
      * @Route("/", name="read", methods={"GET"})
      */
@@ -39,7 +39,7 @@ class EventsController extends AbstractController
 
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
 
         $events = $profil->getEvent();
 
@@ -49,20 +49,20 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}/register", name="register", methods={"POST"})
      */
-    public function register( $eventId , $profilId ): Response
+    public function register($eventId, $profilId): Response
     {
 
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
 
-        $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
+        $this->membersEventsServices->canRegisterOrUnregister($event, $profil);
 
         $profil->addEvent($event);
 
         $this->entityManager->flush();
-        
+
         $reponseAsArray = [
             'message' => 'Inscription prise en compte'
         ];
@@ -73,15 +73,15 @@ class EventsController extends AbstractController
     /**
      * @Route("/{eventId}/unregister", name="unregister", methods={"POST"})
      */
-    public function unregister( $eventId , $profilId ): Response
+    public function unregister($eventId, $profilId): Response
     {
 
         $event = $this->eventsRepository->find($eventId);
         $profil = $this->profilRepository->find($profilId);
 
-        $this->denyAccessUnlessGranted('CAN_READ', $profil , "Accès interdit");
+        $this->denyAccessUnlessGranted('CAN_READ', $profil, "Accès interdit");
 
-        $this->membersEventsServices->canRegisterOrUnregister($event, $profil );
+        $this->membersEventsServices->canRegisterOrUnregister($event, $profil);
 
         $profil->removeEvent($event);
 

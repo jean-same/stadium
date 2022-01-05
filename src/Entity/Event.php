@@ -132,7 +132,7 @@ class Event
     private $maxParticipants;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event")
+     * @ORM\ManyToMany(targetEntity=Profil::class, mappedBy="event" , fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_events_browse",
@@ -153,6 +153,11 @@ class Event
      * )
      */
     private $association;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture;
 
     public function __construct()
     {
@@ -271,6 +276,18 @@ class Event
     public function setAssociation(?Association $association): self
     {
         $this->association = $association;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

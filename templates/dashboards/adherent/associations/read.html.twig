@@ -1,0 +1,181 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Associations!
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+		<h1 class="title-adherent-pages">Associations</h1>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="card">
+					<div class="card-header">
+						<h4>Photos</h4>
+						<p>Decouvrez un résumé de notre galerie photos</p>
+					</div>
+					<div class="card-body">
+
+						<div class="association-read-adherent">
+							<div data-slider>
+								<div class="carousel-item">
+									<img src="https://picsum.photos/400" class="d-block w-100" alt="...">
+								</div>
+								<div class="carousel-item">
+									<img src="https://source.unsplash.com/random" class="d-block w-100" alt="...">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<section class="section">
+					<div class="card association-details-card">
+						<div class="card-header">
+							<h2 class="float-start">
+								{{ association.name }}
+							</h2>
+							{% if profile.association is null %}
+								<a href="{{ path('dashboards_adherent_associations_register' , { slug: profileSlug , assocSlug : association.slug }) }} " class="btn principal-color float-end">
+									Rejoindre
+								</a>
+							{% endif %}
+						</div>
+						<div class="card-body">
+							<p>
+								<span class="font-extrabold">Président:
+								</span>
+								:
+								<span>
+									{{ association.presidentLastName }}
+									{{ association.presidentFirstName }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Adresse:
+								</span>
+								:
+								<span>
+									{{ association.address }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Téléphone:
+								</span>
+								:
+								<span>
+									{{ association.phoneNumber }}
+								</span>
+							</p>
+							<p>
+								<span>
+									Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus accusamus enim, iste ipsa temporibus molestiae corporis assumenda tempora quisquam doloribus modi quos repudiandae itaque eos a quidem adipisci magni recusandae.
+																																																																																																Lorem ipsum dolor sit amet consectetur adipisicing elit. At aliquam debitis, error repellat distinctio dolore quisquam nobis voluptas rem possimus, beatae magni! Ratione, necessitatibus! Provident rem deleniti sunt aspernatur impedit.
+								</span>
+							</p>
+							quibusdam ratione ullam!
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card association-read-rubriques">
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="text-center">Decouvrez les activités et les evenements qu'on propose</h4>
+							</div>
+							<div class="card-body">
+								<ul class="nav nav-tabs d-flex justify-content-evenly" id="myTab" role="tablist">
+									<li class="nav-item" role="presentation">
+										<a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#activity" role="tab" aria-controls="activity" aria-selected="true">Activités</a>
+									</li>
+									<li class="nav-item" role="presentation">
+										<a class="nav-link" id="event-tab" data-bs-toggle="tab" href="#event" role="tab" aria-controls="event" aria-selected="false">Evenements</a>
+									</li>
+								</ul>
+								<div class="tab-content" id="myTabContent">
+									<div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+										<div class="row">
+											<div class="activities-page-member">
+												{% for activity in association.activities %}
+
+													<div class="box-container-activity">
+														<div class="box-activity box-body-activity">
+															<img src="{{ asset('pictures/activity/')~ activity.picture }}" alt="">
+															<div class="caption">
+																<div class="content">
+																	<span>{{activity.name}}</span>
+																</div>
+															</div>
+														</div>
+													</div>
+
+
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane fade" id="event" role="tabpanel" aria-labelledby="event-tab">
+
+										<div class="div-events-list">
+											{% for event in association.events %}
+												{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+
+												<div class="card-events">
+													<div class="card-event-header">
+														<img src="{{ asset('pictures/event/')~ event.picture }}" alt="rover"/>
+													</div>
+													<div class="card-event-body">
+														{% if nbPlacesLeft <= 0  %}
+															<span class="tag tag-second-color-background">Complet</span>
+														{% else %}
+															<span class="tag {{ nbPlacesLeft > 10 ? 'tag-success' : 'tag-danger' }}">
+																Places libre :
+																{{ nbPlacesLeft }}</span>
+														{% endif %}
+														<h4>
+															{{ event.name }}
+														</h4>
+														<h6>
+															{{ event.startDate | date("d-m-Y") }}
+															-
+															{{ event.endDate | date("d-m-Y") }}
+														</h6>
+														<h6 class="card-text">
+															<span class="text-bold-500"></span>
+															{{ event.schedule | format_datetime('none', 'short', locale='en') }}
+														</h6>
+														<p class="card-text">
+															<span class="text-bold-500"></span>
+															{{ event.place}}
+														</p>
+													</div>
+
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-lg-12 association-read-map card">
+				<h1 class="text-center my-5 title-adherent-pages">Retrouvez-nous</h1>
+				<div class="" id="map" data-lat=" {{ association.lat }} " data-lng=" {{ association.lng }} " data-associationname="{{ association.name }}"></div>
+			</div>
+		</div>
+	{% endblock %}

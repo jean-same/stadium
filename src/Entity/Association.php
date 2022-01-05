@@ -173,7 +173,7 @@ class Association
     private $activities;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="association", orphanRemoval=true , fetch="EAGER")
      * @Groups(
      *      {
      *          "api_backoffice_superadmin_associations_browse"
@@ -193,6 +193,36 @@ class Association
      * )
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="float" , scale=4 , precision=6 , nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float", scale=4 , precision=7  , nullable=true)
+     */
+    private $lng;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $postCode;
+
+    /**
+     * @ORM\Column(type="string", length=128, nullable=true)
+     */
+    private $city;
 
     public function __construct()
     {
@@ -387,6 +417,78 @@ class Association
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?float $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?int
+    {
+        return $this->postCode;
+    }
+
+    public function setPostCode(?int $postCode): self
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

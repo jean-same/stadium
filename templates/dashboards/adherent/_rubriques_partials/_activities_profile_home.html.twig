@@ -1,0 +1,26 @@
+{% set activities = variableToUse %}
+
+<div class="card-body div-carousel-card-body">
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner inner-carousel-width">
+			{% for key ,activity in activities %}
+
+				<div class="carousel-item {% if key == 0 %} active {% endif %}">
+					<div class="box-container">
+						<div class="box box-body">
+							<img src="{{ asset('pictures/activity/')~ activity.picture }}" alt="">
+							<div class="caption">
+								<div class="content">
+									<span>{{activity.name}}</span>
+								</div>
+								<div class="fab-btn">
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

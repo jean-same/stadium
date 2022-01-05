@@ -1,32 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_auth.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
+
 
 {% block body %}
+	<a href="{{ path('home') }}">
+		<div class="logo-wrapper">
 
-<div class="containerForm">
-	<div class="screen">
-		<div >
-            <form method="post">
-                {% if error %}
-                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
+			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+			<p class="logo-text">tadium</p>
 
-                {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                    </div>
-                {% endif %}
+		</div>
+	</a>
+	<div class="containerForm">
+		<div class="screen">
+			<div>
+				<form method="post">
+					{% if error %}
+						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+					{% endif %}
 
-                <h1 class="title-login">Please sign in</h1>
+					{% if app.user %}
+						<div class="mb-3">
+							You are logged in as
+							{{ app.user.username }},
+							<a href="{{ path('app_logout') }}">Logout</a>
+						</div>
+					{% endif %}
+
+					<h1 class="title-login">Connexion</h1>
 
 					<div class="login__field row">
-                            <div class="col-1">
-                                <i class="login__icon fas fa-at"></i>
-                            </div>
-                            <div class="col">
-                                <input type="email" class="login__input " placeholder="email" name="email" value="{{ last_username }}" autocomplete="email" autofocus>
-                            </div>
+						<div class="col-1">
+							<i class="login__icon fas fa-at"></i>
+						</div>
+						<div class="col">
+							<input type="email" class="login__input " placeholder="email" name="email" value="{{ last_username }}" autocomplete="email" autofocus>
+						</div>
 					</div>
 
 					<div class="login__field row">
@@ -34,31 +45,33 @@
 							<i class="login__icon fas fa-lock"></i>
 						</div>
 						<div class="col password__field">
-							<input class="login__input " placeholder="Password" name="password" type="password" autocomplete="current-password" >
+							<input class="login__input " placeholder="Password" name="password" type="password" autocomplete="current-password">
 						</div>
 					</div>
-                <input type="hidden" name="_csrf_token"
-                    value="{{ csrf_token('authenticate') }}"
-                >
+					<div class="login__field row ">
+						<a href=" {{ path('app_forgot_password_request') }} ">Mot de passe oublié?</a>
+					</div>
+					<input
+					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                {#
-                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                    See https://symfony.com/doc/current/security/remember_me.html
+					{#
+																																																		                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+																																																		                    See https://symfony.com/doc/current/security/remember_me.html
+																																																		
+																																																		                    <div class="checkbox mb-3">
+																																																		                        <label>
+																																																		                            <input type="checkbox" name="_remember_me"> Remember me
+																																																		                        </label>
+																																																		                    </div>
+																																																		                #}
 
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" name="_remember_me"> Remember me
-                        </label>
-                    </div>
-                #}
+					<button class="button login__submit col-3 mx-auto">
+						<span class="button__text mx-auto">Soumettre</span>
+					</button>
+				</form>
 
-                <button class="button login__submit col-3 mx-auto" >  
-                    <span class="button__text mx-auto">Sign in</span>
-                </button>
-            </form>
-
-        </div>
+			</div>
+		</div>
 	</div>
-</div>
 
 {% endblock %}

@@ -1,0 +1,77 @@
+#div-left-rubriques .carousel .inner-carousel {
+  width: 230px;
+}
+
+.div-carousel-card-body {
+  margin: 0 auto;
+}
+
+#div-left-rubriques {
+  width: 700px;
+  margin: 0 auto;
+}
+
+#div-left-rubriques .card-event-home-member {
+  margin: 1em auto;
+  height: 370px;
+  width: 300px;
+  border: 1px solid #074666;
+  box-shadow: 2px 2px 2px #074666;
+  border-radius: 0 0.7em 0 0.7em;
+}
+
+.card-inner {
+  width: 230px;
+  border-radius: 4px;
+  padding: 16px;
+  overflow: hidden;
+  background-color: #074666;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.card-inner:hover {
+  background-color: #054e72;
+}
+
+.card-cover {
+  position: relative;
+  margin-bottom: 18px;
+  width: 192px;
+  height: 122px;
+}
+.card-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 8px 20px -4px hsl(0, 0%, 5%);
+  border-radius: 20px;
+}
+
+.card-inner .card-content {
+  font-family: "Montserrat", sans-serif;
+  color: #fafafa;
+  height: 110px;
+}
+.card-inner .card-content h4 {
+  margin-bottom: 6px;
+  color: #fff;
+}
+.card-inner .card-content p {
+  height: 2.5em;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.card-inner .p-nbPlaces {
+  margin-top: -40px;
+}
+
+.card-inner .p-nbPlaces span {
+  padding: 0.3em;
+  font-size: 1.2em;
+}
+
+.card-event-actions .profil {
+  margin: 0 auto;
+}

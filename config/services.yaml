@@ -47,3 +47,34 @@ services:
                 }
             ]
 
+    App\EventsListener\Doctrine\ProfilSluggerListener:
+        tags:
+            [
+                {
+                    name    : 'doctrine.orm.entity_listener',
+                    event   :  prePersist,
+                    entity  : App\Entity\Profil 
+                }
+                {
+                    name    : 'doctrine.orm.entity_listener',
+                    event   :  preUpdate,
+                    entity  : App\Entity\Profil 
+                }
+            ]
+
+    App\EventsListener\Doctrine\AssociationSluggerListener:
+        tags:
+            [
+                {
+                    name    : 'doctrine.orm.entity_listener',
+                    event   :  prePersist,
+                    entity  : App\Entity\Association 
+                }
+                {
+                    name    : 'doctrine.orm.entity_listener',
+                    event   :  preUpdate,
+                    entity  : App\Entity\Association 
+                }
+            ]
+
+

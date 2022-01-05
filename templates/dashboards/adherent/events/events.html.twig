@@ -1,0 +1,70 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Events
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<div class="row events-div">
+			{% if profile.association is not null %}
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">Mes evenements</span>
+				</h2>
+				<div class="div-events-list">
+					{% for event in profile.event %}
+						{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+						{%  include "dashboards/adherent/events/_events_common_div.html.twig" with {
+						'path' : path('dashboards_adherent_events_unregister', { slug : profile.slug , eventId : event.id }),
+						'buttonName' : "Se désinscrire"
+					}  %}
+
+					{% else %}
+						<div>
+							<h1 class="text-center default-color m-5">Vous n'avez pas d'evenements à afficher
+							</h1>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+
+			<div class="row events-div">
+
+				<h2 class="title-pages">
+					<span class="title-adherent-pages">Les evenements de :
+						{{profile.association.name}}
+					</span>
+				</h2>
+				<div class="div-events-list">
+					{% if eventNotSubscribedByTheProfile | length > 0 %}
+
+						{% for event in eventNotSubscribedByTheProfile %}
+							{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+
+							{%  include "dashboards/adherent/events/_events_common_div.html.twig" with {
+							'path' : path('dashboards_adherent_events_register', { slug : profile.slug , eventId : event.id }),
+							'buttonName' : "S'inscrire"
+						}  %}
+						{% endfor %}
+
+					{% else %}
+						<div>
+							<h1 class="text-center default-color m-5">Pas d'évenements à afficher
+							</h1>
+						</div>
+					{% endif %}
+				</div>
+			{% else %}
+				<h1 class="text-center">
+					Pas d'evenements
+				</h1>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

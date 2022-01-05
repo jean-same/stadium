@@ -1,0 +1,123 @@
+{% block stylesheets %}
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('assets/css/homePage/_reset.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/logo.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/css/homePage/homePage.css') }}">
+
+{% endblock %}
+
+{% block body %}
+	<div class="home">
+		<div class="wrapper-top">
+			<a href="{{ path('home') }}">
+				<div class="logo-wrapper">
+					<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+					<p class="logo-text">tadium</p>
+				</div>
+			</a>
+			<div class="wrapper-top-left">
+				<h1 class="wrapper-top-left-title">
+					Stadium est la solution simple, pratique et gratuite au service de la vie associative.
+				</h1>
+				<p class="wrapper-top-left-text">
+					Rejoignez un réseau d'associations sportives, présentes partout en France.<br/>
+					Inscrivez-vous pour bénéficiez d'un service de qualité et optimisé pour vous
+																																																																																																																												          faciliter le quotidien.
+				</p>
+				<div class="button-wrapper">
+					<a href="{{ path('app_register') }}" class="button-form-home">Inscription</a>
+				</div>
+			</div>
+			<div class="wrapper-top-right">
+				<div class="button-wrapper-login">
+					<a href="{{ path('app_login') }} " class="button-form-home">
+						Connexion
+					</a>
+				</div>
+				<img src={{ asset('assets/imageStade.jpg') }} alt="" class="wrapper-top-right-img"/>
+			</div>
+		</div>
+		<div class="wrapper-mid">
+			<div class="wrapper-mid-header">
+				<h1 class="wrapper-mid-header-title">
+					<strong>Vous êtes une association ?</strong><br/>
+					Stadium est la solution simple, pratique et gratuite pour suivre votre association
+																																																																																																																												          et vos activités.
+				</h1>
+			</div>
+			<div class="wrapper-mid-content">
+				<div class="wrapper-mid-left">
+					<img src={{ asset('assets/dashboardAdmin.png') }} alt="" class="wrapper-mid-left-img"/>
+				</div>
+				<div class="wrapper-mid-right">
+					<p class="wrapper-mid-right-text">
+						Stadium permet aux associations de gagner du temps dans leur gestion quotidienne afin de
+																																																																																																					  se concentrer sur le développement de leur activité. L’inscription sur la plateforme  permet automatiquement à une association d’avoir un site internet accessible et visible
+																																																																																																					  par tous les membres de Stadium. Stadium réunit sur sa plateforme tant les associations
+																																																																																																					  que les personnes en recherche d’une activité sportive. De quoi gagner en visibilité et se faire connaître.
+					</p>
+					<ul>
+						<li>
+							gestion des membres,</li>
+						<li>
+							adhésion en ligne,</li>
+						<li>
+							gestion du planning de cours,</li>
+						<li>
+							gestion de la communication sur vos évènements,</li>
+						<li>
+							site internet
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper-bot">
+			<div class="wrapper-bot-header">
+				<h1 class="wrapper-bot-header-title">
+					<strong>
+						Vous êtes un adhérent ?
+					</strong><br/>
+					Stadium est la solution simple, pratique et gratuite au service de la vie associative.
+				</h1>
+			</div>
+			<div class="wrapper-bot-content">
+				<div class="wrapper-bot-content-left">
+					<p class="wrapper-bot-content-left-text">
+						Inscrivez-vous sur Stadium et :
+					</p>
+					<p class="wrapper-bot-content-left-text">
+						Retrouvez facilement une association sportive près de chez vous.
+					</p>
+					<p class="wrapper-bot-content-left-text">
+						Inscrivez-vous à vos activités favorites depuis votre domicile,
+																																																																																																																																																				            gérez vos contrats à distance, suivez l’actualité de votre association
+																																																																																																																																																				            et les activités qu’elle propose.
+					</p>
+					<p class="wrapper-bot-content-left-text">
+						Renseignez-vous et inscrivez-vous aux évènements qui vous intéressent en un clic.
+					</p>
+				</div>
+				<div class="wrapper-bot-right">
+					<img src={{ asset('assets/dashboardUser.png') }} alt="" class="wrapper-bot-right-img"/>
+				</div>
+			</div>
+		</div>
+		<div class="home-footer">
+			<div class="footer-content">
+				<ul class="footer-content-list">
+					<li class="footer-content-list-elem">
+						<a href="">Mentions légales</a>
+					</li>
+					<li class="footer-content-list-elem">
+						<a href="">Politique de confidentialité</a>
+					</li>
+					<li class="footer-content-list-elem">
+						<a href="">Contact</a>
+					</li>
+				</ul>
+				<p class="footer-copyright">&copy; Website by StadiumValkyries</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

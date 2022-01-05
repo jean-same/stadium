@@ -2,7 +2,9 @@ security:
   enable_authenticator_manager: true
   # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
   password_hashers:
-    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+      algorithm: "auto"
+      cost: 15
     App\Entity\Account:
       algorithm: auto
 
@@ -34,7 +36,7 @@ security:
     main:
       lazy: true
       provider: app_user_provider
-      custom_authenticator: App\Security\DocumentationAuthenticator
+      custom_authenticator: App\Security\DashboardsAuthenticator
       logout:
         path: app_logout
         # where to redirect after logout
@@ -45,7 +47,12 @@ security:
 
       # https://symfony.com/doc/current/security/impersonating_user.html
       # switch_user: true
+      login_throttling:
+        max_attempts: 3
+        interval: "15 minutes"
 
+  role_hierarchy:
+    ROLE_ASSOC: ROLE_ADMIN
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
@@ -59,4 +66,10 @@ security:
 
     - { path: ^/api/v1/backoffice/superadmin, roles: ROLE_SUPER_ADMIN }
 
-    - { path: ^/docs, roles: ROLE_SUPER_ADMIN }
+    - { path: ^/dashboards/adherent, roles: ROLE_ADHERENT }
+
+    - { path: ^/dashboards/admin, roles: ROLE_ADMIN }
+
+    - { path: ^/dashboards/superadmin, roles: ROLE_SUPER_ADMIN }
+
+    - { path: ^/docs/v1, roles: ROLE_SUPER_ADMIN }

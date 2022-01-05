@@ -1,0 +1,27 @@
+{% extends 'baseDashboardAdmin.html.twig' %}
+
+{% block title %}Edit admin
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+		<div class="row">
+			{{ form_start(formAdmin) }}
+
+			{{ form_row(formAdmin.firstName) }}
+			{{ form_row(formAdmin.lastName) }}
+			{{ form_row(formAdmin.picture) }}
+			<button type="submit" class="btn principal-color w-100">
+				Modifier
+			</button>
+			{{ form_end(formAdmin) }}
+		</div>
+	</div>
+
+{% endblock %}

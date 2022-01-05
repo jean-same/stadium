@@ -1,0 +1,101 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Profil Home!
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<div class="header-home-profile">
+			<h2>Bienvenue
+				{{ profile.lastName }}
+			</h2>
+		</div>
+
+		<div class="row my-5">
+			<div class="col-lg-8 row" id="div-left-rubriques">
+				<div class="card card-event-home-member">
+					<div class="card-header">
+						<a href="{{ path('dashboards_adherent_events_events' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir les évènements de ton association!">
+							<h3 class="title-adherent-pages">
+								Evènements
+							</h3>
+						</a>
+					</div>
+					{% if profile.association is not null %}
+						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
+					'variableToUse' : profile.association.events
+				} %}
+					{% else %}
+						{%  include "dashboards/adherent/_warning/_joinAnAssociation.html.twig" %}
+					{% endif %}
+				</div>
+				<div class="card card-event-home-member">
+					<div class="card-header">
+						<a href="{{ path('dashboards_adherent_events_events' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir tes évènements!">
+							<h3 class="title-adherent-pages">
+								Mes évènements
+
+							</h3>
+						</a>
+					</div>
+					{% if profile.event is not null  %}
+						{%  include "dashboards/adherent/_rubriques_partials/_events_profile_home.html.twig" with {
+					'variableToUse' : profile.event
+				} %}
+						{% else %}
+
+					{% endif %}
+				</div>
+				<div class="card col-sm-6 card-activity-home-member">
+					<div class="card-header">
+						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir les activités de ton association!">
+							<h3 class="title-adherent-pages">
+								Activités
+							</h3>
+						</a>
+					</div>
+					{% if profile.association is not null  %}
+
+						{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
+					'variableToUse' : profile.association.activities
+				} %}
+					{% else %}
+						{%  include "dashboards/adherent/_warning/_joinAnAssociation.html.twig" %}
+					{% endif %}
+				</div>
+				<div class="card col-sm-6 card-activity-home-member">
+					<div class="card-header">
+						<a href="{{ path('dashboards_adherent_activities_activities' , { slug : profile.slug }) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Voir tes activités!">
+							<h3 class="title-adherent-pages">
+								Mes activités
+							</h3>
+						</a>
+					</div>
+					{% if profile.activity is not null  %}
+						{%  include "dashboards/adherent/_rubriques_partials/_activities_profile_home.html.twig" with {
+					'variableToUse' : profile.activity
+				} %}
+						{% else %}
+
+					{% endif %}
+				</div>
+			</div>
+			<div
+				class="col">
+				{%  include "dashboards/adherent/_rubriques_partials/_file_profile_display_home.html.twig" %}
+				<div class="card col-sm-12 card-profile-home" id="news-div">
+					{%  include "dashboards/adherent/_rubriques_partials/_assoc_pictures_profile_home.html..twig" %}
+				</div>
+			</div>
+
+		</div>
+
+	{% endblock %}

@@ -1,0 +1,15 @@
+
+	{{ form_start(formProfil , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical' } }) }}
+	{{ form_errors(formProfil) }}
+	<div class="form-group">
+		{{ form_row(formProfil.firstName) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(formProfil.lastName) }}
+	</div>
+	<button type="submit" class="btn principal-color w-100">
+		<i class="fas fa-plus"></i>
+		Modifier
+	</button>
+	{{ form_end(formProfil) }}
+

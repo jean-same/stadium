@@ -1,0 +1,260 @@
+{% extends 'baseDashboardSuperAdmin.html.twig' %}
+
+{% block title %}
+	{{ association.name }}
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<div class="page-heading">
+			<h1>Association</h1>
+		</div>
+		{%  include "dashboards/superadmin/_forms/_activityForm.html.twig"  %}
+		{%  include "dashboards/superadmin/_forms/_eventForm.html.twig"  %}
+
+		<div class="page-content">
+
+			<div class="row">
+				<div class="card col-xl-6 col-lg-12 mt-5">
+					<div class="card-header">
+						<h2 class="card-title">Tableau de bord :
+							{{ association.name }}
+						</h2>
+					</div>
+					<div class="card-body">
+						<p>
+							<span class="font-extrabold">Président
+							</span>
+							:
+							<span>
+								{{ association.presidentLastName | upper }}
+								{{ association.presidentFirstName }}
+							</span>
+						</p>
+						<p>
+							<span class="font-extrabold">Adresse
+							</span>
+							:
+							<span>
+								{{ association.address }}
+							</span>
+						</p>
+						<p>
+							<span class="font-extrabold">Telephone
+							</span>
+							:
+							<span>
+								{{ association.phoneNumber | upper }}
+							</span>
+						</p>
+					</div>
+				</div>
+
+				<div
+					class="card-body col-xl-6 col-lg-12">
+					{# You can pass HTML attributes as a second argument to add them on the <canvas> tag #}
+					{{ render_chart(chart, {'class': 'my-chart'}) }}
+
+				</div>
+			</div>
+
+			<div class="col-md-12 association-rubrique-details">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title">Rubriques</h5>
+					</div>
+					<div class="card-body">
+						<ul class="nav nav-tabs d-flex justify-content-evenly" id="myTab" role="tablist">
+							<li class="nav-item d-flex" role="presentation">
+								<a class="nav-link active" id="admins-tab" data-bs-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Admins</a>
+								<a href="" class="rubrique-add-item">
+									<i class="fas fa-user-plus"></i>
+								</a>
+							</li>
+							<li class="nav-item d-flex" role="presentation">
+								<a class="nav-link" id="adherents-tab" data-bs-toggle="tab" href="#adherents" role="tab" aria-controls="adherents" aria-selected="true">Adherents
+								</a>
+								<a href="" class="rubrique-add-item">
+									<i class="fas fa-user-plus"></i>
+								</a>
+							</li>
+							<li class="nav-item d-flex" role="presentation">
+								<a class="nav-link" id="activites-tab" data-bs-toggle="tab" href="#activites" role="tab" aria-controls="activites" aria-selected="false">Activités</a>
+								<a href="#" class="rubrique-add-item" data-bs-toggle="modal" data-bs-target="#activity-add" id="activity-add">
+									<i class="fas fa-plus"></i>
+								</a>
+							</li>
+							<li class="nav-item d-flex" role="presentation">
+								<a class="nav-link" id="evenements-tab" data-bs-toggle="tab" href="#evenements" role="tab" aria-controls="evenements" aria-selected="false">Evenements</a>
+								<a href="#" class="rubrique-add-item" data-bs-toggle="modal" data-bs-target="#event-form" id="event-form">
+									<i class="fas fa-plus"></i>
+								</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="admins" role="tabpanel" aria-labelledby="admins-tab">
+								<p class="mt-2">Duis ultrices purus non eros fermentum hendrerit. Aenean ornare interdum.</p>
+							</div>
+							<div class="tab-pane fade" id="adherents" role="tabpanel" aria-labelledby="adherents-tab">
+								<div class="table-responsive">
+									{% if association.profils | length > 0 %}
+										<table class="table table-hover mb-0">
+											<thead>
+												<tr>
+													<th>Prénom</th>
+													<th>Nom</th>
+													<th>Image</th>
+													<th class="text-center">Dossier</th>
+													<th colspan="3" class="text-center">Actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for profil in association.profils %}
+													{% if profil.file %}
+														<tr>
+															<td class="text-bold-500">
+																{{ profil.firstName }}
+															</td>
+															<td>{{ profil.lastName }}</td>
+															<td class="text-bold-500">{{ profil.picture }}</td>
+															<td class="text-center">{{ profil.file.isComplete ? "<i class='far fa-check-circle text-success'></i>" : "<i class='far fa-times-circle text-danger'></i>" }}</td>
+															<td class="text-center">
+																<a href="{{ path('dashboard_superadmin_associations_readOneProfil', { id : profil.id }) }}">
+																	<i class="fa fa-eye text-primary" aria-hidden="true"></i>
+																</a>
+															</td>
+															<td class="text-center">
+																<a href="">
+																	<i class="fas fa-edit text-warning"></i>
+																</a>
+															</td>
+															<td class="text-center">
+																<a href="{{ path('dashboard_superadmin_associations_deleteOneProfil', { id : profil.id }) }}">
+																	<i class="fa fa-trash text-danger" aria-hidden="true"></i>
+																</a>
+
+															</td>
+														</tr>
+													{% endif %}
+												{% endfor %}
+											</tbody>
+										</table>
+									{% else %}
+										<h3 class="text-center mt-4">Pas de profil</h3>
+									{% endif %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="activites" role="tabpanel" aria-labelledby="activites-tab">
+								<div class="table-responsive">
+									{% if association.activities | length > 0 %}
+										<table class="table table-hover mb-0">
+											<thead>
+												<tr>
+													<th>Nom</th>
+													<th>Image</th>
+													<th class="text-center">Icon</th>
+													<th colspan="2" class="text-center">Actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for activity in association.activities %}
+													<tr>
+														<td class="text-bold-500">
+															{{ activity.name }}
+														</td>
+														<td class="text-bold-500">{{ activity.picture }}</td>
+														<td class="text-center">{{ activity.icon }}</td>
+														<td class="text-center">
+															<a href="">
+																<i class='bi bi-pencil-square'></i>
+															</a>
+														</td>
+														<td class="text-center">
+															<a href="">
+																<i class='bi bi-trash-fill'></i>
+															</a>
+
+														</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									{% else %}
+										<h3 class="text-center mt-4">Pas d'activités</h3>
+									{% endif %}
+								</div>
+							</div>
+							<div class="tab-pane fade" id="evenements" role="tabpanel" aria-labelledby="evenements-tab">
+								<div class="table-responsive">
+									{% if association.events | length > 0  %}
+										<table class="table table-hover mb-0">
+											<thead>
+												<tr>
+													<th>Nom</th>
+													<th>Endroit</th>
+													<th class="">Max participants</th>
+													<th class="text-center">Date de debut</th>
+													<th class="text-center">Date de fin</th>
+													<th class="text-center">Horaire</th>
+													<th colspan="2" class="text-center">Actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for event in association.events %}
+													<tr>
+														<td class="text-bold-500">
+															{{ event.name }}
+														</td>
+														<td class="text-bold-500">{{ event.place }}</td>
+														<td class="text-bold-500">{{ event.maxParticipants }}
+															{% if event.profiles | length == event.maxParticipants %}
+																<span class="badge bg-success">
+																	Complet
+																</span>
+															{% else %}
+																<span class="badge bg-primary">
+																	{{ event.maxParticipants - event.profiles | length }}
+																	libres
+																</span>
+															{% endif %}
+														</td>
+														<td class="text-bold-500">{{ event.startDate | date("d/m/Y") }}</td>
+														<td class="text-bold-500">{{ event.endDate | date("d/m/Y") }}</td>
+														<td class="text-center">{{ event.schedule |format_datetime('none', 'short', locale='en') }}</td>
+														<td class="text-center">
+															<a href="">
+																<i class="fas fa-edit text-warning"></i>
+															</a>
+														</td>
+														<td class="text-center">
+															<a href="">
+																<i class="fa fa-trash text-danger" aria-hidden="true"></i>
+															</a>
+
+														</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									{% else %}
+										<h3 class="text-center mt-4">Pas d'evenements</h3>
+									{% endif %}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'baseDashboardAdmin.html.twig' %}
+
+{% block title %}Hello EventsController!
+{% endblock %}
+
+{% block body %}
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<section id="basic-vertical-layouts">
+			<div class="row match-height">
+				<div class="col-xl-7 col-lg-12 col-12 div-events-content">
+
+					<h1 class="title-adherent-pages">
+						Vos évenements
+					</h1>
+					<div class="div-events-list">
+						{% for event in events %}
+							{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+							<div class="">
+								<div class="card-events">
+									<div class="card-event-header">
+										<img src="{{ asset('pictures/event/')~ event.picture }}" alt="rover"/>
+									</div>
+									<div class="card-event-body">
+										{% if nbPlacesLeft <= 0  %}
+											<span class="tag tag-second-color-background">Complet</span>
+										{% else %}
+											<span class="tag {{ nbPlacesLeft > 10 ? 'tag-success' : 'tag-danger' }}">
+												Places libre :
+												{{ nbPlacesLeft }}</span>
+										{% endif %}
+										<h4>
+											{{ event.name }}
+										</h4>
+										<h6>
+											{{ event.startDate | date("d-m-Y") }}
+											-
+											{{ event.endDate | date("d-m-Y") }}
+										</h6>
+										<h6 class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.schedule | format_datetime('none', 'short', locale='en') }}
+										</h6>
+										<p class="card-text">
+											<span class="text-bold-500"></span>
+											{{ event.place}}
+										</p>
+										<div class="card-event-actions">
+											<a href="{{ path('dashboards_admin_events_edit', { id : event.id }) }}" class="btn bg-warning text-white">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a href="{{ path('dashboards_admin_events_delete', { id : event.id }) }}" class="btn bg-danger text-white">
+												<i class="fas fa-trash"></i>
+											</a>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+
+							{% else %}
+
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-xl-5 col-lg-12 col-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">{{ formTile }}</h4>
+						</div>
+						<div class="card-content">
+							<div class="card-body">
+								{{ form_start(formEvent , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical' } }) }}
+								<div class="form-body">
+									<div class="row">
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.name) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.place) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.picture) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.startDate) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.endDate) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.schedule) }}
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="form-group">
+												{{ form_row(formEvent.maxParticipants) }}
+											</div>
+										</div>
+										<div class="col-12 d-flex justify-content-between">
+											<button type="submit" class="btn principal-color me-1 mb-1 w-100">Soumettre</button>
+										</div>
+									</div>
+								</div>
+								{{ form_end(formEvent) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}

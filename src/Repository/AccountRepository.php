@@ -36,6 +36,15 @@ class AccountRepository extends ServiceEntityRepository implements PasswordUpgra
         $this->_em->flush();
     }
 
+    public function findByRole($role){
+        return $this->createQueryBuilder('a')
+            ->where("a.roles LIKE :role")
+            ->setParameter('role', '%"'.$role.'"%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Account[] Returns an array of Account objects
     //  */

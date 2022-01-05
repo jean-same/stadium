@@ -1,0 +1,65 @@
+<div id="sidebar" class="active">
+	<div class="sidebar-wrapper active">
+		<div class="sidebar-header">
+			<div class="d-flex justify-content-between">
+
+				<div class="toggler">
+					<a href="#" class="sidebar-hide d-xl-none d-block">
+						<i class="fa fa-times text-white" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="part-registration-logo">
+			<div class="logo-wrapper">
+				<img src="{{ asset('assets/Logo.svg') }}" alt="" class="logo-image"/>
+				<p class="logo-text">tadium</p>
+			</div>
+		</div>
+		<div class="sidebar-menu">
+			<ul class="menu">
+				<li class="sidebar-title">
+					<i class="fas fa-th"></i>
+					<span>
+						Dashboard {{ role }}
+					</span>
+				</li>
+
+				<li class="sidebar-item active ">
+					<a href=" {{ path }} " class='sidebar-link'>
+						<i class="fas fa-home text-white"></i>
+						<span>Acceuil</span>
+					</a>
+				</li>
+
+				<li class="sidebar-item ">
+					<a href="#" class='sidebar-link'>
+						<i class="fas fa-envelope text-white"></i>
+						<span>Messages</span>
+					</a>
+
+				</li>
+
+				<li class="sidebar-item">
+					<a href="#" class='sidebar-link'>
+						<i class="fas fa-cog text-white"></i>
+						<span>Réglages</span>
+					</a>
+				</li>
+				<div class="sidebar-item">
+					<a href="{{path('app_logout')}}" class='sidebar-link'>
+						<i class="fas fa-sign-out-alt text-white"></i>
+						<span>
+							Deconnexion
+						</span>
+					</a>
+				</div>
+
+			</ul>
+
+		</div>
+		<button class="sidebar-toggler btn x">
+			<i data-feather="x"></i>
+		</button>
+	</div>
+</div>

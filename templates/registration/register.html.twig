@@ -1,0 +1,77 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+
+	<a href="{{ path('home') }}">
+		<div class="logo-wrapper">
+			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+			<p class="logo-text">tadium</p>
+		</div>
+	</a>
+	<div class="containerForm">
+		<div class="screen">
+			{{ form_start(registrationForm) }}
+			{% for flashError in app.flashes('verify_email_error') %}
+				<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+			{% endfor %}
+			<div>
+				<h1 class="title-login">Inscription</h1>
+
+				<div class="login__field row">
+					<div class="col-1">
+						<i class="login__icon fas fa-at"></i>
+					</div>
+					<div class="col">
+						{{ form_row(registrationForm.email , { 'attr' : { 'class' : 'login__input' , 'placeholder' : "Renseignez votre adresse mail" } }) }}
+					</div>
+				</div>
+
+				<div class="login__field row">
+					<div class="col-1">
+						<i class="login__icon fas fa-lock"></i>
+					</div>
+					<div class="col password__field">
+						{{ form_row(registrationForm.password.first, { 'attr' : { 'class' :'login__input', 'placeholder' : "Choisissez votre mot de passe" } }) }}
+					</div>
+				</div>
+				<div class="login__field row">
+					<div class="col-1">
+						<i class="login__icon fas fa-lock"></i>
+					</div>
+					<div class="col password__field">
+						{{ form_row(registrationForm.password.second, { 'attr' : { 'class' :'login__input', 'placeholder' : "Confirmez votre mot de passe"  } }) }}
+					</div>
+				</div>
+				<div>
+					<h2 class="roles-div-title">Vous êtes</h2>
+					<div class="roles-div login__field">
+						<div class="input-container">
+							<input type="radio" value="association" name="role"><label class="label-checkbox">Une association</label>
+						</div>
+						<div class="input-container">
+							<input type="radio" value="adherent" name="role" checked><label class="label-checkbox">Un adhérent</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="login__field row">
+					{{ form_row(registrationForm.agreeTerms) }}
+				</div>
+
+				<button type="submit" class="button login__submit col-3">
+					<span class="button__text mx-auto">Soumettre</span>
+				</button>
+				{{ form_end(registrationForm) }}
+				<div class="text-center mt-5 text-lg fs-4 mx-auto">
+					<p class='text-gray-600 ml-auto'>Vous avez déjà un compte?
+						<a href="{{ path('app_login') }}" class="font-bold">
+							Connexion</a>.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div></div>{% endblock %}

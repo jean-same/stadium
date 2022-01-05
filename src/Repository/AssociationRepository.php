@@ -19,6 +19,7 @@ class AssociationRepository extends ServiceEntityRepository
         parent::__construct($registry, Association::class);
     }
 
+
     // /**
     //  * @return Association[] Returns an array of Association objects
     //  */
@@ -35,6 +36,20 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByDistance($lat, $lng, $distance = 5)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->setParameter('lat', $lat)
+            ->setParameter('lng', $lng)
+            ->setParameter('distance', $distance)
+            ->andWhere('6353 * 2 * ASIN(SQRT( POWER(SIN((a.lat - :lat) * pi()/180 / 2  ), 2 )
+            +COS(a.lat * pi()/180) * COS(:lat * pi()/180 ) * POWER(SIN((a.lng - :lng) * pi()/180 / 2), 2 )))  <=  :distance')
+            ->getQuery()
+            ->getResult();
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Association

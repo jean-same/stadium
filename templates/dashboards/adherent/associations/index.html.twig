@@ -1,0 +1,68 @@
+{% extends 'baseDashboardAdherent.html.twig' %}
+
+{% block title %}Associations!
+{% endblock %}
+
+{% block body %}
+
+	<div id="main">
+
+		<header class="mb-3">
+			<a href="#" class="burger-btn d-block d-xl-none default-color">
+				<i class="fa fa-bars fs-3" aria-hidden="true"></i>
+			</a>
+		</header>
+
+		<div class="search my-5">
+			<h2>Recherche personalisée</h2>
+			<p>
+				Renseignez une adresse et une distance pour avoir la liste des associations qui sont dans le secteur.
+			</p>
+			{{ form_start(formSearch , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical' } }) }}
+			{{ form_errors(formSearch) }}
+			<div class="form-group">
+				{{ form_row(formSearch.lat ) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(formSearch.lng) }}
+			</div>
+			<div class="row">
+				<div class="form-group col-lg-8">
+					{{ form_row(formSearch.adresse , { 'attr' : { 'class' : 'search_input' }  } ) }}
+				</div>
+				<div class="form-group col-lg-2">
+					{{ form_row(formSearch.distance , { 'attr' : { 'class' : 'search_input' }  } ) }}
+				</div>
+				<div class="form-group col-lg-2">
+					<button type="submit" class="btn principal-color form-control w-100">
+						Rechercher
+					</button>
+				</div>
+			</div>
+
+			{{ form_end(formSearch) }}
+
+		</div>
+		<div class="row">
+			<h1 class="title-adherent-pages">Associations</h1>
+			<div class="div-associations-list">
+				{% for association in associations %}
+
+					<div class="card-association-list">
+						<div class="img" style="background: url({{ asset('pictures/associations/')~ association.image }}); background-size: cover;"></div>
+						<div class="content">
+							<h3>{{ association.address }}</h3>
+							<p>Cotisation moyen: N/A</p>
+							<a href="{{ path('dashboards_adherent_associations_read', { slug: profileSlug , assocSlug : association.slug }) }}" class="btn button">Voir plus</a>
+						</div>
+					</div>
+
+
+				{% endfor %}
+			</div>
+		</div>
+
+
+	</div>
+
+{% endblock %}

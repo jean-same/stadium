@@ -1,0 +1,54 @@
+<div class="modal fade text-left" id="event-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel33">
+					Ajouter un evenement
+				</h4>
+				<button type="button" class="close btn-danger" data-bs-dismiss="modal" aria-label="Close">
+					<i class="fas fa-times"></i>
+				</button>
+			</div>
+			<div class="alert alert-danger form-errors div-default-error"></div>
+			{{ form_start(formEvent , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical event-form' } }) }}
+			{{ form_errors(formEvent) }}
+			<div class="modal-body">
+				<div class="form-group">
+					{{ form_row(formEvent.name) }}
+					<div class="alert alert-danger form-errors input form-error-name"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.place) }}
+					<div class="alert alert-danger form-errors input form-error-place"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.picture) }}
+					<div class="alert alert-danger form-errors input form-error-picture"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.startDate) }}
+					<div class="alert alert-danger form-errors input form-error-startDate"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.endDate) }}
+					<div class="alert alert-danger form-errors input form-error-endDate"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.schedule) }}
+					<div class="alert alert-danger form-errors input form-error-schedule"></div>
+				</div>
+				<div class="form-group">
+					{{ form_row(formEvent.maxParticipants) }}
+					<div class="alert alert-danger form-errors input form-error-maxParticipants"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn principal-color">
+					<i class="fas fa-save"></i>
+					Ajouter
+				</button>
+			</div>
+			{{ form_end(formEvent) }}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+{% set events = variableToUse %}
+
+<div class="card-body div-carousel-card-body">
+	<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner inner-carousel">
+			{% for key ,event in events %}
+				{% set nbPlacesLeft = event.maxParticipants - event.profiles | length %}
+
+				<div class="carousel-item {% if key == 0 %} active {% endif %}">
+
+
+					<div class="card-inner">
+						<div class="card-cover">
+							<img src="{{ asset('pictures/event/')~ event.picture }}" alt="cover"/>
+							<p class="p-nbPlaces">
+								{% if nbPlacesLeft <= 0  %}
+									<span class="badge second-color-background">Complet</span>
+								{% else %}
+									<span class="text-bold-500 badge bg-{{ nbPlacesLeft > 10 ? 'success' : 'danger' }}">
+									Places libre : 
+										{{ nbPlacesLeft }}
+									</span>
+								{% endif %}
+							</p>
+						</div>
+						<div class="card-content">
+							<h4>
+								{{event.name}}
+							</h4>
+							<p>{{event.startDate  | date("d-M") }}</p>
+						</div>
+					</div>
+
+
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

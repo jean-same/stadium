@@ -18,12 +18,7 @@ class SecurityController extends AbstractController
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
-        $this->isGranted("ROLE_SUPER_ADMIN", "Vous n'etes pas autoriser à acceder  àcet ressource");
-
-        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('api_v1_docs_home');
-        }
-
+        //$this->isGranted("ROLE_SUPER_ADMIN", "Vous n'etes pas autoriser à acceder  àcet ressource");
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

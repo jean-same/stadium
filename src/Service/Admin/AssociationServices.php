@@ -44,7 +44,7 @@ class AssociationServices
     public function checkAssocMatchFiles($file)
     {
         $association = $this->getAssocFromUser();
-        
+
         if ($file->getProfil()->getAssociation() == $association) {
             return true;
         } else {
@@ -61,5 +61,29 @@ class AssociationServices
         } else {
             return false;
         }
+    }
+
+    public function getAdherentFromAssoc()
+    {
+        $users = $this->getAssocFromUser()->getProfils();
+        $adherents = [];
+        foreach ($users as $user) {
+            if (in_array("ROLE_ADHERENT", $user->getAccount()->getRoles())) {
+                $adherents[] = $user;
+            }
+        }
+        return $adherents;
+    }
+
+    public function getAdminFromAssoc()
+    {
+        $users = $this->getAssocFromUser()->getProfils();
+        $admins = [];
+        foreach ($users as $user) {
+            if (in_array("ROLE_ADMIN", $user->getAccount()->getRoles())) {
+                $admins[] = $user;
+            }
+        }
+        return $admins;
     }
 }

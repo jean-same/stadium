@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Stadium -
+			{% endblock %}
+		</title>
+
+		{% block stylesheets %}
+			<link rel="preconnect" href="https://fonts.gstatic.com">
+			<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+			<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+			{{ encore_entry_link_tags('app') }}
+
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<script src="//code.jquery.com/jquery.js"></script>
+			<!-- Load Flashy default JavaScript -->
+			<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+		{% endblock %}
+	</head>
+	<body id="app">
+		{%  include "_partials/_sidebarDashboard.html.twig" with {
+			'path' : path('dashboards_adherent_home'),
+			'role' : 'Adherent'
+		}%}
+		{% block body %}{% endblock %}
+		{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+	</body>
+</html>

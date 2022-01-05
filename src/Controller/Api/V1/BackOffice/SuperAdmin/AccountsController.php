@@ -49,14 +49,15 @@ class AccountsController extends AbstractController
     */
     public function browseAdherent(): Response
     {
-        $allAccounts = $this->accountRepository->findAll();
+        /* $allAccounts = $this->accountRepository->findAll();
         //$adherents [] = null;
 
         foreach($allAccounts as $currentAccount){
             if(in_array( "ROLE_ADHERENT", $currentAccount->getRoles(), ) ){
                 $adherents [] = $currentAccount;
             }
-        }
+        } */
+        $adherents = $this->accountRepository->findByRole("ROLE_ADHERENT");
 
         return $this->json($adherents, Response::HTTP_OK, [], ['groups' => 'api_backoffice_superadmin_accounts_browse']);
     }

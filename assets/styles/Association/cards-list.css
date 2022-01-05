@@ -1,0 +1,81 @@
+.div-associations-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8em;
+}
+
+.card-association-list{
+    width: 300px;
+    height: 535px;
+    background-color: white;
+	padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    transition: all 0.6s ease
+}
+
+.card-association-list:hover{
+    box-shadow: rgba(7, 70, 102, 0.199) 5px 5px, rgba(7, 70, 102, 0.19) 8px 8px ;
+}
+
+.card-association-list .img{
+    height: 46%;
+}
+
+.card-association-list .content{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-weight: 300;
+}
+
+.card-association-list .content h3{
+    width: 200px;
+    height: 125px;
+    font-weight: 300;
+    font-size: 20px;
+    border-bottom: 4px solid #d87444;
+}
+
+.card-association-list .content p{
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.card-association-list .content a{
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.card-association-list .content .button{
+    font-family: 'Londrina Solid', cursive;
+    font-weight: 100;
+    font-size: 20px;
+    color: #fff;
+    width: 100%;
+    height: 45px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #02a5a5;
+    transition: 0.2s ease-in-out;
+}
+
+.card-association-list .content .button:hover{
+    background-color: #d87444;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .card-association-list{
+        margin: 0 auto;
+    }
+    
+  }
+
