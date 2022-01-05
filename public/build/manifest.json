@@ -1,14 +1,13 @@
 {
-  "build/app.css": "http://localhost:8080/build/app.css",
-  "build/app.js": "http://localhost:8080/build/app.js",
-  "build/runtime.js": "http://localhost:8080/build/runtime.js",
-  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_chart_js_dist_Chart_j-7ca321.css": "http://localhost:8080/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_chart_js_dist_Chart_j-7ca321.css",
-  "build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_chart_js_dist_Chart_j-7ca321.js": "http://localhost:8080/build/vendors-node_modules_symfony_stimulus-bridge_dist_index_js-node_modules_chart_js_dist_Chart_j-7ca321.js",
-  "build/images/ajax-loader.gif": "http://localhost:8080/build/images/ajax-loader.fb6f3c23.gif",
-  "build/images/slick.svg": "http://localhost:8080/build/images/slick.2630a3e3.svg",
-  "build/images/Logo.svg": "http://localhost:8080/build/images/Logo.8838cea4.svg",
-  "build/fonts/slick.eot": "http://localhost:8080/build/fonts/slick.a4e97f5a.eot",
-  "build/fonts/slick.ttf": "http://localhost:8080/build/fonts/slick.c94f7671.ttf",
-  "build/fonts/slick.woff": "http://localhost:8080/build/fonts/slick.29518378.woff",
-  "build/app.svg": "http://localhost:8080/build/images/Logo.8838cea4.svg"
+  "build/app.css": "/build/app.1f76dd5a.css",
+  "build/app.js": "/build/app.25c5346a.js",
+  "build/runtime.js": "/build/runtime.686d9699.js",
+  "build/329.2d529fca.css": "/build/329.2d529fca.css",
+  "build/329.83c1d440.js": "/build/329.83c1d440.js",
+  "build/images/ajax-loader.gif": "/build/images/ajax-loader.fb6f3c23.gif",
+  "build/images/slick.svg": "/build/images/slick.2630a3e3.svg",
+  "build/images/Logo.svg": "/build/images/Logo.8838cea4.svg",
+  "build/fonts/slick.eot": "/build/fonts/slick.a4e97f5a.eot",
+  "build/fonts/slick.ttf": "/build/fonts/slick.c94f7671.ttf",
+  "build/fonts/slick.woff": "/build/fonts/slick.29518378.woff"
 }
