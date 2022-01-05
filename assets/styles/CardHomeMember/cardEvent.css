@@ -13,7 +13,7 @@
 
 #div-left-rubriques .card-event-home-member {
   margin: 1em auto;
-  height: 350px;
+  height: 370px;
   width: 300px;
   border: 1px solid #074666;
   box-shadow: 2px 2px 2px #074666;
@@ -50,6 +50,7 @@
 .card-inner .card-content {
   font-family: "Montserrat", sans-serif;
   color: #fafafa;
+  height: 110px;
 }
 .card-inner .card-content h4 {
   margin-bottom: 6px;
