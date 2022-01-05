@@ -59,13 +59,17 @@ class HomeController extends AbstractController
         foreach($associations as $association){
             $joinedAt = $association->getJoinedUsAt();
             $joinedAtMonth = $joinedAt->format('M');
-
-            $dataMonth[$joinedAtMonth]++;
-
+            $year = $joinedAt->format('Y');
+            $currentYear = date('Y');
+            
+            if($currentYear == $year){
+                $dataMonth[$joinedAtMonth]++;
+            }
+            
         }
-
+        
         $chart = $this->chartGeneratorService->generateChart($dataMonth, "Association");
 
-    return $this->render('dashboards/superadmin/home/index.html.twig',  compact('associations', 'superAdmins', 'admins', 'adherents', 'activities', 'events', 'files', 'lessons' , 'chart') );
+    return $this->render('dashboards/superadmin/home/index.html.twig',  compact('associations', 'superAdmins', 'admins', 'adherents', 'activities', 'events', 'files', 'lessons' , 'chart', 'currentYear') );
     }
 }
