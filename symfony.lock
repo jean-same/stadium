@@ -109,6 +109,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "illuminate/collections": {
+        "version": "v8.78.1"
+    },
+    "illuminate/contracts": {
+        "version": "v8.78.1"
+    },
+    "illuminate/macroable": {
+        "version": "v8.78.1"
+    },
+    "illuminate/support": {
+        "version": "v8.78.1"
+    },
     "knplabs/knp-components": {
         "version": "v3.3.0"
     },
@@ -139,6 +151,9 @@
     "mbezhanov/faker-provider-collection": {
         "version": "2.0.1"
     },
+    "mercuryseries/flashy": {
+        "version": "1.0.4"
+    },
     "mercuryseries/flashy-bundle": {
         "version": "v4.0.0"
     },
@@ -162,6 +177,9 @@
         "files": [
             "config/packages/nelmio_cors.yaml"
         ]
+    },
+    "nesbot/carbon": {
+        "version": "2.55.2"
     },
     "nikic/php-parser": {
         "version": "v4.13.0"
@@ -227,6 +245,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.1"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -712,6 +733,9 @@
     },
     "twig/twig": {
         "version": "v3.3.3"
+    },
+    "voku/portable-ascii": {
+        "version": "1.5.6"
     },
     "webmozart/assert": {
         "version": "1.10.0"
