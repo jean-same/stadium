@@ -1,7 +1,6 @@
 import moment from "moment";
 
 const app = {
-  errors: false,
 
   init: () => {
     console.log("init");
@@ -65,7 +64,7 @@ const app = {
         errorsDiv.style.display = "block";
 
         let p = document.createElement("p");
-        p.textContent = "Tous les champs sont obligatoires";
+        p.textContent = "Tous les champs avec les (*) sont obligatoires";
         errorsDiv.appendChild(p);
       }
     }
@@ -114,8 +113,8 @@ const app = {
       data.name = "Le nom doit faire au moins 3 caracteres";
     }
 
-    if (eventAddress == "") {
-      data.place = "L'adresse ne doit pas etre vide";
+    if (eventAddress.length <= 20 ) {
+      data.place = "L'adresse doit faire au moins 20 caracteres";
     }
 
     if (startDateFormated < todayDateFormated) {

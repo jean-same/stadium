@@ -20,7 +20,7 @@ class EventType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => false,
-                'label' => 'Nom',
+                'label' => 'Nom *',
                 'attr' => [
                     'placeholder' => "nom de l'evenement",
                     'class' => "form-control"
@@ -28,7 +28,7 @@ class EventType extends AbstractType
             ])
             ->add('place', TextType::class, [
                 'required' => false,
-                'label' => 'Adresse',
+                'label' => 'Adresse *',
                 'attr' => [
                     'placeholder' => "adresse de l'evenement",
                     'class' => "form-control"
@@ -55,7 +55,7 @@ class EventType extends AbstractType
                 'widget' => 'single_text',
                 'input'  => 'datetime',
                 'required' => false,
-                'label' => 'Date de debut',
+                'label' => 'Date de debut *',
                 'attr' => [
                     'placeholder' => "date de debut de l'evenement",
                     'class' => "form-control"
@@ -65,7 +65,7 @@ class EventType extends AbstractType
                 'widget' => 'single_text',
                 'input'  => 'datetime',
                 'required' => false,
-                'label' => 'Date de fin',
+                'label' => 'Date de fin *',
                 'attr' => [
                     'placeholder' => "date de fin de l'evenement",
                     'class' => "event-endDate-field form-control"
@@ -75,7 +75,7 @@ class EventType extends AbstractType
                 'widget' => 'single_text',
                 'input'  => 'datetime',
                 'required' => false,
-                'label' => 'Horaire',
+                'label' => 'Horaire *',
                 'attr' => [
                     'placeholder' => "Horaire l'evenement",
                     'class' => "event-schedule-field form-control"
@@ -83,7 +83,7 @@ class EventType extends AbstractType
             ])
             ->add('maxParticipants', IntegerType::class, [
                 'required' => false,
-                'label' => 'Max participants',
+                'label' => 'Max participants *',
                 'attr' => [
                     'placeholder' => "max participants",
                     'class' => "event-maxParticipants-field form-control"
