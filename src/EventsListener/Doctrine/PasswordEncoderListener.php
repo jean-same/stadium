@@ -17,15 +17,13 @@ class PasswordEncoderListener
 
     public function prePersist( Account $account)
     {
-       /* $hash = $this->passwordHasher->hashPassword($account, $account->getPassword() );
-        
-        $account->setPassword($hash); */
+        $hash = $this->passwordHasher->hashPassword($account, $account->getPassword() );
+        $account->setPassword($hash);
     }
 
     public function preUpdate(Account $account)
-    { /*
+    { 
         $hash = $this->passwordHasher->hashPassword( $account, $account->getPassword());
         $account->setPassword($hash);
-        */
     }
 }
