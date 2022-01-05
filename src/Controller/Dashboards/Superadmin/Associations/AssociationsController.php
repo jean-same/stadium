@@ -11,6 +11,7 @@ use App\Service\Admin\AssociationServices;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\General\ChartGeneratorService;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -27,15 +28,17 @@ class AssociationsController extends AbstractController
     private $profilRepository;
     private $paginator;
     private $slugger;
+    private $flashy;
     private $em;
 
-    public function __construct(AssociationRepository $associationRepository, ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em, SluggerInterface $slugger)
+    public function __construct(AssociationRepository $associationRepository, FlashyNotifier $flashy, ChartGeneratorService $chartGeneratorService, ProfilRepository $profilRepository, PaginatorInterface $paginator, EntityManagerInterface $em, SluggerInterface $slugger)
     {
         $this->associationRepository = $associationRepository;
         $this->chartGeneratorService = $chartGeneratorService;
         $this->profilRepository = $profilRepository;
         $this->paginator = $paginator;
         $this->slugger = $slugger;
+        $this->flashy = $flashy;
         $this->em = $em;
     }
 
@@ -100,7 +103,7 @@ class AssociationsController extends AbstractController
             $this->em->persist($activity);
             $this->em->flush();
 
-            $this->addFlash("success", "Activité ajoutée avec success");
+            $this->flashy->success('Activité ajouté avec success!');
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
@@ -114,12 +117,29 @@ class AssociationsController extends AbstractController
             $event = $eventForm->getData();
             $event->setAssociation($association);
 
+            $newEventPicture = $eventForm->get('picture')->getData();
+
+            if ($newEventPicture) {
+                $pictureUploaded = $this->slugger->slug($event->getName() . '-' . uniqid()) . '.' . $newEventPicture->guessExtension();
+
+                $newEventPicture->move(
+                    //__DIR__ . '/../../../../public/pictures/profilPicture/',
+                    $_SERVER['DOCUMENT_ROOT'] . '/pictures/event/',
+                    $pictureUploaded
+                );
+
+                $event->setPicture($pictureUploaded);
+            } else {
+                $event->setPicture("random.jpg");
+            }
+
             $this->em->persist($event);
             $this->em->flush();
 
-            $this->addFlash("success", "Evenement ajouté avec success");
+            $this->flashy->success('Evenement ajouté avec success!');
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
+            return $this->redirectToRoute("dashboard_superadmin_associations_read", [ 'id' => $id ] );
         }
 
         $formActivity = $activityForm->createView();

@@ -24,109 +24,108 @@
 						</h2>
 					</div>
 					<div class="card-body row">
-					<div class="info-profil col-sm-8">
-						<p>
-							<span class="font-extrabold">Nom
-							</span>
-							:
-							<span>
-								{{ profil.lastName}}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Prenom
-							</span>
-							:
-							<span>
-								{{ profil.firstName}}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Date de naissance
-							</span>
-							:
-							<span>
-								{{ profil.file.dateOfBirth | date("d-m-Y") }}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Adresse
-							</span>
-							:
-							<span>
-								{{ profil.file.address}}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Telephone
-							</span>
-							:
-							<span>
-								{{ profil.file.phoneNumber}}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Cotisation à jour
-							</span>
-							:
-							<span>
-								{{ profil.file.isPaid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Certificat médical
-							</span>
-							:
-							<span>
-								{{ profil.file.medicalCertificate ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Règlement interieur
-							</span>
-							:
-							<span>
-								{{ profil.file.rulesOfProcedure ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
-							</span>
-						</p>
-						<p>
-							<span class="font-extrabold">Activités
-							</span>
-							:
-							{% for activity in profil.activity %}
-								<span class="badge bg-primary" >
-									{{ activity.name }}
+						<div class="info-profil col-sm-8">
+							<p>
+								<span class="font-extrabold">Nom
 								</span>
-							{% else %}
-									0
-							{% endfor %}
-						</p>
-						<p>
-							<span class="font-extrabold">Evenements
-							</span>
-							:
-							<span>
-							{% for event in profil.event %}
-								<span class="badge bg-primary" >
-									{{ event.name }}
+								:
+								<span>
+									{{ profil.lastName}}
 								</span>
-							{% else %}
+							</p>
+							<p>
+								<span class="font-extrabold">Prenom
+								</span>
+								:
+								<span>
+									{{ profil.firstName}}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Date de naissance
+								</span>
+								:
+								<span>
+									{{ profil.file.dateOfBirth | date("d-m-Y") }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Adresse
+								</span>
+								:
+								<span>
+									{{ profil.file.address}}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Telephone
+								</span>
+								:
+								<span>
+									{{ profil.file.phoneNumber}}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Cotisation à jour
+								</span>
+								:
+								<span>
+									{{ profil.file.isPaid ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Certificat médical
+								</span>
+								:
+								<span>
+									{{ profil.file.medicalCertificate ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Règlement interieur
+								</span>
+								:
+								<span>
+									{{ profil.file.rulesOfProcedure ? "<i class='fas fa-check-square text-success'></i>" : "<i class='fas fa-times-circle text-danger'></i>" }}
+								</span>
+							</p>
+							<p>
+								<span class="font-extrabold">Activités
+								</span>
+								:
+								{% for activity in profil.activity %}
+									<span class="badge bg-primary">
+										{{ activity.name }}
+									</span>
+								{% else %}
 									0
-							{% endfor %}
-							</span>
-						</p>
-					</div>
-					<div class="profil-picture col-sm-3">
-						<img src="https://picsum.photos/150" alt="">
-					</div>	
-
+								{% endfor %}
+							</p>
+							<p>
+								<span class="font-extrabold">Evenements
+								</span>
+								:
+								<span>
+									{% for event in profil.event %}
+										<span class="badge bg-primary">
+											{{ event.name }}
+										</span>
+									{% else %}
+										0
+									{% endfor %}
+								</span>
+							</p>
+						</div>
+						<div class="col-sm-3">
+							<img src="{{ asset('pictures/profilPicture/')~ profil.picture }} " class="w-100" alt="{{ profil.firstName }} "/>
+						</div>
 					</div>
 				</div>
 			</div>
 			<p class="back-button">
-			<a href="{{ path('dashboard_superadmin_associations_read', { id : profil.association.id }) }}" class="btn principal-color" >Retour</a>
+				<a href="{{ path('dashboard_superadmin_associations_read', { id : profil.association.id }) }}" class="btn principal-color">Retour</a>
 			</p>
-			
+
 
 		</div>
 	</div>

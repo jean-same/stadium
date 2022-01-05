@@ -36,6 +36,8 @@
 .card-cover {
   position: relative;
   margin-bottom: 18px;
+  width: 192px;
+  height: 122px;
 }
 .card-cover img {
   display: block;
