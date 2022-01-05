@@ -6,7 +6,7 @@
 
 .card-association-list{
     width: 300px;
-    height: 440px;
+    height: 535px;
     background-color: white;
 	padding: 0;
     border-radius: 10px;
@@ -20,7 +20,7 @@
 }
 
 .card-association-list .img{
-    height: 35%;
+    height: 46%;
 }
 
 .card-association-list .content{
@@ -32,10 +32,9 @@
 
 .card-association-list .content h3{
     width: 200px;
-    height: 135px;
+    height: 125px;
     font-weight: 300;
     font-size: 20px;
-    padding-bottom: 5px;
     border-bottom: 4px solid #d87444;
 }
 

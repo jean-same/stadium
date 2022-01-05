@@ -70,6 +70,7 @@ class HomeController extends AbstractController
 
             return $this->redirect($_SERVER['HTTP_REFERER']);
         }
+        
 
         $formProfil = $userForm->createView();
 
