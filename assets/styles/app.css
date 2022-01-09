@@ -6,6 +6,7 @@
 @import "./CardHomeMember/cardEvent.css";
 @import "./CardHomeMember/cardActivity.css";
 @import "./Association/cards-list.css";
+@import "./Contact/contact.css";
 
 .association-read-rubriques {
   min-height: 500px;

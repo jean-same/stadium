@@ -1,0 +1,61 @@
+{% block stylesheets %}
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+	{{ encore_entry_link_tags('app') }}
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col contact-left-div" style="background-image : url({{ asset('assets/mail.jpg') }})  ;  background-size: cover;">
+			<a href="{{ path('home') }}">
+				<div class="logo-wrapper">
+					<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+					<p class="logo-text">tadium</p>
+				</div>
+			</a>
+		</div>
+		<div class="col contact-right-div">
+			<a href="{{ path('home') }}">
+				<div class="logo-wrapper">
+					<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
+					<p class="logo-text">tadium</p>
+				</div>
+			</a>
+			<div class="form">
+				<h2>Contactez-nous</h2>
+				{{ form_start(formContact , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical activity-form' } }) }}
+				{{ form_errors(formContact) }}
+				<div class="modal-body">
+					<div class="form-group">
+						{{ form_row(formContact.role) }}
+					</div>
+					<div class="form-group">
+						{{ form_row(formContact.reason) }}
+					</div>
+					<div class="form-group">
+						{{ form_row(formContact.email) }}
+					</div>
+					<div class="form-group">
+						{{ form_row(formContact.description) }}
+					</div>
+					<button type="submit" class="btn principal-color w-100">
+						<i class="fas fa-save"></i>
+						Envoyer
+					</button>
+				</div>
+
+				{{ form_end(formContact) }}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+{{ include('@MercurySeriesFlashy/flashy.html.twig') }}

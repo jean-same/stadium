@@ -1,0 +1,45 @@
+.contact-left-div {
+  height: 100vh;
+}
+
+.contact-right-div .form {
+  padding: 2em 1em;
+}
+
+.contact-right-div h2 {
+  text-align: center;
+}
+
+.contact-right-div .logo-wrapper {
+  display: none;
+}
+
+.contact-left-div .logo-wrapper {
+  width: 12em;
+  background-color: #07466617;
+  border-radius: 15px;
+  margin: 2em;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-left-div {
+    display: none;
+  }
+
+  .contact-right-div .form {
+    padding: 1em;
+  }
+
+  .contact-right-div .logo-wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    margin: 0.3em 1em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .contact-right-div {
+    padding: 1em;
+  }
+}
