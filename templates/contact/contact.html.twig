@@ -2,8 +2,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+	
 	{{ encore_entry_link_tags('app') }}
-
+<link rel="stylesheet" href="{{ asset('assets/css/logo.css') }}">
 {% endblock %}
 
 {% block javascripts %}
@@ -15,20 +16,10 @@
 
 	<div class="row">
 		<div class="col contact-left-div" style="background-image : url({{ asset('assets/mail.jpg') }})  ;  background-size: cover;">
-			<a href="{{ path('home') }}">
-				<div class="logo-wrapper">
-					<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
-					<p class="logo-text">tadium</p>
-				</div>
-			</a>
+			{%  include "_partials/_logo.html.twig" %}
 		</div>
 		<div class="col contact-right-div">
-			<a href="{{ path('home') }}">
-				<div class="logo-wrapper">
-					<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
-					<p class="logo-text">tadium</p>
-				</div>
-			</a>
+			{%  include "_partials/_logo.html.twig" %}
 			<div class="form">
 				<h2>Contactez-nous</h2>
 				{{ form_start(formContact , {'attr': {'novalidate': 'novalidate' , 'class' : 'form form-vertical activity-form' } }) }}
