@@ -53,10 +53,16 @@ class HomeController extends AbstractController
                 if ($profil->getJoinedAssocAt()) {
                     $joinedAt = $profil->getJoinedAssocAt();
                     $joinedAtMonth = $joinedAt->format('M');
+                    $year = $joinedAt->format('Y');
+                    $currentYear = date('Y');
 
-                    $dataMonth[$joinedAtMonth]++;
+                    if ($currentYear == $year) {
+                        $dataMonth[$joinedAtMonth]++;
+                    }
                 }
             }
+
+
             $chart = $this->chartGeneratorService->generateChart($dataMonth, "Adherent");
         } else {
 
@@ -90,7 +96,6 @@ class HomeController extends AbstractController
             }
             $formAssociation = $associationForm->createView();
         }
-
-        return $this->render('dashboards/admin/home/index.html.twig', compact('association', 'chart', 'formAssociation'));
+        return $this->render('dashboards/admin/home/index.html.twig', compact('association', 'chart', 'formAssociation', 'currentYear'));
     }
 }

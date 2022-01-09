@@ -9,11 +9,21 @@
 		{% if association is not null %}
 			{% set adherents = 0 %}
 			{% set admins = 0 %}
+			{% set dossiers = 0 %}
+			{% set cours = 0 %}
 			{% for profil in association.profils %}
 				{% if "ROLE_ADHERENT" in profil.account.roles %}
 					{% set adherents = adherents + 1 %}
+					{% if profil.file %}
+						{% set dossiers = dossiers + 1 %}
+					{% endif %}
 				{% else %}
 					{% set admins = admins + 1 %}
+				{% endif %}
+			{% endfor %}
+			{% for activity in association.activities %}
+				{% if activity.lessons %}
+					{% set cours = cours + 1 %}
 				{% endif %}
 			{% endfor %}
 			<header class="mb-3">
@@ -159,7 +169,7 @@
 											</div>
 											<div class="col-md-8">
 												<h5 class="text-muted font-bold">Dossiers</h5>
-												<h6 class="font-extrabold mb-0">dfdf</h6>
+												<h6 class="font-extrabold mb-0">{{ dossiers }}</h6>
 												<div class="col-lg-12 details-div">
 													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
 												</div>
@@ -179,7 +189,7 @@
 											</div>
 											<div class="col-md-8">
 												<h5 class="text-muted font-bold">Cours</h5>
-												<h6 class="font-extrabold mb-0">fgfgf</h6>
+												<h6 class="font-extrabold mb-0">{{ cours }}</h6>
 												<div class="col-lg-12 details-div">
 													<a href="#" class="btn btn-light-primary details-entity-dashboard">Details</a>
 												</div>
@@ -194,7 +204,7 @@
 				<section class="row">
 					<div class="card">
 						<div class="card-header">
-							<h4>Graphique nouvelles association</h4>
+							<h4>Graphique nouveaux adhérents {{ currentYear }} </h4>
 						</div>
 						<div
 							class="card-body">

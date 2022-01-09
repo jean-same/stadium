@@ -15,52 +15,54 @@
 			<span class="title-adherent-pages">Profils</span>
 		</h1>
 		<section class="profiles" id="profiles">
-				{% for profil in user.profil %}
+			{% for profil in user.profil %}
 
-					<div class="card-profiles-admins">
-						<div class="img-bx">
-							<img src="{{ asset('pictures/profilPicture/')~ profil.picture }}" alt="img"/>
-						</div>
-						<div class="content">
-							<div class="detail">
-								<h2>
-									{{ profil.lastName }}
-									{{ profil.firstName }}
-									<br/><span>
-										{% if profil.association %}
-											<p class="card-text">
-												<span class="text-bold-900">Association :
-												</span>
-												<span class="badge bg-success text-white">{{ profil.association.name }}</span>
-											</p>
-										{% endif %}
-									</span>
-								</h2>
-								<ul class="list-infos">
-									<li>
-										<a href="{{ path('dashboards_adherent_read', { slug : profil.slug }) }}" class="text-white bg-info">
-											<i class="fas fa-eye"></i>
-										</a>
-									</li>
-									<li>
-										<a href="{{ path('dashboards_adherent_edit' , { slug : profil.slug } ) }}" class="text-white bg-warning">
-											<i class="fas fa-edit"></i>
-										</a>
-									</li>
-									{% if profil.association is null %}
-										<li>
-											<a href="{{ path('dashboards_adherent_delete' , { slug : profil.slug } ) }}" class="text-white bg-danger">
-												<i class="fas fa-trash"></i>
-											</a>
-										</li>
+				<div class="card-profiles-admins">
+					<div class="img-bx">
+						<img src="{{ asset('pictures/profilPicture/')~ profil.picture }}" alt="img"/>
+					</div>
+					<div class="content">
+						<div class="detail">
+							<h2>
+								{{ profil.lastName }}
+								{{ profil.firstName }}
+								<br/><span>
+									{% if profil.association %}
+										<p class="card-text">
+											<span class="text-bold-900">Association :
+											</span>
+											<span class="badge bg-success text-white">{{ profil.association.name }}</span>
+										</p>
 									{% endif %}
-								</ul>
-							</div>
+								</span>
+							</h2>
+							<ul class="list-infos">
+								<li>
+									<a href="{{ path('dashboards_adherent_read', { slug : profil.slug }) }}" class="text-white bg-info">
+										<i class="fas fa-eye"></i>
+									</a>
+								</li>
+								<li>
+									<a href="{{ path('dashboards_adherent_edit' , { slug : profil.slug } ) }}" class="text-white bg-warning">
+										<i class="fas fa-edit"></i>
+									</a>
+								</li>
+								{% if profil.association is null %}
+									<li>
+										<a href="{{ path('dashboards_adherent_delete' , { slug : profil.slug } ) }}" class="text-white bg-danger">
+											<i class="fas fa-trash"></i>
+										</a>
+									</li>
+								{% endif %}
+							</ul>
 						</div>
 					</div>
-				{% else %}
+				</div>
+			{% else %}
+				<div class="mx-auto my-5">
 					<h3>Pensez à créer votre premier profil</h3>
-				{% endfor %}
+				</div>
+			{% endfor %}
 		</section>
 		<section class="new-profile-section">
 			<div class="formProfil-adherent">
