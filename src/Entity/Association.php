@@ -196,6 +196,13 @@ class Association
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="La description est obligatoire.")
+     * @Assert\Length(
+     *      min = 250,
+     *      max = 1000,
+     *      minMessage = "La description doit faire au moins 250 caracteres.",
+     *      maxMessage = "La description doit faire max 1000 caracteres."
+     *      )
      */
     private $description;
 
@@ -206,6 +213,7 @@ class Association
 
     /**
      * @ORM\Column(type="float" , scale=4 , precision=6 , nullable=true)
+     * @Assert\NotBlank(message="L'adresse n'est pas valide.")
      */
     private $lat;
 

@@ -73,7 +73,8 @@ class AssociationType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Décrivez brièvement votre association"
+                    'placeholder' => "Décrivez brièvement votre association",
+                    'rows' => '9'
                 ]
             ])
             ->add('postCode' , HiddenType::class)
