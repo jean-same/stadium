@@ -56,8 +56,10 @@
 							<a href="{{ path('dashboards_adherent_associations_read', { slug: profileSlug , assocSlug : association.slug }) }}" class="btn button">Voir plus</a>
 						</div>
 					</div>
-
-
+				{% else %}
+					<div class="mx-auto my-5">
+						<h1>0 association</h1>
+					</div>
 				{% endfor %}
 			</div>
 		</div>

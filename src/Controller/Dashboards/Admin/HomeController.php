@@ -42,6 +42,7 @@ class HomeController extends AbstractController
     {
         $chart = null;
         $formAssociation = null;
+        $currentYear = date('Y');
         $association = $this->associationServices->getAssocFromUser();
         $associationForm = $this->createForm(AssociationType::class);
 
@@ -54,7 +55,6 @@ class HomeController extends AbstractController
                     $joinedAt = $profil->getJoinedAssocAt();
                     $joinedAtMonth = $joinedAt->format('M');
                     $year = $joinedAt->format('Y');
-                    $currentYear = date('Y');
 
                     if ($currentYear == $year) {
                         $dataMonth[$joinedAtMonth]++;
