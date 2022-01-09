@@ -5,41 +5,38 @@
 
 {% block body %}
 
-	<a href="{{ path('home') }}">
-		<div class="logo-wrapper">
-			<img src={{ asset('assets/Logo.svg') }} alt="" class="logo-image"/>
-			<p class="logo-text">tadium</p>
+	<div class="authPage">
+		<div class="auth-picture" style="background-image : url({{ asset('assets/reset.jpg') }})  ;  background-size: cover;">
+			{%  include "_partials/_logo.html.twig" %}
 		</div>
-	</a>
+		<div class="containerForm">
+			<div class="screen">
+				<h1 class="title-login">Reinitialiser votre mot de passe</h1>
 
-	<div class="containerForm">
-		<div class="screen">
-			<h1 class="title-login">Reinitialiser votre mot de passe</h1>
+				{{ form_start(resetForm) }}
+				<div class="login__field row">
+					<div class="col-1">
+						<i class="login__icon fas fa-lock"></i>
+					</div>
+					<div class="col">
+						{{ form_row(resetForm.password.first, { 'attr' : { 'class' : 'login__input', 'placeholder' : "Choisissez le nouveau mot de passe" } }) }}
+					</div>
+				</div>
+				<div class="login__field row">
+					<div class="col-1">
+						<i class="login__icon fas fa-lock"></i>
+					</div>
+					<div class="col">
+						{{ form_row(resetForm.password.second, { 'attr' : { 'class' : 'login__input', 'placeholder' : "Confirmez le nouveau mot de passe"  } }) }}
+					</div>
+				</div>
+				<button type="submit" class="button login__submit col-6">
+					<span class="button__text mx-auto">Reinitialiser
+					</span>
+				</button>
+				{{ form_end(resetForm) }}
 
-			{{ form_start(resetForm) }}
-			<div class="login__field row">
-				<div class="col-1">
-					<i class="login__icon fas fa-lock"></i>
-				</div>
-				<div class="col">
-					{{ form_row(resetForm.password.first, { 'attr' : { 'class' : 'login__input', 'placeholder' : "Choisissez le nouveau mot de passe" } }) }}
-				</div>
 			</div>
-			<div class="login__field row">
-				<div class="col-1">
-					<i class="login__icon fas fa-lock"></i>
-				</div>
-				<div class="col">
-					{{ form_row(resetForm.password.second, { 'attr' : { 'class' : 'login__input', 'placeholder' : "Confirmez le nouveau mot de passe"  } }) }}
-				</div>
-			</div>
-			<button type="submit" class="button login__submit col-6">
-				<span class="button__text mx-auto">Reinitialiser
-				</span>
-			</button>
-			{{ form_end(resetForm) }}
-
 		</div>
 	</div>
-
-{% endblock %}
+</div>{% endblock %}
