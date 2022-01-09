@@ -1,0 +1,38 @@
+#notFound-page {
+    height: 100vh;
+}
+
+#notFound-page .message-notFound {
+    text-align: center;
+    margin: auto;
+}
+
+.message-notFound h1 {
+    font-size: 6.5em;
+    color: #074666;
+}
+
+.message-notFound p {
+    font-size: 1.7em;
+    color: #074666;
+}
+
+.message-notFound .btn {
+   padding: 0.2em 0.4em;
+   background: #074666;
+   color: #fff;
+   font-size: 2em;
+   text-transform: uppercase;
+}
+
+.message-notFound .btn:hover {
+    background: #0f6d9c;
+    color: #fff;
+}
+
+@media screen and (max-width: 550px) {
+    .picture-notFound{
+        display: none;
+    }
+  }
+  

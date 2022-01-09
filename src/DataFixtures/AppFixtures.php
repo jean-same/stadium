@@ -329,7 +329,7 @@ class AppFixtures extends Fixture
                 }
             }
         }
-
+       
         foreach ($accountAdherent as $currentAdherentAccount) {
             $nb++;
             //Creer des profils
@@ -364,6 +364,7 @@ class AppFixtures extends Fixture
             $manager->persist($file);
         }
 
+        $nb = 0;
         foreach ($accountSuperAdmin as $currentSuperAdminAccount) {
             $nb++;
             //Creer des profils
@@ -380,6 +381,7 @@ class AppFixtures extends Fixture
             $manager->persist($profil);
         }
 
+        $nb = 0;
         foreach ($accountAdmin as $currentAdminAccount) {
             $nb++;
             //Creer des profils

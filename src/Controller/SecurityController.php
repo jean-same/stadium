@@ -15,10 +15,20 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils, Security $security): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
-        //$this->isGranted("ROLE_SUPER_ADMIN", "Vous n'etes pas autoriser à acceder  àcet ressource");
+        if ($this->getUser()) {
+            $roleSuperAdmin = $this->isGranted("ROLE_SUPER_ADMIN", $this->getUser());
+            $roleAdmin = $this->isGranted("ROLE_ADMIN", $this->getUser());
+            $roleAdherent = $this->isGranted("ROLE_ADHERENT", $this->getUser());
+
+            if ($roleSuperAdmin) {
+                return $this->redirectToRoute('dashboards_superadmin_home');
+            } elseif ($roleAdmin) {
+                return $this->redirectToRoute('dashboards_admin_home');
+            } elseif ($roleAdherent) {
+                return $this->redirectToRoute('dashboards_adherent_home');
+            }
+        }
+        //$this->isGranted("ROLE_SUPER_ADMIN", "Vous n'etes pas autoriser à acceder  à cet ressource");
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

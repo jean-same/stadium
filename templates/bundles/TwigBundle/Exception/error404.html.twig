@@ -1,0 +1,18 @@
+{% block stylesheets %}
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('assets/css/404.css') }}">
+	{{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block body %}
+	<div class="row" id="notFound-page">
+		<div class="col picture-notFound" style="background-image : url({{ asset('assets/404.jpg') }})  ;  background-size: cover;"></div>
+		<div class="col message-notFound">
+			<h1>404</h1>
+			<p>Vous êtes perdu, retourner au stadium</p>
+			<a href="{{ path('app_login') }}" class="btn">Stadium</a>
+		</div>
+	</div>
+{% endblock %}

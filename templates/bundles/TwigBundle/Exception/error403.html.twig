@@ -1,26 +1,18 @@
-
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="{{ asset('assets/403.css') }}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="{{ asset('assets/css/403.css') }}">
+	{{ encore_entry_link_tags('app') }}
 {% endblock %}
 
 {% block body %}
-    <use>
-    
-    <g><g transform="translate(0.000000,511.000000) scale(0.100000,-0.100000)">
-    
-    <div class="imageStadium">
-        <img src="{{ asset('assets/svgStadium.svg') }}" alt="">
-    </div>
-    </use>
-    <h1 class="whistle">403</h1>
-    <h2>The entry is not free, you need a ticket!</h2>
-
-    <div class="home-return">
-        <a href="{{ path('app_logout') }}" class="btn btn-light home-button">Home</a>
-    </div>
-        
+	<div class="row" id="forbidden-page">
+		<div class="col picture-forbidden" style="background-image : url({{ asset('assets/403.jpg') }})  ;  background-size: 33% auto;"></div>
+		<div class="col message-forbidden">
+			<h1>403</h1>
+			<p>Oops, Vous n'avez pas les autorisations....</p>
+			<a href="{{ path('app_login') }} " class="btn">Stadium</a>
+		</div>
+	</div>
 {% endblock %}
