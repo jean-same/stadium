@@ -72,12 +72,7 @@
 					</div>
 					<div class="card-body">
 						<ul class="nav nav-tabs d-flex justify-content-evenly" id="myTab" role="tablist">
-							<li class="nav-item d-flex" role="presentation">
-								<a class="nav-link active" id="admins-tab" data-bs-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Admins</a>
-								<a href="" class="rubrique-add-item">
-									<i class="fas fa-user-plus"></i>
-								</a>
-							</li>
+
 							<li class="nav-item d-flex" role="presentation">
 								<a class="nav-link" id="adherents-tab" data-bs-toggle="tab" href="#adherents" role="tab" aria-controls="adherents" aria-selected="true">Adherents
 								</a>
@@ -99,9 +94,6 @@
 							</li>
 						</ul>
 						<div class="tab-content" id="myTabContent">
-							<div class="tab-pane fade show active" id="admins" role="tabpanel" aria-labelledby="admins-tab">
-								<p class="mt-2">Duis ultrices purus non eros fermentum hendrerit. Aenean ornare interdum.</p>
-							</div>
 							<div class="tab-pane fade" id="adherents" role="tabpanel" aria-labelledby="adherents-tab">
 								<div class="table-responsive">
 									{% if association.profils | length > 0 %}
@@ -159,7 +151,6 @@
 												<tr>
 													<th>Nom</th>
 													<th>Image</th>
-													<th class="text-center">Icon</th>
 													<th colspan="2" class="text-center">Actions</th>
 												</tr>
 											</thead>
@@ -170,15 +161,14 @@
 															{{ activity.name }}
 														</td>
 														<td class="text-bold-500">{{ activity.picture }}</td>
-														<td class="text-center">{{ activity.icon }}</td>
 														<td class="text-center">
 															<a href="">
-																<i class='bi bi-pencil-square'></i>
+																<i class="fas fa-edit text-warning"></i>
 															</a>
 														</td>
 														<td class="text-center">
 															<a href="">
-																<i class='bi bi-trash-fill'></i>
+																<i class="fa fa-trash text-danger" aria-hidden="true"></i>
 															</a>
 
 														</td>
